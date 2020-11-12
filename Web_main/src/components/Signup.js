@@ -10,10 +10,50 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
+const LoginButton = withStyles({
+  root: {
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 30,
+    padding: '6px 12px',
+    border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: '#008001',
+    borderColor: '##008001',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      backgroundColor: '##008001',
+      borderColor: '##008001',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '##008001',
+      borderColor: '##008001',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,128,1,.5)',
+    },
+  },
+})(Button);
+
 
 const useStyles = makeStyles((theme) => ({
+
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -50,7 +90,7 @@ export default function SignUp() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"             //CHANGE LINE 57 LOCKEDOUT ITEM TO GREEN
+                autoComplete="fname"             
                 name="firstName"
                 variant="outlined"
                 required
@@ -101,15 +141,9 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"                        //CHANGE TO GREEN
-            className={classes.submit}
-          >
+          <LoginButton type="submit" fullWidth variant="contained" className={classes.submit} >
             Sign Up
-          </Button>
+          </LoginButton>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
