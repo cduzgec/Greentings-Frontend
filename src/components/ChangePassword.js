@@ -1,19 +1,14 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {withStyles, makeStyles} from '@material-ui/core/styles';
 
-const LoginButton = withStyles({
+const ChangeButton = withStyles({
   root: {
     boxShadow: 'none',
     textTransform: 'none',
@@ -75,100 +70,54 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-async function getUser()
-{
- try {
-     let result = await fetch ('/user/', {
-       method: "get",
-       mode: "cors",
-       headers:
-       {
-         "Accept": "*/*",
-         "Content-Type": "application/json",
-         "Connection": "keep-alive",
-         "Content-Encoding": "gzip, deflate, br",
-         "Accept-Encoding": "gzip, deflate, br"
-       },
-       body: JSON.stringify({
-         "first_name": "Input ",
-         "last_name": "Deniyom",
-         "email": "react.js@greentings.com",
-         "username": "SugaMAMA",
-         "password": "lol",
-         "phone_number": "05427895635",
-         "user_type": "Customer",
-       })
-     });
 
-     console.log("Result:" + result)
-
- }
- catch (e)
- {
-   console.log(e)
- }
-}
-
-
-
-export default function Login() {
+export default function ChangePassword() {
   const classes = useStyles();
   
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Plase enter your new password
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
+            <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="new password"
+            label="new password"
+            name="new password"
+            autoComplete="new password"
             autoFocus
-          />
-          <TextField
+            />
+            <Typography component="h1" variant="h5">
+             Plase re-enter your new password
+            </Typography>
+            <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
+            name="re-enter new password"
+            label="re-enter new password"
+            type="re-enter new password"
+            id="re-enter new password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <LoginButton
+          <ChangeButton
             href="/userpage"
-            onClick={getUser}
             className={classes.submit}  
             type="submit" 
             fullWidth  variant="contained" >
-              Login
-          </LoginButton>
+              Change password
+          </ChangeButton>
           <Grid container>
             <Grid item xs>
-              <Link href="/forgotpassword" variant="body2" className={classes.link}>
-              Forgot password?
-              </Link>
             </Grid>
             <Grid item>
-              <Link href="/signup" variant="body2" className={classes.link}>
-                Don't have an account? Sign Up
-              </Link>
             </Grid>
           </Grid>
         </form>

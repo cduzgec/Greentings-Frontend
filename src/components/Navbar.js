@@ -1,20 +1,15 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
-import { deepOrange, deepPurple, blue } from '@material-ui/core/colors';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Link} from'react-router-dom'
-import Logo from '../images/Logo.png';
-
+import Logo from './images/Logo.png';
 
 
 const theme = createMuiTheme({
@@ -23,17 +18,13 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"'
     ].join(','),
   },});
+
   const buttonTheme = createMuiTheme({
     typography: {
       fontSize: 18,
-    },
+      textDecoration: 'none'
+    }
   });
-
-  const navStyle ={
-    color: 'white',
-    textDecoration: 'none'
-  }
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,8 +71,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-
   inputRoot: {
     color: 'white',
   },
@@ -98,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  link: {
+    textDecoration: 'none',
+    color: '#ffffff'
+  }
 }));
 
 export default function Navbar() {
@@ -111,7 +104,7 @@ export default function Navbar() {
         <ThemeProvider theme={theme}>
           <Typography className={classes.title} noWrap>
           <Link to='/'>
-            <img className="logo" src={Logo} />
+            <img alt="Our Logo" className="logo" src={Logo} />
           </Link>
           </Typography>
           </ThemeProvider>
@@ -130,18 +123,18 @@ export default function Navbar() {
           </div>
           
             <ThemeProvider theme={buttonTheme}>
-            <Link style= {navStyle} to='/about'>
-              <Button style= {navStyle}>About</Button>
+            <Link className = {classes.link} to='/about'>
+              <Button className = {classes.link} color="primary" >About</Button>
             </Link>
-            <Link style= {navStyle} to='/login'>
-              <Button color="inherit">Login</Button>
+            <Link className = {classes.link} to='/login'>
+              <Button className = {classes.link} color="primary">Login</Button>
             </Link>
-            <Link style= {navStyle} to='/signup'>
-              <Button color="inherit">Sign-Up</Button>
+            <Link className = {classes.link} to='/signup'>
+              <Button className = {classes.link} color="primary">Sign-Up</Button>
             </Link>
             </ThemeProvider>
-            <Link to='/cart'>
-              <Button> <ShoppingCartOutlinedIcon fontSize="large" /></Button>
+            <Link className = {classes.link} to='/cart'>
+              <Button className = {classes.link}> <ShoppingCartOutlinedIcon fontSize="large" /></Button>
             </Link>
             
           

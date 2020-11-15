@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
-function ForgotPassword() {
+function EmailConfirmation() {
   const classes = useStyles();
   return (
     <div>
@@ -77,7 +77,7 @@ function ForgotPassword() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Please enter your email address
+          Please put the code you received
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -85,14 +85,14 @@ function ForgotPassword() {
             margin="normal"
             required
             fullWidth
-            name="Email Adress"
-            label="Email Adress"
-            type="Email Adress"
-            id="Email Adress"
+            name="Code"
+            label="Code"
+            type="Code"
+            id="Code"
             autoComplete="current-password"
           />
           <ConfirmButton
-            href="/forgotconfirmation"
+            href="/userpage"
             //onClick={getCode}
             className={classes.submit}  
             type="submit" 
@@ -112,4 +112,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default EmailConfirmation;

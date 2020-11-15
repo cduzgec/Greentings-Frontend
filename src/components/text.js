@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Image from '../images/earth2.jpg';
 import { fade } from '@material-ui/core/styles';
-
+import Image from './images/earth2.jpg';
 
 const styles = {
   paperContainer: {

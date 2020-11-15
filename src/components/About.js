@@ -1,6 +1,5 @@
 import React from 'react';
-import '../App.css';
-import Text from './Text/text';
+import Text from './text';
 
 export default function About() {
   return (
