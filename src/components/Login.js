@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -75,44 +75,47 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-async function getUser()
-{
- try {
-     let result = await fetch ('/user/', {
-       method: "get",
-       mode: "cors",
-       headers:
-       {
-         "Accept": "*/*",
-         "Content-Type": "application/json",
-         "Connection": "keep-alive",
-         "Content-Encoding": "gzip, deflate, br",
-         "Accept-Encoding": "gzip, deflate, br"
-       },
-       body: JSON.stringify({
-         "first_name": "Input ",
-         "last_name": "Deniyom",
-         "email": "react.js@greentings.com",
-         "username": "SugaMAMA",
-         "password": "lol",
-         "phone_number": "05427895635",
-         "user_type": "Customer",
-       })
-     });
-
-     console.log("Result:" + result)
-
- }
- catch (e)
- {
-   console.log(e)
- }
-}
 
 
 
-export default function Login() {
+
+function Login() {
   const classes = useStyles();
+
+  const emailRef = useRef('') 
+  const passRef = useRef('') 
+
+
+  async function sendUser () {
+    if ((emailRef.current.value === "") ||(passRef.current.value === ""))  
+    return 
+    
+    try {
+      await fetch ('/user/', {        //////////// API DEGISICEK
+        method: "post",
+        mode: "cors",
+        headers:
+        {
+          "Accept": "*/*",
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Content-Encoding": "gzip, deflate, br",
+          "Accept-Encoding": "gzip, deflate, br"
+        },
+        body: JSON.stringify({
+          "username": "NONE",
+          "password": "NONE",
+        })
+      });
+  
+  }
+  catch (e)
+  {
+    console.log(e)
+   }
+  
+  console.log("Sending this data: "+emailRef.current.value+" "+passRef.current.value)
+  }
   
   return (
     <Container component="main" maxWidth="xs">
@@ -135,6 +138,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            inputRef={emailRef} 
           />
           <TextField
             variant="outlined"
@@ -146,6 +150,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            inputRef={passRef}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -153,7 +158,7 @@ export default function Login() {
           />
           <LoginButton
             href="/userpage"
-            onClick={getUser}
+            onClick={sendUser}
             className={classes.submit}  
             type="submit" 
             fullWidth  variant="contained" >
@@ -176,3 +181,5 @@ export default function Login() {
     </Container>
   );
 }
+
+export default Login;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {withStyles, makeStyles} from '@material-ui/core/styles';
+
 
 const SignupButton = withStyles({
   root: {
@@ -75,59 +76,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
-
 function SignUp () {
-  // write javascipt here
-  const classes = useStyles();
+  // write javascipt here ***************************************************************
+  const classes = useStyles()
 
-  let state = {
-    fisrName:"",
-    lastName:"",
-    email:"",
-    password:""
-  }
-
-  console.log(state)
-
-
-
-  const postUser = async () => 
-  {
-    const data = JSON.stringify({
-      "first_name": "Pazar ",
-      "last_name": "DenemeSession",
-      "email": "deniyoz.moruq@greentings.com",
-      "username": "SugaMAMA",
-      "password": "123",
-      "phone_number": "05999995635",
-      "user_type": "Customer",
-    })
-
-    console.log(data)
-
-
-    const result = await fetch ('/user/', {
-         method: "post",
-         mode: "cors",
-         headers:
-         {
-           "Accept": "*/*",
-           "Content-Type": "application/json",
-           "Connection": "keep-alive",
-           "Content-Encoding": "gzip, deflate, br",
-           "Accept-Encoding": "gzip, deflate, br"
-         },
-         body: data
-       });
-   }
+  const fnameRef = useRef('') //creating a refernce for TextField Component
+  const lnameRef = useRef('')  // lnameRef.current.value
+  const emailRef = useRef('') //on clicking button accesing current value of TextField and outputing it to console
+  const passRef = useRef('') 
+// fnameRef.current.value, lnameRef.current.value, emailRef.current.value, passRef.current.value
   
+async function sendUser () {
+      if ((fnameRef.current.value === "") || (lnameRef.current.value === "") ||(emailRef.current.value === "") ||(passRef.current.value === ""))  
+      return 
+      
+      try {
+        await fetch ('/user/', {       //////////// API DEGISICEK
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "first_name": fnameRef.current.value,
+            "last_name": lnameRef.current.value,
+            "email": emailRef.current.value,
+            "username": "NONE",
+            "password": passRef.current.value,
+            "phone_number": "NONE",
+            "user_type": "Customer",
+          })
+        });
 
+    }
+    catch (e)
+    {
+      console.log(e)
+     }
+
+    console.log("Sending this data: " + fnameRef.current.value+" " + lnameRef.current.value+" "+emailRef.current.value+" "+passRef.current.value)
+    }
   
-  return (
-    
-
+  return (  
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -149,7 +144,7 @@ function SignUp () {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                value = {state.firstName}
+                inputRef={fnameRef}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -161,7 +156,7 @@ function SignUp () {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
-                //value = {this.state.lastName}
+                inputRef={lnameRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -171,9 +166,9 @@ function SignUp () {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"
+                name="email"                                 //address bar 
                 autoComplete="email"
-                //value = {this.state.email}
+                inputRef={emailRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -186,7 +181,7 @@ function SignUp () {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                //value = {this.state.password}
+                inputRef={passRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -198,7 +193,7 @@ function SignUp () {
           </Grid>
           <SignupButton 
             href="/emailconfirmation"
-            onClick={postUser} 
+            onClick={sendUser} 
             className={classes.submit} 
             type= "submit" 
             fullWidth variant="contained"  >
@@ -209,7 +204,6 @@ function SignUp () {
               <Link href="/login" variant="body2" className={classes.link}>
                 Already have an account? Login
               </Link>
-
             </Grid>
           </Grid>
         </form>
