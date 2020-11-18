@@ -15,14 +15,16 @@ import Navbar from "./components/Navbar";
 import EmailConfirmation from "./components/EmailConfirmation";
 import ForgotConfirmation from "./components/ForgotConfirmation";
 import ChangePassword from "./components/ChangePassword";
+import ProductDetail from "./components/ProductDetail";
 
 class App extends Component {
   render() {
     const { classes } = this.props;
     return (
     <Router>
-      <div className="App">
-        <Navbar/>
+      <div className="App" >
+      <Navbar/>
+      
         <Switch>
           <Route path='/' exact component ={Home}/>
           <Route path='/about' component ={About}/>
@@ -35,9 +37,8 @@ class App extends Component {
           <Route path='/payment'  component ={Payment}/>
           <Route path='/cart' component= {Cart}/>
           <Route path='/userpage' component= {UserPage}/>
-          
+          <Route path='/product/:product_id'  component ={ProductDetail}/>
         </Switch>
-
         <Footer />
 
       </div>

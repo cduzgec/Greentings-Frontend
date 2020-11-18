@@ -24,7 +24,7 @@ const ColorButton = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(3),
   },
 }));
 
@@ -42,7 +42,7 @@ function Home(){
       
       </Box>
 
-      <div>
+      <div >
         <ColorButton variant="contained" color="primary" className={classes.margin}>
           Clothing
         </ColorButton>

@@ -10,6 +10,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import {Link} from'react-router-dom'
 import Logo from './images/Logo.png';
+import '../App.css';
 
 
 const theme = createMuiTheme({
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: 20,
-
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -93,14 +93,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Navbar() {
-  const classes = useStyles();
+function Navbar() {
+  
+    const classes = useStyles();
+
 
   return (
     <div className={classes.root}>
       <nav>
-      <AppBar position="static" style={{ background: 'green', boxShadow: 'none', height: '100px'}}>
-        <Toolbar style={{paddingLeft: '5em', paddingRight: '5em', paddingBottom: '1em', paddingTop: '1em'}}>
+      <AppBar position="fixed" style={{ background: 'green', boxShadow: 'none', height: '150px'}}>
+        <Toolbar style={{paddingLeft: '5em', paddingRight: '5em', paddingBottom: '1em', paddingTop: '2em'}}>
         <ThemeProvider theme={theme}>
           <Typography className={classes.title} noWrap>
           <Link to='/'>
@@ -144,3 +146,6 @@ export default function Navbar() {
     </div>
   );
 }
+
+
+export default Navbar

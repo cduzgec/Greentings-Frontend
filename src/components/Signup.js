@@ -106,9 +106,9 @@ async function sendUser () {
             "first_name": fnameRef.current.value,
             "last_name": lnameRef.current.value,
             "email": emailRef.current.value,
-            "username": "NONE",
+            "username": "NULL",
             "password": passRef.current.value,
-            "phone_number": "NONE",
+            "phone_number": "NULL",
             "user_type": "Customer",
           })
         });
