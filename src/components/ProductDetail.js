@@ -7,7 +7,7 @@ function ProductDetail({match}) {
   const [item, setItem] = useState({});
 
   const fetchItem =async() => {
-    const fetchItem = await fetch (`http://localhost:3000/product/${match.params.product_id}`)
+    const fetchItem = await fetch (`/product/${match.params.product_id}`)
     const item = await fetchItem.json();
     setItem(item)
     console.log(item);

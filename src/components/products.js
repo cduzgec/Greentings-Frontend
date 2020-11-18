@@ -17,9 +17,11 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
+    backgroundColor: "#ffffff"
   },
   heroButtons: {
     marginTop: theme.spacing(4),
+    
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
     color: '#ffffff'
-  }
+  },
 
 }));
 
@@ -56,7 +58,6 @@ function Album() {
 
   const fetchItems = async () => {
       const data = await fetch("/product/");
-      //('https://ghibliapi.herokuapp.com/films');
 
       const items= await data.json();
       console.log(items); 
@@ -89,7 +90,7 @@ function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
-            {items.map(item => (                               ///REF EKLE
+            {items.map(item => (                              
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 <Link to = {`/product/${item.product_id}`} variant="body2" className={classes.link}>
                 <Card className={classes.card}>

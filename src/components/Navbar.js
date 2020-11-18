@@ -22,7 +22,7 @@ const theme = createMuiTheme({
 
   const buttonTheme = createMuiTheme({
     typography: {
-      fontSize: 18,
+      fontSize: 20,
       textDecoration: 'none'
     }
   });
@@ -89,8 +89,14 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: 'none',
-    color: '#ffffff'
-  }
+    color: '#ffffff',
+    fontSize: 25,
+  },
+  image: {
+    flex: 1,
+    width: 500,
+    height: 500,
+    resizeMode: 'contain' }
 }));
 
 function Navbar() {
@@ -101,12 +107,12 @@ function Navbar() {
   return (
     <div className={classes.root}>
       <nav>
-      <AppBar position="fixed" style={{ background: 'green', boxShadow: 'none', height: '150px'}}>
+      <AppBar position="fixed" style={{ background: '#45b245', boxShadow: 'none', height: '150px'}}>
         <Toolbar style={{paddingLeft: '5em', paddingRight: '5em', paddingBottom: '1em', paddingTop: '2em'}}>
         <ThemeProvider theme={theme}>
           <Typography className={classes.title} noWrap>
           <Link to='/'>
-            <img alt="Our Logo" className="logo" src={Logo} />
+            <img className={classes.image} alt="Our Logo" className="logo" src={Logo} />
           </Link>
           </Typography>
           </ThemeProvider>

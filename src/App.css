@@ -31,8 +31,8 @@
 
 .logo{
   display: flex;
-  height: 90px;
-  width: 200px;
+  height: 130px;
+  width: 300px;
 }
 
 @keyframes App-logo-spin {
