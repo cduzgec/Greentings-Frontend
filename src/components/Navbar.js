@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import {Link} from'react-router-dom'
+
 import Logo from './images/Logo.png';
 import '../App.css';
 
@@ -130,7 +131,7 @@ function Navbar() {
             />
           </div>
           
-            <ThemeProvider theme={buttonTheme}>
+            <ThemeProvider theme={buttonTheme} className = {classes.link}>
             <Link className = {classes.link} to='/about'>
               <Button className = {classes.link} color="primary" >About</Button>
             </Link>

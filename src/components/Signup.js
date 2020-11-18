@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,46 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
-
-
-const SignupButton = withStyles({
-  root: {
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 30,
-    padding: '6px 12px',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: '#008001',
-    borderColor: '#008001',
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-      backgroundColor: '#008001',
-      borderColor: '#008001',
-      boxShadow: 'none',
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#008001',
-      borderColor: '#008001',
-    },
-    '&:focus': {
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
-  },
-})(Button);
+import {makeStyles} from '@material-ui/core/styles';
+import OurButton from "./button.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -80,6 +42,8 @@ function SignUp () {
   // write javascipt here ***************************************************************
   const classes = useStyles()
 
+
+
   const fnameRef = useRef('') //creating a refernce for TextField Component
   const lnameRef = useRef('')  // lnameRef.current.value
   const emailRef = useRef('') //on clicking button accesing current value of TextField and outputing it to console
@@ -91,6 +55,10 @@ async function sendUser () {
       return 
       
       try {
+
+        let r = Math.random().toString(36).substring(7);
+        console.log("random code for this user:", r);
+
         await fetch ('/user/', {       //////////// API DEGISICEK
           method: "post",
           mode: "cors",
@@ -110,6 +78,7 @@ async function sendUser () {
             "password": passRef.current.value,
             "phone_number": "NULL",
             "user_type": "Customer",
+            "code": r
           })
         });
 
@@ -191,14 +160,14 @@ async function sendUser () {
               />
             </Grid>
           </Grid>
-          <SignupButton 
+          <OurButton 
             href="/emailconfirmation"
             onClick={sendUser} 
             className={classes.submit} 
             type= "submit" 
             fullWidth variant="contained"  >
               Sign Up
-          </SignupButton>
+          </OurButton>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/login" variant="body2" className={classes.link}>

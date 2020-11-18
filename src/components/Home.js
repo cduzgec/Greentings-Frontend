@@ -1,11 +1,9 @@
 import React from 'react'
-import Box from "@material-ui/core/Box";
 import Button from '@material-ui/core/Button';
 import {brown} from '@material-ui/core/colors';
 import {withStyles, makeStyles} from '@material-ui/core/styles';
-
 import Text from './text';
-import Products from './products'
+import Products from './MainPageItems'
 
 
 const ColorButton = withStyles((theme) => ({
@@ -26,22 +24,18 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(3),
   },
+  paper: {
+    width: 5,
+    height: 5,
+  }
 }));
-
 
 function Home(){
   const classes = useStyles();
   
   return (
     <div className='App'>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        maxHeight="4vh">
       
-      </Box>
-
       <div >
         <ColorButton variant="contained" color="primary" className={classes.margin}>
           Clothing
@@ -55,10 +49,11 @@ function Home(){
         <ColorButton variant="contained" color="primary" disableRipple className={classes.margin}>
           Furniture
         </ColorButton>
-      </div>
-
-      <Products />
-      <Text/>
+    
+        
+        <Products />
+        <Text/>
+        </div>
 
     </div>
   )
