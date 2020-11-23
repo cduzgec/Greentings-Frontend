@@ -11,7 +11,6 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import {Link} from'react-router-dom'
 
 import Logo from './images/Logo.png';
-import '../App.css';
 
 
 const theme = createMuiTheme({
@@ -113,7 +112,7 @@ function Navbar() {
         <ThemeProvider theme={theme}>
           <Typography className={classes.title} noWrap>
           <Link to='/'>
-            <img className={classes.image} alt="Our Logo" className="logo" src={Logo} />
+            <img className={classes.image} alt="Logolosus" className="logo" src={Logo} />
           </Link>
           </Typography>
           </ThemeProvider>
@@ -131,7 +130,7 @@ function Navbar() {
             />
           </div>
           
-            <ThemeProvider theme={buttonTheme} className = {classes.link}>
+            <ThemeProvider theme={buttonTheme}>
             <Link className = {classes.link} to='/about'>
               <Button className = {classes.link} color="primary" >About</Button>
             </Link>

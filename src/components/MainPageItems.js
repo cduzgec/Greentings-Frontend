@@ -65,7 +65,7 @@ const styles = {
       backgroundColor: "#64bf6a"
   }
 };
-//const cards = [1, 2, 3, 4, 5, 6];
+const numberofitems = 3;
 
 function Album() {
   const classes = useStyles();
@@ -73,8 +73,8 @@ function Album() {
   useEffect(() => {fetchItems();}, []);
 
   const[items,setItems] = useState([]);
-
-  const fetchItems = async () => {
+ 
+  const fetchItems = async () => {             /// try catchle
       const data = await fetch("/product/");
 
       const items= await data.json();
@@ -112,7 +112,7 @@ function Album() {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.map(item => (                                                     
+            {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 <Link to = {`/product/${item.product_id}`} variant="body2" className={classes.link}>
                 <Card className={classes.card}>

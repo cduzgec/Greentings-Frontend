@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -37,29 +37,61 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 function SignUp () {
   // write javascipt here ***************************************************************
   const classes = useStyles()
-
-
 
   const fnameRef = useRef('') //creating a refernce for TextField Component
   const lnameRef = useRef('')  // lnameRef.current.value
   const emailRef = useRef('') //on clicking button accesing current value of TextField and outputing it to console
   const passRef = useRef('') 
 // fnameRef.current.value, lnameRef.current.value, emailRef.current.value, passRef.current.value
-  
-async function sendUser () {
-      if ((fnameRef.current.value === "") || (lnameRef.current.value === "") ||(emailRef.current.value === "") ||(passRef.current.value === ""))  
-      return 
-      
+
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function checkForm()
+  {
+    if(fname === "") {
+      alert("Error: First name cannot be blank!");
+      return false;
+    }
+    //var re = /^\w+$/;
+    //if(!re.test(fnameRef.value)) 
+    //{ alert("Error: Username must contain only letters, numbers and underscores!"); return false;}
+    
+    if(lname === "") {
+      alert("Error: Last name cannot be blank!");
+      return false;
+    }
+    if(email === "") {
+      alert("Error: Email cannot be blank!");
+      return false;
+    }
+    if (password === "" ){
+      alert("Error: The password cannot be blank!");
+      return false;
+    }
+    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    // at least one number, one lowercase and one uppercase letter
+    // at least six characters
+    if(password !== "" ) {
+      if(!re.test(password)) {
+        alert("The password you have entered is not valid!");
+        return false;
+      }
+    } else {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      return false;
+    }
+    return sendUser()
+  }
+
+  async function sendUser () {
       try {
-
-        let r = Math.random().toString(36).substring(7);
-        console.log("random code for this user:", r);
-
-        await fetch ('/user/', {       //////////// API DEGISICEK
+        const response = await fetch ('/signup/', {       
           method: "post",
           mode: "cors",
           headers:
@@ -77,20 +109,25 @@ async function sendUser () {
             "username": "NULL",
             "password": passRef.current.value,
             "phone_number": "NULL",
-            "user_type": "Customer",
-            "code": r
+            "verified": "false",
+            "user_type": "Customer",    
           })
         });
+        console.log("Response Status: "+response.status)
+        response.json().then(data => {console.log("Response message: "+ data.message)})
 
+        if (response.status === 201)
+          window.location.replace("/emailconfirmation")
+        else 
+          alert("Error: Could not perform operation!");
     }
     catch (e)
     {
       console.log(e)
-     }
-
-    console.log("Sending this data: " + fnameRef.current.value+" " + lnameRef.current.value+" "+emailRef.current.value+" "+passRef.current.value)
     }
-  
+    console.log("Sending this data: " + fnameRef.current.value+" " + lnameRef.current.value+" "+emailRef.current.value+" "+passRef.current.value)
+  }
+
   return (  
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -105,8 +142,7 @@ async function sendUser () {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"             
-                name="firstName"
+                autoComplete="fname"          //onSubmit= {checkForm()}   
                 variant="outlined"
                 required
                 fullWidth
@@ -114,6 +150,7 @@ async function sendUser () {
                 label="First Name"
                 autoFocus
                 inputRef={fnameRef}
+                onChange={e => setFname(e.target.value)} 
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -123,9 +160,9 @@ async function sendUser () {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
                 autoComplete="lname"
                 inputRef={lnameRef}
+                onChange={e => setLname(e.target.value)} 
               />
             </Grid>
             <Grid item xs={12}>
@@ -135,9 +172,9 @@ async function sendUser () {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"                                 //address bar 
                 autoComplete="email"
                 inputRef={emailRef}
+                onChange={e => setEmail(e.target.value)} 
               />
             </Grid>
             <Grid item xs={12}>
@@ -145,13 +182,16 @@ async function sendUser () {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
                 inputRef={passRef}
+                onChange={e => setPassword(e.target.value)} 
+                //onChange = {handleChange} function handleChange(e) {return(setPassword(e.target.value))}
               />
+              <PasswordStrengthBar password={password} />  
+              <p>Password should contain at least one number, one lowercase, one uppercase letter and at least six characters </p>
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -161,11 +201,9 @@ async function sendUser () {
             </Grid>
           </Grid>
           <OurButton 
-            href="/emailconfirmation"
-            onClick={sendUser} 
+            onClick={checkForm} 
             className={classes.submit} 
-            type= "submit" 
-            fullWidth variant="contained"  >
+            fullWidth variant="contained">
               Sign Up
           </OurButton>
           <Grid container justify="flex-end">

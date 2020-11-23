@@ -1,6 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useRef,useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -11,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,40 +43,59 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
+  const [message,setMessage] = useState("");
 
   const emailRef = useRef('') 
   const passRef = useRef('') 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  function InputCheck(){
+    if(email === "") {
+      alert("Error: Email cannot be blank!");
+      return false;
+    }
+    if (password === "" ){
+      alert("Error: The password cannot be blank!");
+      return false;
+    }
+    
+    return sendUser()
+  }
 
   async function sendUser () {
-    if ((emailRef.current.value === "") ||(passRef.current.value === ""))  
-    return 
-    
-    try {
-      await fetch ('/user/', {        //////////// API DEGISICEK
-        method: "post",
-        mode: "cors",
-        headers:
-        {
-          "Accept": "*/*",
-          "Content-Type": "application/json",
-          "Connection": "keep-alive",
-          "Content-Encoding": "gzip, deflate, br",
-          "Accept-Encoding": "gzip, deflate, br"
-        },
-        body: JSON.stringify({
-          "username": "NONE",
-          "password": "NONE",
-        })
-      });
+      try {
+        const response = await fetch ('/login/', {       
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "username": emailRef.current.value,
+            "password": passRef.current.value,
   
-  }
-  catch (e)
-  {
-    console.log(e)
-   }
-  
-  console.log("Sending this data: "+emailRef.current.value+" "+passRef.current.value)
+          })
+        });
+        console.log("Response Status: "+response.status)
+        response.json().then(data => {setMessage(data.message)})
+        console.log("Response message: "+ message)
+
+        if (response.status === 202)
+          window.location.replace("/userpage")
+        else 
+          alert("Error: "+ message);
+    }
+    catch (e)
+    {
+      console.log(e)
+    }
+    console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
   }
   
   return (
@@ -102,6 +120,7 @@ function Login() {
             autoComplete="email"
             autoFocus
             inputRef={emailRef} 
+            onChange={e => setEmail(e.target.value)} 
           />
           <TextField
             variant="outlined"
@@ -114,16 +133,15 @@ function Login() {
             id="password"
             autoComplete="current-password"
             inputRef={passRef}
+            onChange={e => setPassword(e.target.value)} 
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <OurButton
-            href="/userpage"
-            onClick={sendUser}
+            onClick={InputCheck}
             className={classes.submit}  
-            type="submit" 
             fullWidth  variant="contained" >
               Login
           </OurButton>
