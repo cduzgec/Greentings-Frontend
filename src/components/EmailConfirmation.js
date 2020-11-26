@@ -1,4 +1,4 @@
-import React, {useRef,useState} from 'react';
+import React, {useRef,useState, useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
     const codeRef = useRef('') 
     const [message,setMessage] = useState("");
+    useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
     async function sendCode () {
       try {
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
         });
         console.log("Response Status: "+response.status)
 
-        if (response.status === 202){                                          //change the code
+        if (response.status === 200){                                          //change the code
           window.location.replace(`/userpage/${match.params.user_id}`)
         }
         else {
@@ -97,8 +98,7 @@ const useStyles = makeStyles((theme) => ({
           />
           <OurButton
             onClick={sendCode}
-            className={classes.submit}  
-            type="submit" 
+            className={classes.submit}   
             fullWidth  variant="contained" >
               Confirm
           </OurButton>
