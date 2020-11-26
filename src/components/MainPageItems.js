@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-    backgroundColor: ":#eeeee4"
+    backgroundColor: "#eeeee4",
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -67,7 +67,7 @@ const styles = {
 };
 const numberofitems = 3;
 
-function Album() {
+function MainPageItems() {
   const classes = useStyles();
 
   useEffect(() => {fetchItems();}, []);
@@ -75,11 +75,12 @@ function Album() {
   const[items,setItems] = useState([]);
  
   const fetchItems = async () => {             /// try catchle
+
       const data = await fetch("/product/");
 
       const items= await data.json();
       console.log(items); 
-      setItems(items);};
+      setItems(items);}
 
       
   return (
@@ -151,4 +152,4 @@ function Album() {
 }
 
 
-export default Album;
+export default MainPageItems;

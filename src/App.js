@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 
 import Home from './components/Home';
 import About from './components/About';
@@ -19,9 +19,13 @@ import ChangePassword from "./components/ChangePassword";
 import ProductDetail from "./components/ProductDetail";
 import Categories from "./components/Categories";
 
+import { ConfetchContext } from 'react-confetch'
+
+const globalFetchConfig = {timeoutDuration: 1000, }
 
 function App(){
   return (
+    <ConfetchContext.Provider value={globalFetchConfig}>
     <Router>
       <div className="App" >
         <Navbar />
@@ -33,17 +37,18 @@ function App(){
           <Route path='/forgotconfirmation' component={ForgotConfirmation} />
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/signup' component={Signup} />
-          <Route path='/emailconfirmation' component={EmailConfirmation} />
+          <Route path='/emailconfirmation/:user_id' component={EmailConfirmation} />
           <Route path='/payment' component={Payment} />
           <Route path='/cart' component={Cart} />
-          <Route path='/userpage' component={UserPage} />
+          <Route path='/userpage/:user_id' component={UserPage} />
           <Route path='/product/:product_id' component={ProductDetail} />
-          <Route path='/:category_id' component={Categories} />
+          <Route path='/category/:categories_id' component={Categories} />
         </Switch>
         <Footer />
 
       </div>
     </Router>
+    </ConfetchContext.Provider>
   )
 }
 

@@ -1,52 +1,47 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import 'react-credit-cards/es/styles-compiled.css';
+import Cards from 'react-credit-cards';
 
+export default class PaymentForm extends React.Component {
+  state = {
+    cvc: '',
+    expiry: '',
+    focus: '',
+    name: '',
+    number: '',
+  };
 
-
-
-export default function PaymentForm() {
-  return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Payment method
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardNumber"
-            label="Card number"
-            fullWidth
-            autoComplete="cc-number"
+  handleInputFocus = (e) => {
+    this.setState({ focus: e.target.name });
+  }
+  
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    
+    this.setState({ [name]: value });
+  }
+  
+  render() {
+    return (
+      <div id="PaymentForm">
+        <Cards
+          cvc={this.state.cvc}
+          expiry={this.state.expiry}
+          focused={this.state.focus}
+          name={this.state.name}
+          number={this.state.number}
+        />
+        <form>
+        	<input
+            type="tel"
+            name="number"
+            placeholder="Card Number"
+            onChange={this.handleInputChange}
+            onFocus={this.handleInputFocus}
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cvv"
-            label="CVV"
-            helperText="Last three digits on signature strip"
-            fullWidth
-            autoComplete="cc-csc"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
+          ...
+        </form>
+      </div>
+    );
+  }
 }

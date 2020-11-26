@@ -1,8 +1,9 @@
 .App {
   text-align: center;
   background-color:#eeeee4;
-  margin-top: 150px;
+  margin-top: 200px;
   text-decoration: none;
+  text-transform: capitalize;
 }
 
 .App-logo {

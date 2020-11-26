@@ -1,4 +1,4 @@
-import React, {useRef,useState} from 'react';
+import React, {useRef,useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -37,18 +37,18 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-
-
-
 function Login() {
   const classes = useStyles();
-  const [message,setMessage] = useState("");
-
+  
   const emailRef = useRef('') 
   const passRef = useRef('') 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [id,setId] = useState("");
+  useEffect(() => {if (id) {console.log("User logged in: "+ id); window.location.replace(`/userpage/${id}`);}}, [id]);
+  const [message,setMessage] = useState("");
+  useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
   function InputCheck(){
     if(email === "") {
@@ -77,25 +77,27 @@ function Login() {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "username": emailRef.current.value,
+            "email": emailRef.current.value,      // email
             "password": passRef.current.value,
   
           })
         });
+        console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
         console.log("Response Status: "+response.status)
-        response.json().then(data => {setMessage(data.message)})
-        console.log("Response message: "+ message)
 
-        if (response.status === 202)
-          window.location.replace("/userpage")
-        else 
-          alert("Error: "+ message);
+        if (response.status === 202){
+          response.json().then(data => {setId(data.user_id)})
+        }
+        else {
+          response.json().then(data => {setMessage(data.message)})
+        }
+
     }
     catch (e)
     {
       console.log(e)
     }
-    console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
+    
   }
   
   return (

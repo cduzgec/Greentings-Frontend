@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef,useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -31,8 +31,49 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
-function EmailConfirmation() {
-  const classes = useStyles();
+  function EmailConfirmation({ match }) {
+    const classes = useStyles();
+    console.log(match)
+
+    const codeRef = useRef('') 
+    const [message,setMessage] = useState("");
+
+    async function sendCode () {
+      try {
+        const response = await fetch ('/emailconfirm/', {        // API URL
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "user_id": match.params.user_id,      
+            "verification_code": codeRef.current.value,
+
+          })
+        });
+        console.log("Response Status: "+response.status)
+
+        if (response.status === 202){                                          //change the code
+          window.location.replace(`/userpage/${match.params.user_id}`)
+        }
+        else {
+          response.json().then(data => {setMessage(data.message)})
+        }
+
+    }
+    catch (e)
+    {
+      console.log(e)
+    }
+    
+  }
+
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -51,11 +92,11 @@ function EmailConfirmation() {
             label="Code"
             type="Code"
             id="Code"
+            inputRef={codeRef}
             autoComplete="current-password"
           />
           <OurButton
-            href="/userpage"
-            //onClick={getCode}
+            onClick={sendCode}
             className={classes.submit}  
             type="submit" 
             fullWidth  variant="contained" >

@@ -1,4 +1,4 @@
-import React, {useState,useEffect } from "react";
+import React, {useState,useEffect} from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
+import Sidebar from './Sidebar'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -60,33 +61,47 @@ const useStyles = makeStyles((theme) => ({
 
 const styles = {
   paperContainer: {
-      backgroundImage: `url(${Image})`,
       opacity: "0.8",
-      backgroundColor: "#64bf6a"
+      backgroundColor: "#64bf6a",
+      marginRight: "300px",
+      marginLeft: "300px"
   }
 };
 const numberofitems = 3;
 
-function Categories() {
+function Categories({ match }) {
   const classes = useStyles();
 
-  useEffect(() => {fetchItems();}, []);
+  useEffect(() => { fetchCategory(); console.log(match) }, [match]);
+
+  const [category, setCategory] = useState({});
+
+  const fetchCategory = async () => {
+    const fetchCategory = await fetch(`/category/${match.params.categories_id}`)  // params: categories_id: "1"
+    const category = await fetchCategory.json();
+    setCategory(category)
+    console.log(category);   // {category_id: 1, category_name: "clothing"}
+  }
+
+  useEffect(() => {fetchItems();}, [match]);
 
   const[items,setItems] = useState([]);
  
   const fetchItems = async () => {             /// try catchle
-      const data = await fetch("/product/");
+      const data = await fetch("/product/");                         //    /category/${category.categories_id}
 
       const items= await data.json();
       console.log(items); 
-      setItems(items);};
+      setItems(items);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
       
   return (
+    
     <React.Fragment>
       <CssBaseline />
       <main>
-        {/* Hero unit */}
+      <Sidebar/>
+        {/* Hero unit                                      SIDEEE BAARRRRRR   */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
@@ -95,7 +110,7 @@ function Categories() {
               align="center"
               color="textPrimary"
               gutterBottom>
-              Category Page
+              Category: {category.category_name}  Page
             </Typography>
             <Typography
               variant="h5"

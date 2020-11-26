@@ -106,9 +106,6 @@ function ProductDetail({ match }) {
             <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' />
           </Grid>
           <Divider />
-
-
-
           <Grid item>
             <p className={classes.p}>
               {item.description}

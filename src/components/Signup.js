@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -46,11 +46,16 @@ function SignUp () {
   const emailRef = useRef('') //on clicking button accesing current value of TextField and outputing it to console
   const passRef = useRef('') 
 // fnameRef.current.value, lnameRef.current.value, emailRef.current.value, passRef.current.value
-
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [id,setId] = useState("");
+  useEffect(() => {if (id) {console.log("User logged in: "+ id); window.location.replace(`/emailconfirmation/${id}`);}}, [id]);
+  const [message,setMessage] = useState("");
+  useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
+
 
   function checkForm()
   {
@@ -106,20 +111,24 @@ function SignUp () {
             "first_name": fnameRef.current.value,
             "last_name": lnameRef.current.value,
             "email": emailRef.current.value,
-            "username": "NULL",
             "password": passRef.current.value,
             "phone_number": "NULL",
             "verified": "false",
-            "user_type": "Customer",    
+            "user_type": "Customer",  
+            "verification_code" : "111111"  
           })
         });
+        console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
         console.log("Response Status: "+response.status)
-        response.json().then(data => {console.log("Response message: "+ data.message)})
+        
 
-        if (response.status === 201)
-          window.location.replace("/emailconfirmation")
-        else 
-          alert("Error: Could not perform operation!");
+        if (response.status === 201){
+          response.json().then(data => {setId(data.user_id)})
+        }
+        else {
+          response.json().then(data => {setMessage(data.message)})
+          
+        }
     }
     catch (e)
     {
