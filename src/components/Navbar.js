@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const numberofcategories = 4;
+const numberofcategories = 3;
 
 function Navbar() {
 

@@ -56,7 +56,7 @@ export default function ChangePassword() {
             autoFocus
             />
             <Typography component="h1" variant="h5">
-             Plase re-enter your new password
+             Please re-enter your new password
             </Typography>
             <TextField
             variant="outlined"

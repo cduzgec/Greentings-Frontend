@@ -94,7 +94,7 @@ function Categories({ match }) {
       console.log(items); 
       setItems(items);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
-      
+      // priceı range şeklinde kutucuk ekle
   return (
     
     <React.Fragment>
