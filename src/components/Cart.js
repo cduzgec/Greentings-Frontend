@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import ShoppingCartTab from './shoppingCart';
 import ShippingDetailsTap from './ShippingDetails';
 import PaymentOptionsTab from './Payment';
+import Payment from "./Payment.js";
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,12 +27,15 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonsContainer:{
         marginLeft: "50px"
+    },
+    link: {
+      color: theme.palette.common.white,
     }
   }));
 
 
   function getSteps() {
-    return ['Shopping Cart','Shiping Details', 'Payment Options'];
+    return ['Shopping Cart','Shiping Details'];
   }
   
   function getStepContent(stepIndex) {
@@ -43,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
         return (
             <ShippingDetailsTap />
         );
-      case 2:
-        return (
-            <PaymentOptionsTab />
-        );
+      // case 2:
+      //   return (
+      //       <PaymentOptionsTab />
+      //   );
       default:
         return 'Unknown stepIndex';
     }
@@ -54,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StepperCart = ()=>{
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -96,7 +101,12 @@ const StepperCart = ()=>{
                   Back
                 </Button>
               <Button variant="contained" color="primary" onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Pay Now' : 'Next'}
+                  {activeStep === steps.length -1 ? 
+                  <Link href='/payment' color="primary" className={classes.link}>
+                  Payment Page
+                  </Link>
+                   : 'Next'}
+                
                 </Button>
                 
                 
