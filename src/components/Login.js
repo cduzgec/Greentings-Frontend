@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
   
   const emailRef = useRef('') 
@@ -46,7 +46,15 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const [id,setId] = useState("");
-  useEffect(() => {if (id) {console.log("User logged in: "+ id); window.location.replace(`/userpage/${id}`);}}, [id]);
+  useEffect(() => {if (id) {console.log("User logged in: "+ id); 
+  props.SetLog("true"); 
+  console.log(props.Logged)
+  setFlag("go");}}, [id]);
+
+  const [flag,setFlag] = useState("");
+  useEffect(() => {if (flag) {props.history.push(`/userpage/${id}`);}}, [flag]);
+
+
   const [message,setMessage] = useState("");
   useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
@@ -82,7 +90,7 @@ function Login() {
   
           })
         });
-        console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
+        //console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){

@@ -72,7 +72,7 @@ const numberofitems = 3;
 function Categories({ match }) {
   const classes = useStyles();
 
-  useEffect(() => { fetchCategory(); console.log(match) }, [match]);
+  useEffect(() => { fetchCategory();}, [match]);
 
   const [category, setCategory] = useState({});
 
@@ -80,6 +80,7 @@ function Categories({ match }) {
     const fetchCategory = await fetch(`/category/${match.params.categories_id}`)  // params: categories_id: "1"
     const category = await fetchCategory.json();
     setCategory(category)
+    console.log(match.params.categories_id); 
     console.log(category);   // {category_id: 1, category_name: "clothing"}
   }
 
