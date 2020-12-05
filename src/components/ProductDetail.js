@@ -1,5 +1,5 @@
 import React from "react";
-import  { useEffect, useState } from 'react';
+import  {useRef,useState, useEffect} from 'react';
 import '../App.css';
 import { Grid, Typography, Divider, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -64,18 +64,35 @@ button: {
 },
 }));
 function ProductDetail({match}) {
-    useEffect(() => {fetchItem(); console.log(match); sendPhoto()},[]);
+    useEffect(() => {fetchItem(); console.log(match); sendPhoto(); },[]);
    
   
     const [item, setItem] = useState({});
     const [photos, setPhoto] = useState([]);
-  
+    const[comments,setComments] = useState([]);
+
     const fetchItem =async() => {
       const fetchItem = await fetch (`/product/${match.params.product_id}`);
       const item = await fetchItem.json();
       setItem(item);
       console.log(item);
     }
+    
+    
+    
+    // useEffect(() => {fetchComments();}, [])
+   
+    // const fetchComments = async () => {             /// try catchle
+  
+    //     const data = await fetch("/comments/1/");
+    //     const comments= await data.json();
+    //     console.log(comments);
+    //     debugger;
+    //     setComments(comments);
+    //     console.log(comments);
+
+    // }
+
     async function sendPhoto () {
       try {
         const response = await fetch ('/photos/', {       
@@ -97,6 +114,35 @@ function ProductDetail({match}) {
 
         await response.json().then(data => {setPhoto(data)})
 
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+
+    }
+    const productRef = useRef('')
+    async function sendProducttoCart () {
+      try {
+        console.log( productRef.current.value);
+        const res = await fetch ('/basket/2/', {
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "product": item.product_id,
+            "quantity": 1,
+          
+          })
+        });
+        console.log("response:",res)
       }
       catch (e)
       {
@@ -223,13 +269,20 @@ function ProductDetail({match}) {
           </Grid>
 
         </Grid>
-        <Grid item className={classes.itemContainer}>
-        <Button variant="contained" color="primary" className={classes.button} endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
+        <Grid item className={classes.itemContainer}>    
+        <Button onClick={() => {sendProducttoCart() }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
             Add To Cart
         </Button>
         <Button variant="contained" color="primary" className={classes.button} endIcon={<FavoriteBorderSharpIcon fontSize="medium" />}>
             Add To Favorites
         </Button>
+        {/* <Grid>
+        {comments.map (comment => (
+          <p>{comment.text}</p>
+
+
+        ))}
+        </Grid> */}
         </Grid>
       </Grid>
     </Grid>
