@@ -4,6 +4,8 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
@@ -60,19 +62,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SearchBar = props => {
+function SearchBar (props) {
   const classes = useStyles();
-  const searchRef = useRef('') 
+  const searchRef = useRef('')
 
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {if (search) {console.log(search);}}, [search]);
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        console.log("Enter key was pressed. Running your function.");
+        window.location.replace(`/search/${searchRef.current.value}`);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, []);
 
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
-
-        <SearchIcon />
+      <SearchIcon />    
       </div>
       <InputBase
         placeholder="Search for the product, brand or category..."
@@ -80,9 +90,8 @@ const SearchBar = props => {
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
-        inputRef={searchRef}
-        onChange={e => setSearch(e.target.value)}
         inputProps={{ 'aria-label': 'search' }}
+        inputRef={searchRef}
       />
     </div>
   );

@@ -67,7 +67,7 @@ const styles = {
       marginLeft: "300px"
   }
 };
-const numberofitems = 3;
+const numberofitems = 4;
 
 function Categories({ match }) {
   const classes = useStyles();
@@ -80,18 +80,19 @@ function Categories({ match }) {
     const fetchCategory = await fetch(`/category/${match.params.categories_id}`)  // params: categories_id: "1"
     const category = await fetchCategory.json();
     setCategory(category)
-    console.log(match.params.categories_id); 
+    console.log("CATEGORY"); 
     console.log(category);   // {category_id: 1, category_name: "clothing"}
   }
 
-  useEffect(() => {fetchItems();}, [match]);
+  useEffect(() => {fetchItems();}, [category]);
 
   const[items,setItems] = useState([]);
  
   const fetchItems = async () => {             /// try catchle
-      const data = await fetch("/product/");                         //    /category/${category.categories_id}
+      const data = await fetch(`/categoryitems/${category.category_id}`);                         //    /category/${category.categories_id}
 
       const items= await data.json();
+      console.log("ITEMS");
       console.log(items); 
       setItems(items);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
