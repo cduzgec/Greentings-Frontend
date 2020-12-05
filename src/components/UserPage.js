@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from "react";
 
 function UserPage({ match }) {
-  useEffect(() => { fetchUser(); console.log(match) }, []);
+  useEffect(() => { fetchUser();}, []);
 
   const [user, setUser] = useState({});
 
@@ -9,6 +9,7 @@ function UserPage({ match }) {
     const data = await fetch(`/user/${match.params.user_id}`)
     const user = await data.json();
     setUser(user)
+    console.log("USERPAGE")
     console.log(user);
   }
   return (

@@ -1,4 +1,4 @@
-import React, {useRef,useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {withStyles, makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';

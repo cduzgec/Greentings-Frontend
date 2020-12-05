@@ -1,8 +1,7 @@
-import React from 'react'
-import './App.css';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-//import { useHistory } from "react-router-dom";
+import React, {useState} from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import './App.css';
 import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
@@ -19,20 +18,20 @@ import ChangePassword from "./components/ChangePassword";
 import ProductDetail from "./components/ProductDetail";
 import Categories from "./components/Categories";
 
-import { ConfetchContext } from 'react-confetch'
+export default function App () {
 
-const globalFetchConfig = {timeoutDuration: 1000, }
+  const [isLogged, setLog] = useState('false');
+  const [userId, setUserID] = useState('');
 
-function App(){
   return (
-    <ConfetchContext.Provider value={globalFetchConfig}>
-    <Router>
+  
+    <BrowserRouter>
       <div className="App" >
-        <Navbar />
-        <Switch>
-          <Route path='/' exact component={Home} />
+      <Route path='/' render={(props) => (<Navbar {...props} Logged={isLogged} SetLog={setLog} SetUser = {setUserID} />)}/>
+        <Switch> 
+          <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
-          <Route path='/login' exact component={Login} />
+          <Route path='/login' render={(props) => (<Login {...props} Logged={isLogged} SetLog={setLog} User= {userId} SetUser = {setUserID} />)}/>
           <Route path='/forgotpassword' component={ForgotPassword} />
           <Route path='/forgotconfirmation' component={ForgotConfirmation} />
           <Route path='/changepassword' component={ChangePassword} />
@@ -43,14 +42,12 @@ function App(){
           <Route path='/userpage/:user_id' component={UserPage} />
           <Route path='/product/:product_id' component={ProductDetail} />
           <Route path='/category/:categories_id' component={Categories} />
+          <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE :( </h1> } />
         </Switch>
         <Footer />
 
       </div>
-    </Router>
-    </ConfetchContext.Provider>
+    </BrowserRouter>
+
   )
 }
-
-
-export default App;

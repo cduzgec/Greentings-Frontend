@@ -79,7 +79,7 @@ function MainPageItems() {
       const data = await fetch("/product/");
 
       const items= await data.json();
-      console.log(items); 
+      //console.log(items); 
       setItems(items);}
 
       
