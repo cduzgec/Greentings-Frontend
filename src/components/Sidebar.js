@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -16,6 +16,9 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import Checkbox from '@material-ui/core/Checkbox';
 import { FixedSizeList } from 'react-window';
 import Typography from "@material-ui/core/Typography";
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 const drawerWidth = 240;
 
@@ -57,11 +60,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(1),
   },
+  applybutton: {
+    backgroundColor: "#17ba9c",
+    fontSize: 18,
+  }
 }));
 
 const TextTypography = withStyles({
   root: {
-    backgroundColor:"#17ba9c",
+    backgroundColor: "#17ba9c",
     color: "#ffffff",
     fontSize: 18,
     fontWeight: 500,
@@ -74,8 +81,8 @@ const TextTypography = withStyles({
     marginLeft: 15,
     marginRight: 18,
     justifyContent: "center",
-    }
   }
+}
 )(Typography);
 
 function Sidebar() {
@@ -85,18 +92,25 @@ function Sidebar() {
 
   const handleClick = () => setOpen(!open);
 
+  const [brandarray, setBrand] = useState([]);  //dynamic 
 
   function renderRow(props) {
     const { index, style } = props;
-  
-    return (     ////// liste içi
-      <ListItem button style={style} key={index}>
-        <Checkbox color="primary" />
-        <ListItemText primary={`Item ${index + 1}`} />
+
+    return (    
+      <ListItem button style={style}>
+        <FormControlLabel
+          control={<Checkbox value="filter" color="primary" />}
+          label="Item"
+        />
       </ListItem>
     );
   }
-  
+
+  function sendFilter(){
+    console.log("Send Filter")
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -105,18 +119,22 @@ function Sidebar() {
         className={classes.drawer}
         variant="permanent"
         classes={{ paper: classes.drawerPaper, }} >
-        <Toolbar/>
+        <Toolbar />
         <div className={classes.drawerContainer}>
-          {['PRICE', 'BRAND', 'RATING', 'CATEGORY', 'STOCK'].map((text, index) => (    // #069974
-                <div key={text} className={classes.fixedlist}>
-                  <TextTypography>{text}</TextTypography>
-                  <FixedSizeList height={200} width={200} itemSize={40} itemCount={10}>
-                    {renderRow}
-                  </FixedSizeList>
-                </div>
+          {['PRICE', 'BRAND', 'RATING'].map((text, index) => (    // #069974
+            <div key={text} className={classes.fixedlist}>
+              <TextTypography>{text}</TextTypography>
+              <FixedSizeList height={200} width={200} itemSize={40} itemCount={10}>
+                {renderRow}
+              </FixedSizeList>
+
+            </div>
+
           ))}
-   
-          <Divider />
+
+          <Button className={classes.applybutton} variant="contained" 
+            onClick={sendFilter}>Apply Filters</Button>
+
           <List
             component="nav"
             aria-labelledby="nested-list-subheader"

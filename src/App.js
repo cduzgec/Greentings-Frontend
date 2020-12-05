@@ -17,6 +17,7 @@ import ForgotConfirmation from "./components/ForgotConfirmation";
 import ChangePassword from "./components/ChangePassword";
 import ProductDetail from "./components/ProductDetail";
 import Categories from "./components/Categories";
+import SearchPage from "./components/SearchPage";
 
 export default function App () {
 
@@ -42,7 +43,9 @@ export default function App () {
           <Route path='/userpage/:user_id' component={UserPage} />
           <Route path='/product/:product_id' component={ProductDetail} />
           <Route path='/category/:categories_id' component={Categories} />
+          <Route path='/search/:search' component={SearchPage} />
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE :( </h1> } />
+
         </Switch>
         <Footer />
 

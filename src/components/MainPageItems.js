@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 const styles = {
   paperContainer: {
-      backgroundImage: `url(${Image})`,
       opacity: "0.8",
       backgroundColor: "#64bf6a"
   }
@@ -103,7 +102,7 @@ function MainPageItems() {
               align="center"
               color="textSecondary"
               paragraph>
-              Buy our cool products and be cool as f*ck
+              Buy our cool products and be cool 
             </Typography>
           </Container>
         </div>

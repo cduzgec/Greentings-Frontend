@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import Logo from './images/Logo.png';
 import SearchBar from './SearchBar'
 
-const numberofcategories = 3;
+const numberofcategories = 4;
 
 const theme = createMuiTheme({
   typography: {
