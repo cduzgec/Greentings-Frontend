@@ -109,26 +109,26 @@ function SearchPage({ match }) {
         handleClose();
 
         if (index===0){     // Price Descending
-        fetch(`/search/?search=${match.params.search}&order=-price`)
+        fetch(`/search/?search=${match.params.search}&ordering=-price`)
         .then(response => response.json())
         .then(result => {console.log('Price Descending:', result); setItems(result)})
         .catch(error => console.log('error:', error));
         }
         
         if (index===1){     // Price Ascending
-            fetch(`/search/?search=${match.params.search}&order=price`)
+            fetch(`/search/?search=${match.params.search}&ordering=price`)
             .then(response => response.json())
             .then(result => {console.log('Price Ascending:', result); setItems(result)})
             .catch(error => console.log('error:', error));
         }
         if (index===2){     // Rating Descending
-            fetch(`/search/?search=${match.params.search}&order=-rating`)
+            fetch(`/search/?search=${match.params.search}&ordering=-rating`)
             .then(response => response.json())
             .then(result => {console.log('Rating Descending:', result); setItems(result)})
             .catch(error => console.log('error:', error));
         }
         if (index===3){     // Rating Ascending
-            fetch(`/search/?search=${match.params.search}&order=rating`)
+            fetch(`/search/?search=${match.params.search}&ordering=rating`)
             .then(response => response.json())
             .then(result => {console.log('Rating Ascending:', result); setItems(result)})
             .catch(error => console.log('error:', error));
@@ -137,7 +137,7 @@ function SearchPage({ match }) {
     }
     
 
-return (
+    return (
 
     <React.Fragment>
         <CssBaseline />
@@ -150,7 +150,7 @@ return (
                         align="center"
                         color="textPrimary"
                         gutterBottom>
-                        Search  Page
+                        Searching: {match.params.search}
             </Typography>
                     <Typography
                         variant="h5"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef,useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,6 +18,7 @@ import { FixedSizeList } from 'react-window';
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { TextField } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -63,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
   applybutton: {
     backgroundColor: "#17ba9c",
     fontSize: 18,
+  },
+  input:
+  {
+    alignContent: "center",
+    width: "150px",
   }
 }));
 
@@ -88,11 +94,11 @@ const TextTypography = withStyles({
 function Sidebar() {
   const classes = useStyles();
 
+  const minRef = useRef('') 
+  const maxRef = useRef('') 
+
   const [open, setOpen] = useState(true);
-
   const handleClick = () => setOpen(!open);
-
-  const [brandarray, setBrand] = useState([]);  //dynamic 
 
   function renderRow(props) {
     const { index, style } = props;
@@ -121,7 +127,22 @@ function Sidebar() {
         classes={{ paper: classes.drawerPaper, }} >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          {['PRICE', 'BRAND', 'RATING'].map((text, index) => (    // #069974
+        <TextTypography>Price</TextTypography>
+        <TextField className={classes.input}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Minimum"            
+            inputRef={minRef}
+          />
+          <TextField className={classes.input}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Maximum"
+            inputRef={maxRef}
+          />
+          {['BRAND', 'RATING'].map((text, index) => (    // #069974
             <div key={text} className={classes.fixedlist}>
               <TextTypography>{text}</TextTypography>
               <FixedSizeList height={200} width={200} itemSize={40} itemCount={10}>
