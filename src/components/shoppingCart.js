@@ -55,6 +55,7 @@ const ShoppingCartTab = () => {
   const[products,setProducts] = useState([]);
   const classes = useStyles();
   
+  
   useEffect(() => {fetchProducts();}, [])
  
   const fetchProducts = async () => {            
@@ -64,7 +65,7 @@ const ShoppingCartTab = () => {
       const products= await data.json();
      
       setProducts(products);
-
+     
      
   }
 
@@ -91,6 +92,11 @@ const ShoppingCartTab = () => {
     tax= 0.18* getTotal();
     return tax;
   }
+  const getTotalforOrder= () => {
+    localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
+    
+    return getTotal()+calculateShippingCost()+calculateTax();
+  };
   async function sendProducttoCart (id,quantityy) {
     try {
       const res = await fetch ('/basket/1/', {
@@ -227,6 +233,7 @@ const ShoppingCartTab = () => {
             product.product_id
             
           )}
+          
         </Grid>
          <Divider />
          </div>
@@ -261,7 +268,7 @@ const ShoppingCartTab = () => {
                   <td align="left" className={classes.itemTotal}>
                       <Typography variant="h5" component="p"> TOTAL</Typography>
                       </td>
-                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotal()+calculateShippingCost()+calculateTax()+"$"}</Typography></td>
+                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotalforOrder()+"$"}</Typography></td>
               </tr>
               
           </table>
