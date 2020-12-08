@@ -13,6 +13,7 @@ import {
     Divider,
     TextField
   } from "@material-ui/core";
+import { SettingsOverscanOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -49,6 +50,8 @@ const ShippingDetailsTap = () => {
   const [city, setCity] = useState("")
   const [postalCode, setPostalCode] = useState("")
   const [country, setCountry] = useState("")
+  const [phone_number, setTelephone] = useState(0)
+  const [total_price, setTotal] = useState(0);
 
   const handleChange = (event) => {
     setShipping(event.target.value);
@@ -102,6 +105,11 @@ const ShippingDetailsTap = () => {
     
     setLastName(value);
   };
+  const getTelephone = value => {
+    localStorage.setItem('phone_number',value);
+    
+    setTelephone(value);
+  };
   const getAddressLine = value => {
     localStorage.setItem('addressLine',value);
     
@@ -121,6 +129,10 @@ const ShippingDetailsTap = () => {
     localStorage.setItem('country',value);
     
     setCountry(value);
+  };
+  const getTotalforOrder= () => {
+    localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
+    setTotal((getTotal()+calculateShippingCost()+calculateTax()));
   };
   // const getSummaryCard = (product, price, imageUrl) => {
   //   return (
@@ -191,6 +203,13 @@ const ShippingDetailsTap = () => {
             onChange={(event) => getCountry(event.target.value)}
             fullWidth/>
             
+        </Grid>
+        <Grid item xs={12} sm={12} md={6}>
+            <TextField required
+            label="Telephone Number"
+            defaultValue={localStorage.getItem('phone_number') === null ? ("") : localStorage.getItem('phone_number')}
+            onChange={(event) => getTelephone(event.target.value),getTotalforOrder()}
+            fullWidth/>
         </Grid>
         
 
