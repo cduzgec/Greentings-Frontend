@@ -57,7 +57,7 @@ const ShoppingCartTab = () => {
   
   useEffect(() => {fetchProducts();}, [])
  
-  const fetchProducts = async () => {             /// try catchle
+  const fetchProducts = async () => {            
 
       const data = await fetch("/basket/1/");
 
