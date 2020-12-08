@@ -51,7 +51,6 @@ const ShippingDetailsTap = () => {
   const [postalCode, setPostalCode] = useState("")
   const [country, setCountry] = useState("")
   const [phone_number, setTelephone] = useState(0)
-  const [total_price, setTotal] = useState(0);
 
   const handleChange = (event) => {
     setShipping(event.target.value);
@@ -130,10 +129,7 @@ const ShippingDetailsTap = () => {
     
     setCountry(value);
   };
-  const getTotalforOrder= () => {
-    localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
-    setTotal((getTotal()+calculateShippingCost()+calculateTax()));
-  };
+
   // const getSummaryCard = (product, price, imageUrl) => {
   //   return (
   //     <CardActionArea>
@@ -208,7 +204,7 @@ const ShippingDetailsTap = () => {
             <TextField required
             label="Telephone Number"
             defaultValue={localStorage.getItem('phone_number') === null ? ("") : localStorage.getItem('phone_number')}
-            onChange={(event) => getTelephone(event.target.value),getTotalforOrder()}
+            onChange={(event) => getTelephone(event.target.value)}
             fullWidth/>
         </Grid>
         
