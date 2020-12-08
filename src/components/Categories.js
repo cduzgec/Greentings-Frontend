@@ -89,21 +89,19 @@ function Categories({ match }) {
   const[items,setItems] = useState([]);
  
   const fetchItems = async () => {             /// try catchle
-      const data = await fetch(`/categoryitems/${category.category_id}`);                         //    /category/${category.categories_id}
+      const data = await fetch(`/categoryitems/${category.category_id}/`);                         //    /category/${category.categories_id}
 
       const items= await data.json();
       console.log("ITEMS");
       console.log(items); 
       setItems(items);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
-      // priceı range şeklinde kutucuk ekle
   return (
     
     <React.Fragment>
       <CssBaseline />
       <main>
       <Sidebar/>
-        {/* Hero unit                                      SIDEEE BAARRRRRR   */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
@@ -129,7 +127,7 @@ function Categories({ match }) {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
+            {items.slice(0,numberofitems).map(item => (                                                              
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 <Link to = {`/product/${item.product_id}`} variant="body2" className={classes.link}>
                 <Card className={classes.card}>

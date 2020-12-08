@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     sort: {
-        marginLeft: "1500px",
+        marginLeft: "1200px",
         backgroundColor: "#64bf6a"
     },
 }));
@@ -70,10 +70,10 @@ const styles = {
         backgroundColor: "#64bf6a"
     }
 };
+
+
 const numberofitems = 10;
 
-
-const json = ['Price Descending', '/search/?search=${match.params.search}&ordering=price'];
 
 
 function SearchPage({ match }) {
@@ -82,6 +82,7 @@ function SearchPage({ match }) {
     useEffect(() => { fetchItems(); }, []);
 
     const [items, setItems] = useState([]);
+    const [text, setText] = useState("Random stuff writing about Search");
 
     const fetchItems = async () => {
         const data = await fetch(`/search/?search=${match.params.search}`);
@@ -90,7 +91,12 @@ function SearchPage({ match }) {
         console.log("ITEMS");
         console.log(items);
         setItems(items);
-    };         // brand_name: description: img: price: product_id: product_name: rating: stock:
+
+        if(items==""){
+            console.log("Items are empty") 
+            setText("Sorry but we don't have anything about this :(")     
+        }
+    };         
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -115,19 +121,19 @@ function SearchPage({ match }) {
         .catch(error => console.log('error:', error));
         }
         
-        if (index===1){     // Price Ascending
+        else if (index===1){     // Price Ascending
             fetch(`/search/?search=${match.params.search}&ordering=price`)
             .then(response => response.json())
             .then(result => {console.log('Price Ascending:', result); setItems(result)})
             .catch(error => console.log('error:', error));
         }
-        if (index===2){     // Rating Descending
+        else if  (index===2){     // Rating Descending
             fetch(`/search/?search=${match.params.search}&ordering=-rating`)
             .then(response => response.json())
             .then(result => {console.log('Rating Descending:', result); setItems(result)})
             .catch(error => console.log('error:', error));
         }
-        if (index===3){     // Rating Ascending
+        else if  (index===3){     // Rating Ascending
             fetch(`/search/?search=${match.params.search}&ordering=rating`)
             .then(response => response.json())
             .then(result => {console.log('Rating Ascending:', result); setItems(result)})
@@ -157,7 +163,7 @@ function SearchPage({ match }) {
                         align="center"
                         color="textSecondary"
                         paragraph>
-                        Random stuff writing about Search
+                        {text}
             </Typography>
                 </Container>
             </div>

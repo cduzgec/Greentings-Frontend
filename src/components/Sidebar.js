@@ -94,11 +94,10 @@ const TextTypography = withStyles({
 function Sidebar() {
   const classes = useStyles();
 
-  const minRef = useRef('') 
-  const maxRef = useRef('') 
-
-  const [open, setOpen] = useState(true);
-  const handleClick = () => setOpen(!open);
+  const [minPrice,setminPrice] = useState("");
+  const [maxPrice,setmaxPrice] = useState("");
+  const [minRating,setminRating] = useState("");
+  const [maxRating,setmaxRating] = useState("");
 
   function renderRow(props) {
     const { index, style } = props;
@@ -113,14 +112,32 @@ function Sidebar() {
     );
   }
 
+  function checkInput(){
+    var re = /^[0-9]*$/;
+
+    if (minPrice === "" || minPrice === "empty") {setminPrice("empty") }
+    else if(!re.test(minPrice)) { alert("Please insert numbers to minimum price box"); return false;}
+
+    if (maxPrice === ""|| maxPrice === "empty") {setmaxPrice("empty") }
+    else if(!re.test(maxPrice)) { alert("Please insert numbers to maximum price box"); return false;}
+
+    if (minRating === ""|| minRating === "empty") {setminRating("empty") }
+    else if(!re.test(minRating)) { alert("Please insert numbers to minimum rating box"); return false;}
+
+    if (maxRating === ""|| maxRating === "empty") {setmaxRating("empty") }
+    else if(!re.test(maxRating)) { alert("Please insert numbers to maximum rating box"); return false;}
+  }
+
   function sendFilter(){
-    console.log("Send Filter")
+    console.log("Send Filter with these values:") 
+    checkInput()
+    console.log(minPrice,maxPrice,minRating,maxRating)
+
   }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -133,25 +150,40 @@ function Sidebar() {
             margin="normal"
             fullWidth
             label="Minimum"            
-            inputRef={minRef}
+            onChange={e => {setminPrice(e.target.value); console.log(minPrice);}} 
           />
           <TextField className={classes.input}
             variant="outlined"
             margin="normal"
             fullWidth
             label="Maximum"
-            inputRef={maxRef}
+            onChange={e => setmaxPrice(e.target.value)} 
           />
-          {['BRAND', 'RATING'].map((text, index) => (    // #069974
+          {['BRAND'].map((text, index) => (    // #069974
             <div key={text} className={classes.fixedlist}>
               <TextTypography>{text}</TextTypography>
               <FixedSizeList height={200} width={200} itemSize={40} itemCount={10}>
                 {renderRow}
               </FixedSizeList>
-
             </div>
 
           ))}
+
+        <TextTypography>Rating</TextTypography>
+        <TextField className={classes.input}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Minimum"            
+            onChange={e => setminRating(e.target.value)} 
+          />
+          <TextField className={classes.input}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Maximum"
+            onChange={e => setmaxRating(e.target.value)} 
+          />
 
           <Button className={classes.applybutton} variant="contained" 
             onClick={sendFilter}>Apply Filters</Button>
@@ -162,33 +194,26 @@ function Sidebar() {
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
                 Filter in Related Category
-              </ListSubheader>
-            }
-            className={classes.listitem}
-          >
+              </ListSubheader>}
+            className={classes.listitem}>
             <ListItem>
-
-              <ListItemText primary="Sent mail" />
+            <ListItemText primary="" />
             </ListItem>
-            <ListItem button>
-
-              <ListItemText primary="Drafts" />
+            <ListItem>
+            <ListItemText primary="" />
             </ListItem>
-            <ListItem button onClick={handleClick}>
-
-              <ListItemText primary="Inbox" />
-              {open ? <ExpandLess /> : <ExpandMore />}
+            <ListItem>
+            <ListItemText primary="" />
+            </ListItem><ListItem>
+            <ListItemText primary="" />
             </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText primary="Starred" />
-                </ListItem>
-              </List>
-            </Collapse>
+            <ListItem>
+            <ListItemText primary="" />
+            </ListItem><ListItem>
+            <ListItemText primary="" />
+            </ListItem><ListItem>
+            <ListItemText primary="" />
+            </ListItem>
           </List>
         </div>
       </Drawer>
