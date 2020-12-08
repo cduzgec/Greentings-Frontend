@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import Button from '@material-ui/core/Button';
-import OurButton from "./button.js";
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -10,8 +10,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartTab from './shoppingCart';
 import ShippingDetailsTap from './ShippingDetails';
-import PaymentOptionsTab from './Payment';
-import Payment from "./Payment.js";
+
 import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(1),
     },
     buttonsContainer:{
-        marginLeft: "50px"
+        marginLeft: "50px",
+        color: "#93b53f"
     },
     link: {
       color: theme.palette.common.white,
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   function getSteps() {
-    return ['Shopping Cart','Shiping Details'];
+    return ['Shopping Cart', 'Shiping Details'];
   }
   
   function getStepContent(stepIndex) {
