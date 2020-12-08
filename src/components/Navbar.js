@@ -106,7 +106,7 @@ const Navbar= props => {
     <div className={classes.root}>
       <nav>
         <AppBar position="fixed" style={{ background: '#45b245', boxShadow: 'none', height: '150px' }}>
-          <Toolbar style={{ paddingLeft: '5em', paddingRight: '5em', paddingBottom: '1em', paddingTop: '2em' }}>
+          <Toolbar style={{ paddingLeft: '1em', paddingRight: '2em', paddingBottom: '1em', paddingTop: '2em' }}>
             
             <ThemeProvider theme={theme}>
               <Typography className={classes.title} noWrap>
