@@ -1,7 +1,7 @@
 import React from "react";
-import  { useEffect, useState } from 'react';
+import  {useRef,useState, useEffect} from 'react';
 import '../App.css';
-import { Grid, Typography, Divider, Button } from "@material-ui/core";
+import { Grid, Typography, Divider, Button  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import FormControl from "@material-ui/core/FormControl";
@@ -18,6 +18,19 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Carousel } from 'react-responsive-carousel';
 import ImageGallaryComponent from "./ImageGallaryComponent";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Comment, Icon, Form} from 'semantic-ui-react';
+import {
+
+  TextField
+} from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const styles = {
   paperContainer: {
@@ -62,20 +75,42 @@ button: {
     backgroundColor: green[800],
   },
 },
+commentStyle: {
+  width: '100%',
+  maxWidth: '36ch',
+  backgroundColor: theme.palette.background.paper,
+},
+inline: {
+  display: 'inline',
+},
 }));
 function ProductDetail({match}) {
-    useEffect(() => {fetchItem(); console.log(match); sendPhoto()},[]);
+    useEffect(() => {fetchItem(); console.log(match); sendPhoto(); fetchComments();},[]);
    
-  
+    const [comment, setComment] = useState("")
+    const [nickname, setNickname] = useState("")
+    const [rating, setRating] = useState(0)
     const [item, setItem] = useState({});
     const [photos, setPhoto] = useState([]);
-  
+    const[comments,setComments] = useState([]);
+    const [value, setValue] = React.useState(2);
+
     const fetchItem =async() => {
       const fetchItem = await fetch (`/product/${match.params.product_id}`);
       const item = await fetchItem.json();
       setItem(item);
       console.log(item);
     }
+    
+   
+    const fetchComments = async () => {             /// try catchle
+        const data = await fetch(`/comments/${match.params.product_id}/`);
+        const comments= await data.json();
+        setComments(comments);
+        console.log(comments);
+
+    }
+
     async function sendPhoto () {
       try {
         const response = await fetch ('/photos/', {       
@@ -104,6 +139,87 @@ function ProductDetail({match}) {
       }
 
     }
+
+    async function sendProducttoCart () {
+      try {
+
+        const res = await fetch ('/basket/1/', {
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "product": item.product_id,
+            "quantity": 1,
+          
+          })
+        });
+        console.log("response:",res)
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+
+    }
+    async function sendComment () {
+      try {
+        const res = await fetch (`/comments/${match.params.product_id}/`, {
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "nickname":nickname,
+            "text":comment,
+            "rating":rating,
+            "validation":false
+            })
+        });
+        if(res.status === 201){
+          console.log("response:",res)
+          localStorage.setItem("nickname", "")
+          localStorage.setItem("rating", "")
+          localStorage.setItem("comment", "")
+          setComment('')
+          setNickname('')
+          setRating("")
+          window.location.reload();
+        }
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+
+    }
+    const getComment = value => {
+      localStorage.setItem('comment',value);
+      
+      setComment(value);
+    };
+    const getNickname = value => {
+      localStorage.setItem('nickname',value);
+      
+      setNickname(value);
+    };
+    const getRating = value => {
+      localStorage.setItem('rating',value);
+      
+      setRating(value);
+    };
 
   // function getAllImages ( item_img, photos) {
   //   let allPhotos = []
@@ -223,17 +339,87 @@ function ProductDetail({match}) {
           </Grid>
 
         </Grid>
-        <Grid item className={classes.itemContainer}>
-        <Button variant="contained" color="primary" className={classes.button} endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
+        <Grid item className={classes.itemContainer}>    
+        <Button onClick={() => {sendProducttoCart() }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
             Add To Cart
         </Button>
         <Button variant="contained" color="primary" className={classes.button} endIcon={<FavoriteBorderSharpIcon fontSize="medium" />}>
             Add To Favorites
         </Button>
+ 
+        
         </Grid>
       </Grid>
     </Grid>
+          <Divider />
+          <Paper  style={styles.spaperContainer} elevation={10}>
+            <Box component="fieldset" mb={3} borderColor="transparent">
+            <Typography component="legend">Comment on </Typography>
+            <Rating
+                name="simple-controlled"
+                defaultValue={null}
+                onChange={(event, newValue) => {
+                  getRating(newValue);
+                }}
+              />
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField 
+                label="nickname"
+                defaultValue={localStorage.getItem('nickname') === null ? ("") : localStorage.getItem('nickname')}
+                onChange={(event) => getNickname(event.target.value)}
+                fullWidth/>
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField 
+                label="comment"
+                defaultValue={localStorage.getItem('comment') === null ? ("") : localStorage.getItem('comment')}
+                onChange={(event) => getComment(event.target.value)}
+                fullWidth/>
+              </Grid>
+
+
+
+              <Button onClick={() => {sendComment() }} variant="contained">
+                submit
+              </Button>
+              <Divider />
+              <List className={classes.commentStyle}>
+              {comments.map (comment => (
+                
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={comment.text}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          {comment.nickname}
+                        </Typography>
+                        {"\n"+comment.date}
+                        <Rating
+                            name="simple-controlled"
+                            defaultValue={comment.rating}
+                            disabled="true"
+                          />
+                      </React.Fragment>
+                      
+                    }
+                  />
+                </ListItem>
+                
+              ))}
+              </List>
+           </Box>
+          </Paper>
     </Paper>
+    
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import {useEffect } from "react";
 import {
     Typography,
     Grid,
@@ -42,27 +43,102 @@ const ShippingDetailsTap = () => {
   const classes = useStyles();
 
   const [shipping, setShipping] = useState("standard")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [addressLine, setAddressLine] = useState("")
+  const [city, setCity] = useState("")
+  const [postalCode, setPostalCode] = useState("")
+  const [country, setCountry] = useState("")
+
   const handleChange = (event) => {
     setShipping(event.target.value);
   };
+  const[products,setProducts] = useState([]);
+  
+  
+  useEffect(() => {fetchProducts();}, [])
+ 
+  const fetchProducts = async () => {            
 
-  const getSummaryCard = (product, price, imageUrl) => {
-    return (
-      <CardActionArea>
-        <Card className={classes.card}>
-          <div className={classes.cardDetails}>
-            <CardMedia image={imageUrl} className={classes.media} />
-          </div>
+      const data = await fetch("/basket/1/");
 
-          <CardContent style={{ marginLeft: "0" }}>
-            <Typography variant="h6">{product}</Typography>
-            
-            <Typography variant="subtitle2">{price}</Typography>
-          </CardContent>
-        </Card>
-      </CardActionArea>
-    );
+      const products= await data.json();
+     
+      setProducts(products);
+
+     
+  }
+
+  const getTotal = () =>
+  {
+    var total = 0;
+    for (var key in products) {
+      total = total + products[key].price *  products[key].quantity ;
+    }
+    return total;
+  }
+  const calculateShippingCost= () =>
+  {
+    if(getTotal()>100)
+    {
+      return 0;
+    }
+    else{return 13;}
+      
+  }
+  const calculateTax = () =>
+  {
+    let tax=0;
+    tax= 0.18* getTotal();
+    return tax;
+  }
+  const getFirstName = value => {
+    localStorage.setItem('firstName',value);
+    
+    setFirstName(value);
   };
+  const getLastName = value => {
+    localStorage.setItem('lastName',value);
+    
+    setLastName(value);
+  };
+  const getAddressLine = value => {
+    localStorage.setItem('addressLine',value);
+    
+    setAddressLine(value);
+  };
+  const getCity = value => {
+    localStorage.setItem('city',value);
+    
+    setCity(value);
+  };
+  const getPostalCode = value => {
+    localStorage.setItem('postalCode',value);
+    
+    setPostalCode(value);
+  };
+  const getCountry = value => {
+    localStorage.setItem('country',value);
+    
+    setCountry(value);
+  };
+  // const getSummaryCard = (product, price, imageUrl) => {
+  //   return (
+  //     <CardActionArea>
+  //       <Card className={classes.card}>
+  //         <div className={classes.cardDetails}>
+  //           <CardMedia image={imageUrl} className={classes.media} />
+  //         </div>
+
+  //         <CardContent style={{ marginLeft: "0" }}>
+  //           <Typography variant="h6">{product}</Typography>
+            
+  //           <Typography variant="subtitle2">{price}</Typography>
+  //         </CardContent>
+  //       </Card>
+  //     </CardActionArea>
+  //   );
+  // };
 
   return (
     <Grid container className={classes.gridContainer} spacing={4} alignItems="flex-start">
@@ -76,125 +152,71 @@ const ShippingDetailsTap = () => {
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="First name"
+            defaultValue={localStorage.getItem('firstName') === null ? ("") : localStorage.getItem('firstName')}
+            onChange={(event) => getFirstName(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="Last name"
+            defaultValue={localStorage.getItem('lastName') === null ? ("") : localStorage.getItem('lastName')}
+            onChange={(event) => getLastName(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} >
             <TextField required
-            label="Address line 1"
-            fullWidth/>
-        </Grid>
-        <Grid item xs={12} >
-            <TextField required
-            label="Address line 2"
+            label="Address line "
+            defaultValue={localStorage.getItem('addressLine') === null ? ("") : localStorage.getItem('addressLine')}
+            onChange={(event) => getAddressLine(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="City"
-            fullWidth/>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-            <TextField required
-            label="State"
+            defaultValue={localStorage.getItem('city') === null ? ("") : localStorage.getItem('city')}
+            onChange={(event) => getCity(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="Postal code"
+            defaultValue={localStorage.getItem('postalCode') === null ? ("") : localStorage.getItem('postalCode')}
+            onChange={(event) => getPostalCode(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="Country"
+            defaultValue={localStorage.getItem('country') === null ? ("") : localStorage.getItem('country')}
+            onChange={(event) => getCountry(event.target.value)}
             fullWidth/>
             
         </Grid>
         
-        <Grid item xs={12} className={classes.shippingContainer} container spacing={1} justify="center">
-            
-        <Grid item xs={12} sm={12} md={6}>
-        
-        <Card>
-            <CardHeader
-              avatar={
-                <Radio
-                  checked={shipping === "standard"}
-                  onChange={handleChange}
-                  value="standard"
-                  name="shippingType"
-                  inputProps={{ "aria-label": "Free Shipping" }}
-                />
-              }
-              title="Free Shipping"
-              subheader="Between 2-5 working days"
-            />
-            
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-        <Card>
-            <CardHeader
-              avatar={
-                <Radio
-                  checked={shipping === "express"}
-                  onChange={handleChange}
-                  value="express"
-                  name="shippingType"
-                  inputProps={{ "aria-label": "Next Day Delivery" }}
-                />
-              }
-              title="Next Day Delivery - $20"
-              subheader="24 hours from checkout"
-            />
-            
-          </Card>
-        </Grid>
-        </Grid>
+
       </Grid>
         
-      <Grid item xs={12} sm={6} md={4} container spacing={1}>
-        
-        <Typography variant="h4" gutterBottom>
+        <Grid item xs={12} sm={4}>
+          <Typography variant="h4" gutterBottom>
               Summary
           </Typography>
-          <Divider />
-          <Grid item xs={12}>
-          {getSummaryCard(
-            "PRODUCT NAME",
-            "$300",
-            "https://pbs.twimg.com/profile_images/1062308294671376384/4GqTgUgc_400x400.jpg"
-          )} 
-          </Grid>
-          <Grid item xs={12}>
-          {getSummaryCard(
-            "PRODUCT NAME",
-            "$300",
-            "https://pbs.twimg.com/profile_images/1062308294671376384/4GqTgUgc_400x400.jpg"
-          )} 
-          </Grid>
-          
-          
-          
-          
+       
           <Divider />
           <table width="100%">
               <tr>
                   <td align="left" className={classes.itemTotal}>SUBTOTAL</td>
-                  <td align="right" className={classes.itemTotal}>$600</td>
+          <td align="right" className={classes.itemTotal}>{getTotal()+"$"}</td>
               </tr>
               <tr>
                   <td align="left" className={classes.itemTotal}>SHIPPING</td>
-                  <td align="right" className={classes.itemTotal}>FREE</td>
+                  <td align="right" className={classes.itemTotal}>{calculateShippingCost()+"$"}</td>
               </tr>
               <tr>
                   <td align="left" className={classes.itemTotal}>TAXES</td>
-                  <td align="right" className={classes.itemTotal}>$13</td>
+                  <td align="right" className={classes.itemTotal}>{calculateTax()+"$"}</td>
               </tr>
+              
+
           </table>
           <Divider />
           <table width="100%">
@@ -202,11 +224,11 @@ const ShippingDetailsTap = () => {
                   <td align="left" className={classes.itemTotal}>
                       <Typography variant="h5" component="p"> TOTAL</Typography>
                       </td>
-                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> $613</Typography></td>
+                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotal()+calculateShippingCost()+calculateTax()+"$"}</Typography></td>
               </tr>
               
           </table>
-        </Grid>
+      </Grid>
      
     </Grid>
   );
