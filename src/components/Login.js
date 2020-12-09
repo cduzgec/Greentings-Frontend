@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Login(props) {
+function Login() {
   const classes = useStyles();
   
   const emailRef = useRef('') 
@@ -46,13 +46,21 @@ function Login(props) {
   const [password, setPassword] = useState("");
 
   const [id,setId] = useState("");
-  useEffect(() => {if (id) {console.log("User logged in: "+ id); 
-  props.SetLog("true"); 
-  console.log(props.Logged)
+  useEffect(() => {if (id) {console.log("User logged in: "+ id);
+
+  localStorage.removeItem("isLogged")
+  localStorage.setItem("isLogged", true)
+
+  localStorage.removeItem("user_id")
+  localStorage.setItem("user_id", id)
+
+  console.log("LOGINDEYIM")
+  console.log(localStorage.getItem("isLogged"))
+  console.log(localStorage.getItem("user_id"))
   setFlag("go");}}, [id]);
 
   const [flag,setFlag] = useState("");
-  useEffect(() => {if (flag) {props.history.push(`/userpage/${id}`);}}, [flag]);
+  useEffect(() => {if (flag) {window.location.replace(`/myaccount/${id}`);}}, [flag]);
 
 
   const [message,setMessage] = useState("");
