@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar= props => {
+const Navbar= () => {
   const classes = useStyles();
   const [categories, setCategory] = useState([]);
   
@@ -94,12 +94,17 @@ const Navbar= props => {
   //console.log(props);
 
   const [loginlogout, setLogin] = useState("Login");
-  useEffect(() => { LoginFunc(); }, [props.Logged]);
+  const [signup, setSignup] = useState("Signup");
+
+  useEffect(() => { LoginFunc(); }, [localStorage.getItem("isLogged")]);
   const LoginFunc = () => {
-    if (props.Logged === "false")
-      {setLogin("Login");}
-    if (props.Logged === "true")
-      {setLogin("Logout");}
+    if (localStorage.getItem("isLogged") === "false")
+      {setLogin("Login");
+      setSignup("Signup")
+    }
+    else if (localStorage.getItem("isLogged") === "true")
+      {setLogin("Logout");
+      setSignup("My Account")}
   }
 
   return (
@@ -124,23 +129,37 @@ const Navbar= props => {
               </Link>
                 <Button className={classes.link} color="primary"
                   onClick={() => {
-                    if (props.Logged === "false")
-                      {props.history.push("/login");}
+                    if (localStorage.getItem("isLogged") === "false")
+                      {window.location.replace(`/login`);}
 
-                    if (props.Logged === "true")
+                    else if (localStorage.getItem("isLogged") === "true")
                       {setLogin("Login");
-                      props.SetLog("true")
-                      props.SetUser("")
+                      console.log("NAVBAR 132")
+
+                      localStorage.removeItem("isLogged")
+                      localStorage.setItem("isLogged", false)
+
+                      console.log(localStorage.getItem("user_id"))
+                      localStorage.removeItem("user_id")
+                      localStorage.setItem("user_id", null)
+                      console.log(localStorage.getItem("user_id"))
+                      
+
                       window.location.replace(`/`)
                       }
                     }}>
                   {loginlogout}
                 </Button>
                 
-                {props.Logged === "false" &&
-                <Link className={classes.link} to='/signup'>
-                <Button className={classes.link} color="primary">Sign-Up</Button>
-                </Link>}
+                <Button className={classes.link} color="primary"
+                  onClick={() => {
+                    if (localStorage.getItem("isLogged") === "false")
+                      {window.location.replace(`/signup`);}
+
+                    else if (localStorage.getItem("isLogged") === "true")
+                    {window.location.replace(`/myaccount/${localStorage.getItem("user_id")}`);}}}>
+                  {signup}
+                </Button>
 
             </ThemeProvider>
             <Link className={classes.link} to='/cart'>

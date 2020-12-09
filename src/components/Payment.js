@@ -2,10 +2,9 @@ import React, {useState,useEffect} from "react";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import OurButton from "./button.js";
 import {makeStyles} from '@material-ui/core/styles';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,18 +13,36 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "500px",
     marginRight: "500px",
   },
-}));
+  }));
 
-
+  // flow: get card input - CheckCard - DoPayment - PostAdress - SendOrder - forward invoice page    // need to implement DoPayment
 export default function PaymentForm() {
   const classes = useStyles();
   const [name, setName] = useState("")
-  const [data, setDate] = useState("")
+  const [expiry_date, setExDate] = useState("")
   const [card, setcard] = useState("")
   const [cvv, setCVV] = useState("") 
-  const [address_id, setAddressID] = useState("")
-  useEffect(() => {if (address_id) {console.log("Address ID: "+ address_id); SendOrder();}}, [address_id]);
 
+  const [address_id, setAddressID] = useState("")
+  useEffect(() => {if (address_id) {console.log("Address ID: "+ address_id); SendOrder();}}, [address_id]); // input: PostAdress output: SendOrder
+
+  const [order_id, setOrderID] = useState("")
+  const [order_date, setOrdDate] = useState("")
+  useEffect(() => {if (address_id) {console.log("Order ID: "+ order_id); window.location.replace(`/invoice/${order_id}`);}}, [order_id]); // input: PostAdress output: SendOrder
+
+
+  function CheckCard()
+  { 
+    var re = /^[0-9]*/;
+    if (card.length !== 16 || !re.test(card)){
+      alert("Please check card number. It should be 16 digits number.");
+    }
+    if(cvv.length !== 3 || !re.test(cvv)){
+      alert("Please check CVV number. It should be 3 digits number.");
+    }
+    else
+    { PostAdress () }   // DoPayment (); 
+  }
 
   async function PostAdress () {
     try {
@@ -47,14 +64,14 @@ export default function PaymentForm() {
           "postal_code" : localStorage.getItem("postalCode"),
           "country" : localStorage.getItem("country"),
           "address_line" : localStorage.getItem("addressLine"),
-          "phone_number" : localStorage.getItem("phone_number"),
+          "phone_number" : "0251",                                                //localStorage.getItem("phone_number"),
           "user" : localStorage.getItem("user_id"),
+          "state" : "EYALET",
         })
       });
       console.log("Response Status: "+response.status)
-      
-
-      if (response.status === 201){
+       
+      if (response.status === 201){                                       // returns Response: 201  {address_id}
         response.json().then(data => {setAddressID(data.address_id)})
       }
       else {
@@ -66,7 +83,8 @@ export default function PaymentForm() {
   {
     console.log(e)
   }
-}
+  }
+
 
 async function SendOrder () {
   try {
@@ -83,26 +101,25 @@ async function SendOrder () {
       },
       body: JSON.stringify({
         "user": localStorage.getItem("user_id"),
-        "total_price": localStorage.getItem("user_id"),
-        "address": address_id,                                      // CREDIT CARD INFO EKLE
+        "total_price": "50",                                            //localStorage.getItem("total_price"),
+        "address": address_id,                                   
       })
     });
-    console.log("Response Status: "+response.status)
+    console.log("Response Status: "+response.status)                  // returns  Response: 201 {order_id user date address total_price}
     
-
     if (response.status === 201){
-      response.json().then(data => {setAddressID(data.address_id)})
-    }
+      response.json().then(data => {setOrderID(data.order_id); setOrdDate(data.date) })}
     else {
       response.json().then(data => {console.log(data)})
-      
+      }
     }
-}
-catch (e)
-{
-  console.log(e)
-}
-}
+  catch (e)
+    {
+      console.log(e)
+    }
+  }
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -126,7 +143,7 @@ catch (e)
             label="Card number"
             fullWidth
             autoComplete="cc-number"
-            onChange={(event) => setcard(event.target.value)}
+            onChange={(event) => {setcard(event.target.value); console.log(card)}}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -136,7 +153,7 @@ catch (e)
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
-            onChange={(event) => setDate(event.target.value)}
+            onChange={(event) => setExDate(event.target.value)}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -152,7 +169,7 @@ catch (e)
         </Grid>
 
         <OurButton
-            onClick = {PostAdress}
+            onClick = {CheckCard}         
             className={classes.submit}  
             fullWidth  variant="contained" >
             Pay
