@@ -6,10 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-
+import Container from '@material-ui/core/Container';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
 
@@ -54,7 +53,7 @@ function Login() {
   localStorage.removeItem("user_id")
   localStorage.setItem("user_id", id)
 
-  console.log("LOGINDEYIM")
+  //console.log("LOGINDEYIM")
   console.log(localStorage.getItem("isLogged"))
   console.log(localStorage.getItem("user_id"))
   setFlag("go");}}, [id]);
@@ -102,7 +101,7 @@ function Login() {
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){
-          response.json().then(data => {setId(data.user_id)})
+          response.json().then(data => {localStorage.setItem("user_type", data.user_type); setId(data.user_id)})
         }
         else {
           response.json().then(data => {setMessage(data.message)})
@@ -112,8 +111,7 @@ function Login() {
     catch (e)
     {
       console.log(e)
-    }
-    
+    } 
   }
   
   return (

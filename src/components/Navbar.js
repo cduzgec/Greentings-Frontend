@@ -98,13 +98,20 @@ const Navbar= () => {
 
   useEffect(() => { LoginFunc(); }, [localStorage.getItem("isLogged")]);
   const LoginFunc = () => {
-    if (localStorage.getItem("isLogged") === "false")
+    if (localStorage.getItem("isLogged") === "false" || localStorage.getItem("isLogged") === null )
       {setLogin("Login");
       setSignup("Signup")
     }
     else if (localStorage.getItem("isLogged") === "true")
-      {setLogin("Logout");
-      setSignup("My Account")}
+      { setLogin("Logout");
+
+        if ( localStorage.getItem("user_type") === "Sales Manager")
+        {setSignup("Sales Admin")}
+        else if ( localStorage.getItem("user_type") === "Product Manager")
+        {setSignup("Product Admin")}
+        else
+        {setSignup("My Account")}
+      }
   }
 
   return (
@@ -129,22 +136,21 @@ const Navbar= () => {
               </Link>
                 <Button className={classes.link} color="primary"
                   onClick={() => {
-                    if (localStorage.getItem("isLogged") === "false")
+                    if (localStorage.getItem("isLogged") === "false" || localStorage.getItem("isLogged") === null)
                       {window.location.replace(`/login`);}
 
                     else if (localStorage.getItem("isLogged") === "true")
                       {setLogin("Login");
-                      console.log("NAVBAR 132")
 
+                      localStorage.removeItem("user_type")
                       localStorage.removeItem("isLogged")
                       localStorage.setItem("isLogged", false)
 
-                      console.log(localStorage.getItem("user_id"))
                       localStorage.removeItem("user_id")
                       localStorage.setItem("user_id", null)
+
                       console.log(localStorage.getItem("user_id"))
                       
-
                       window.location.replace(`/`)
                       }
                     }}>
@@ -157,7 +163,14 @@ const Navbar= () => {
                       {window.location.replace(`/signup`);}
 
                     else if (localStorage.getItem("isLogged") === "true")
-                    {window.location.replace(`/myaccount/${localStorage.getItem("user_id")}`);}}}>
+                    {
+                      if ( localStorage.getItem("user_type") === "Sales Manager" )
+                      {window.location.replace(`/salesmanager/${localStorage.getItem("user_id")}`);}
+                      else if (localStorage.getItem("user_type") === "Product Manager")
+                      {window.location.replace(`/productmanager/${localStorage.getItem("user_id")}`);}
+                      else
+                      {window.location.replace(`/myaccount/${localStorage.getItem("user_id")}`);}
+                    }}}>
                   {signup}
                 </Button>
 

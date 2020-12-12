@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -74,4 +75,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default withRouter(ForgotPassword);
