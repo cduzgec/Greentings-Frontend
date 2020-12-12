@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -131,7 +132,7 @@ function MainPageItems() {
                     Brand:{item.brand_name}
                     </Typography>
                     <Typography>
-                    Rating: {item.rating}/5
+                    <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' /> 
                     </Typography>
                     </CardContent>
                 </Card>

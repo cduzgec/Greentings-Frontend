@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ChangePassword() {
+function ChangePassword() {
   const classes = useStyles();
   
   return (
@@ -41,7 +43,7 @@ export default function ChangePassword() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Plase enter your new password
+          Please enter your new password
         </Typography>
         <form className={classes.form} noValidate>
             <TextField
@@ -87,3 +89,5 @@ export default function ChangePassword() {
     </Container>
   );
 }
+
+export default withRouter(ChangePassword);

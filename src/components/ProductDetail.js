@@ -19,14 +19,10 @@ import { Carousel } from 'react-responsive-carousel';
 import ImageGallaryComponent from "./ImageGallaryComponent";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Comment, Icon, Form} from 'semantic-ui-react';
-import {
-
-  TextField
-} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';

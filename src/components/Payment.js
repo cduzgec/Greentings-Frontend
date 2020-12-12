@@ -5,15 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import OurButton from "./button.js";
 import {makeStyles} from '@material-ui/core/styles';
 
-
-
 const useStyles = makeStyles((theme) => ({
   submit: {
-    margin: theme.spacing(3, 0, 2),
     marginLeft: "500px",
     marginRight: "500px",
-  },
-  }));
+  },}));
 
   // flow: get card input - CheckCard - DoPayment - PostAdress - SendOrder - forward invoice page    // need to implement DoPayment
 export default function PaymentForm() {
@@ -28,7 +24,7 @@ export default function PaymentForm() {
 
   const [order_id, setOrderID] = useState("")
   const [order_date, setOrdDate] = useState("")
-  useEffect(() => {if (address_id) {console.log("Order ID: "+ order_id); window.location.replace(`/invoice/${order_id}`);}}, [order_id]); // input: PostAdress output: SendOrder
+  useEffect(() => {if (order_id) {console.log("Order ID: "+ order_id); window.location.replace(`/invoice/${order_id}`);}}, [order_id]); // input: PostAdress output: SendOrder
 
 
   function CheckCard()
@@ -78,11 +74,11 @@ export default function PaymentForm() {
         response.json().then(data => {console.log(data)})
         
       }
-  }
+    }
   catch (e)
-  {
-    console.log(e)
-  }
+    {
+      console.log(e)
+    }
   }
 
 
@@ -107,11 +103,8 @@ async function SendOrder () {
     });
     console.log("Response Status: "+response.status)                  // returns  Response: 201 {order_id user date address total_price}
     
-    if (response.status === 201){
-      response.json().then(data => {setOrderID(data.order_id); setOrdDate(data.date) })}
-    else {
-      response.json().then(data => {console.log(data)})
-      }
+    if (response.status === 201){ response.json().then(data => {setOrderID(data.order_id); setOrdDate(data.date) })}
+    else { response.json().then(data => {console.log(data)}) }
     }
   catch (e)
     {

@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
 import Sidebar from './Sidebar'
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -88,7 +89,7 @@ function Categories({ match }) {
 
   const[items,setItems] = useState([]);
  
-  const fetchItems = async () => {             /// try catchle
+  const fetchItems = async () => {         
       const data = await fetch(`/categoryitems/${category.category_id}/`);                         //    /category/${category.categories_id}
 
       const items= await data.json();
@@ -96,12 +97,14 @@ function Categories({ match }) {
       console.log(items); 
       setItems(items);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
+
+
   return (
     
     <React.Fragment>
       <CssBaseline />
       <main>
-      <Sidebar/>
+      <Sidebar categoryid = {match.params.categories_id} />
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
@@ -146,7 +149,7 @@ function Categories({ match }) {
                     Brand:{item.brand_name}
                     </Typography>
                     <Typography>
-                    Rating: {item.rating}/5
+                    <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' /> 
                     </Typography>
                     </CardContent>
                 </Card>
