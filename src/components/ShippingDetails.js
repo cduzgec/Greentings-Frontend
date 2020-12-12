@@ -56,7 +56,7 @@ const ShippingDetailsTap = () => {
  
   const fetchProducts = async () => {            
 
-      const data = await fetch("/basket/1/");
+      const data = await fetch(`/basket/${localStorage.getItem("user_id")}/`);
 
       const products= await data.json();
      
@@ -71,7 +71,7 @@ const ShippingDetailsTap = () => {
     for (var key in products) {
       total = total + products[key].price *  products[key].quantity ;
     }
-    return total;
+    return Number(total.toFixed(2));
   }
   const calculateShippingCost= () =>
   {
@@ -86,8 +86,14 @@ const ShippingDetailsTap = () => {
   {
     let tax=0;
     tax= 0.18* getTotal();
-    return tax;
+    return Number(tax.toFixed(2));
   }
+  const getTotalforOrder= () => {
+    
+    
+    return Number((getTotal()+calculateShippingCost()+calculateTax()).toFixed(2));
+  };
+
   const getFirstName = value => {
     localStorage.setItem('firstName',value);
     
@@ -123,6 +129,8 @@ const ShippingDetailsTap = () => {
     
     setCountry(value);
   };
+
+
 
   // const getSummaryCard = (product, price, imageUrl) => {
   //   return (
@@ -233,7 +241,7 @@ const ShippingDetailsTap = () => {
                   <td align="left" className={classes.itemTotal}>
                       <Typography variant="h5" component="p"> TOTAL</Typography>
                       </td>
-                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotal()+calculateShippingCost()+calculateTax()+"$"}</Typography></td>
+                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotalforOrder()+"$"}</Typography></td>
               </tr>
               
           </table>
