@@ -157,6 +157,7 @@ function ProductDetail({match}) {
           })
         });
         console.log("response:",res)
+        alert("Product is added to the cart");
       }
       catch (e)
       {
