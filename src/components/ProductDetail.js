@@ -99,7 +99,7 @@ function ProductDetail({match}) {
     }
     
    
-    const fetchComments = async () => {             /// try catchle
+    const fetchComments = async () => {             
         const data = await fetch(`/comments/${match.params.product_id}/`);
         const comments= await data.json();
         setComments(comments);
@@ -139,7 +139,7 @@ function ProductDetail({match}) {
     async function sendProducttoCart () {
       try {
 
-        const res = await fetch ('/basket/1/', {
+        const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
           method: "post",
           mode: "cors",
           headers:
@@ -157,6 +157,7 @@ function ProductDetail({match}) {
           })
         });
         console.log("response:",res)
+        alert("Product is added to the cart");
       }
       catch (e)
       {

@@ -10,7 +10,9 @@ import Container from "@material-ui/core/Container";
 import {Link} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
 import Rating from "@material-ui/lab/Rating";
-
+import {green} from '@material-ui/core/colors';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import {  Button  } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -56,6 +58,14 @@ const useStyles = makeStyles((theme) => ({
       padding: "40px",
     },
   },
+  button: {
+    margin: theme.spacing(1),
+    backgroundColor: green[500],
+    fontSize: 16,
+    '&:hover': {
+      backgroundColor: green[800],
+    },
+  },
 
 }));
 
@@ -82,6 +92,36 @@ function MainPageItems() {
       //console.log(items); 
       setItems(items);}
 
+
+  async function sendProducttoCart (id) {
+      try {
+
+        const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
+            "product": id,
+            "quantity": 1,
+          
+          })
+        });
+        console.log("response:",res)
+        alert("Product is added to the cart");
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+
+    }
       
   return (
     <React.Fragment>
@@ -115,12 +155,14 @@ function MainPageItems() {
           
             {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
-                <Link to = {`/product/${item.product_id}`} variant="body2" className={classes.link}>
+                
                 <Card className={classes.card}>
+                <Link to = {`/product/${item.product_id}`} variant="body2" className={classes.link}>
                   <CardMedia
                     className={classes.cardMedia}
                     image= {item.img}
                     title="Image title" />
+                    </Link>
                     <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                     {item.product_name}
@@ -134,9 +176,12 @@ function MainPageItems() {
                     <Typography>
                     <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' /> 
                     </Typography>
+                    <Button onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
+                     Add To Cart
+                     </Button>
                     </CardContent>
                 </Card>
-              </Link>
+              
               </Grid>
             ))}
 

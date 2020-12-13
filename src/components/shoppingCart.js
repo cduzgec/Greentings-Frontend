@@ -55,14 +55,27 @@ const ShoppingCartTab = () => {
  
   const fetchProducts = async () => {            
 
-      const data = await fetch("/basket/1/");
+      const data = await fetch(`/basket/${localStorage.getItem("user_id")}/`);
 
       const products= await data.json();
      
       setProducts(products);
      
      
-  }
+  } 
+  // const itemExist = () =>
+  // {
+  //   var k = 0;
+  //   for (var key in products) {
+  //    k = k + products[key].quantity ;
+  //   }
+  //   if (k===0){
+  //     return false;
+  //   }
+  //   else {
+  //   return true;
+  //   }
+  // }
 
   const getTotal = () =>
   {
@@ -70,11 +83,12 @@ const ShoppingCartTab = () => {
     for (var key in products) {
       total = total + products[key].price *  products[key].quantity ;
     }
-    return total;
+    return Number(total.toFixed(2));
   }
+ 
   const calculateShippingCost= () =>
   {
-    if(getTotal()>100)
+    if(getTotal()>100 || getTotal()===0)
     {
       return 0;
     }
@@ -85,16 +99,16 @@ const ShoppingCartTab = () => {
   {
     let tax=0;
     tax= 0.18* getTotal();
-    return tax;
+    return Number( tax.toFixed(2));
   }
   const getTotalforOrder= () => {
     localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
     
-    return getTotal()+calculateShippingCost()+calculateTax();
+    return Number((getTotal()+calculateShippingCost()+calculateTax()).toFixed(2));
   };
   async function sendProducttoCart (id,quantityy) {
     try {
-      const res = await fetch ('/basket/1/', {
+      const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
         method: "post",
         mode: "cors",
         headers:
@@ -121,7 +135,7 @@ const ShoppingCartTab = () => {
   }
   async function deleteProduct (id, index) {
     try {
-      const res = await fetch ('/basket/1/', {
+      const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
         method: "delete",
         mode: "cors",
         headers:
@@ -143,6 +157,7 @@ const ShoppingCartTab = () => {
         tempProducts.splice(index,1);
         setProducts(tempProducts);
         console.log(products);
+        window.location.reload();
       } 
     }
     catch (e)

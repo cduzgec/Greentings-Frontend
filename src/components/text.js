@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   p:{
-      fontSize: "20px",
+      fontSize: "18px",
       color: "black"
   },
   h1:{
@@ -46,8 +46,25 @@ export default function Text() {
       <Paper style={styles.paperContainer} elevation={10}>
       <div className={classes.box}>
         <h2 className={classes.h1}>Why Shop Green?</h2>
-        <p className={classes.p}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a blandit mi. Sed turpis dolor, congue nec consequat et, volutpat quis justo. Nullam imperdiet dictum lectus, et eleifend quam semper nec. Nunc suscipit, purus sit amet volutpat viverra, nisl leo dictum lectus, sed sagittis mauris eros eget lorem. Cras eleifend posuere risus, eget ultricies nulla maximus nec. Aliquam venenatis condimentum lorem at egestas. Duis libero enim, tincidunt vitae ligula sit amet, aliquam bibendum erat. Aenean malesuada turpis risus, vel euismod sem convallis sed. Pellentesque ullamcorper commodo gravida. Sed molestie condimentum metus, et cursus arcu sodales at. Donec in neque in tortor dignissim semper. Suspendisse potenti. Fusce fermentum est id dui efficitur posuere. Vivamus vehicula finibus dui, vitae dapibus orci cursus mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-        Suspendisse dignissim dolor quis tristique vestibulum. </p>
+        <p className={classes.p}>
+        There are many reasons to shop sustainably, including benefits to you, the environment, and other people.
+        </p>
+        <h3 className={classes.h1}>Protect the environment</h3>
+        <p className={classes.p}>
+        Sustainably produced food and products have less negative impact on the environment. This includes fewer chemical pesticides, a greater diversity of plants, less consumption of fossil fuels and sustainably sourced raw material.
+        </p>
+        <h3 className={classes.h1}>Promote health</h3>
+        <p className={classes.p}>
+        Sustainable farming focuses on producing healthy food. This means fewer pesticides, 
+        chemicals, additives and preservatives, which are toxic to our waterways and our health.
+         Sustainable food will also be of higher quality because of the way the animals are treated, 
+         such as the space they have and the quality of food they are fed. Sustainable gifts and sustainable fashion minimise pollution and the use of raw materials, energy and water.
+        </p>
+        <h3 className={classes.h1}>Promote animal welfare</h3>
+        <p className={classes.p}>
+        You may have assumed that most major  companies were on board with alternatives
+         to cruelty to animals, but there are some that still pay to poison and kill. It isn’t always easy to know which brands don’t test on animals.
+        </p>
       </div>
       </Paper>
     </div>
