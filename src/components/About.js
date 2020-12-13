@@ -9,7 +9,7 @@ import Team from './team';
 const styles = {
   paperContainer: {
       backgroundImage: `url(${Image})`,
-      opacity: "0.95" 
+      opacity: "1" 
   }
 };
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
   box:{
-    backgroundColor: fade(theme.palette.common.white, 0.70),
+    backgroundColor: fade(theme.palette.common.white, 0.80),
     padding: "20px",
   }
 

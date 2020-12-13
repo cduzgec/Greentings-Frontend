@@ -132,7 +132,7 @@ const Navbar= () => {
 
             <ThemeProvider theme={buttonTheme}>
               <Link className={classes.link} to='/about'>
-                <Button className={classes.link} color="primary" >About</Button>
+                <Button className={classes.link} color="primary" >About Us</Button>
               </Link>
                 <Button className={classes.link} color="primary"
                   onClick={() => {

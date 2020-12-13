@@ -17,42 +17,42 @@ const activeCore = [
   {
     name: 'Aleyna Beste Özhan',
     email: 'aleynabeste@sabanciuniv.edu',
-    flag: 'meme master',
+    flag: 'DB Designer, Front-end Developer',
     location: 'Corum, Turkey',
     img: B,
   },
   {
     name: 'Seray Ayakta',
     email: 'serayayakta@sabanciuniv.edu',
-    flag: 'scrum master',
+    flag: 'DB Designer, Front-end Developer',
     location: 'Manisa, Turkey',
     img:  S
   },
   {
     name: 'Çiğdem Ceyda Düzgeç',
     email: 'cduzgec@sabanciuniv.edu ',
-    flag: 'yoga master',
+    flag: 'Front-end Developer',
     location: 'Istanbul, Turkey',
     img:  C,
   },
   {
     name: 'Mustafa Ozan Yıldırım',
     email: 'oyildirim@sabanciuniv.edu ',
-    flag: 'corona master',
-    location: 'Tantuni, Turkey',
+    flag: 'DB Designer, Back-end Developer',
+    location: 'Mersin, Turkey',
     img:  O,
   },
   {
     name: 'Onat Kutlu',
     email: 'onatkutlu@sabanciuniv.edu ',
-    flag: 'mic master',
+    flag: 'Back-end Developer',
     location: 'Istanbul, Turkey',
     img:  On,
   },
   {
     name: 'Ilgın Sara Hacipoğlu',
     email: 'ilginsara@sabanciuniv.edu ',
-    flag: 'jira master',
+    flag: 'Front-end Developer',
     location: 'Istanbul, Turkey',
     img:  I,
   },
@@ -113,7 +113,7 @@ function Group(props) {
                     <Typography variant="body2" color="textSecondary">
                       {member.location}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography style={{ textTransform: 'lowercase'}} variant="body2" color="textSecondary">
                       {member.email}
                     </Typography>
     
@@ -141,7 +141,7 @@ function Team(props) {
       <Group
         title="Core team"
         description={`The development of the project and its ecosystem is
-guided by an awesome team`}
+guided by this awesome team`}
         members={activeCore}
         {...props}
       />
