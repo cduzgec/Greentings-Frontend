@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
+import { SettingsSystemDaydream } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,6 +46,8 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const [id,setId] = useState("");
+  
+ 
   useEffect(() => {if (id) {console.log("User logged in: "+ id);
 
   localStorage.removeItem("isLogged")
@@ -52,7 +55,7 @@ function Login() {
 
   localStorage.removeItem("user_id")
   localStorage.setItem("user_id", id)
-
+ 
   //console.log("LOGINDEYIM")
   console.log(localStorage.getItem("isLogged"))
   console.log(localStorage.getItem("user_id"))
@@ -101,7 +104,7 @@ function Login() {
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){
-          response.json().then(data => {localStorage.setItem("user_type", data.user_type); setId(data.user_id)})
+          response.json().then(data => {localStorage.setItem("user_type", data.user_type); setId(data.user_id); localStorage.setItem("firstName", data.first_name); localStorage.setItem("lastName", data.last_name)})
         }
         else {
           response.json().then(data => {setMessage(data.message)})

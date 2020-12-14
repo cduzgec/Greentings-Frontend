@@ -16,9 +16,9 @@ import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 //import Carousel from 'react-material-ui-carousel'
 import { Carousel } from 'react-responsive-carousel';
-import ImageGallaryComponent from "./ImageGallaryComponent";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Comment, Icon, Form} from 'semantic-ui-react';
+
 import {TextField} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -53,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     color: "0000",
     fontSize: "20px"
+
+  },
+  name:{
+    textAlign: "left !important",
+
 
   },
   formControl: {
@@ -121,7 +126,7 @@ function ProductDetail({match}) {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "product_id": 1
+            "product_id": match.params.product_id
   
           })
         });
@@ -179,7 +184,7 @@ function ProductDetail({match}) {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "nickname":nickname,
+            "nickname":localStorage.getItem('firstName') +" "+ localStorage.getItem('lastName'),
             "text":comment,
             "rating":rating,
             "validation":false
@@ -194,6 +199,7 @@ function ProductDetail({match}) {
           setNickname('')
           setRating("")
           window.location.reload();
+          alert("We received your comment. You may see it after approval.")
         }
       }
       catch (e)
@@ -301,38 +307,10 @@ function ProductDetail({match}) {
             </Typography>
           </Grid>
           <Grid item>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-controlled-open-select-label">
-                Select Size
-              </InputLabel>
-              
-              <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                placeholder="Select" //buraya sonra renk size secenegi gelcek
-              >
-                <MenuItem >size 1</MenuItem>
-                <MenuItem >size 2</MenuItem>
-                <MenuItem >size 3</MenuItem>
-              </Select>
-            </FormControl>
+   
           </Grid>
           <Grid item>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-controlled-open-select-label">
-                Select Color
-              </InputLabel>
-              
-              <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                placeholder="Select" //buraya sonra renk size secenegi gelcek
-              >
-                <MenuItem >{item.brand_name}</MenuItem>
-                <MenuItem >item.color</MenuItem>
-                <MenuItem >item.color</MenuItem>
-              </Select>
-            </FormControl>
+
           </Grid>
 
         </Grid>
@@ -360,11 +338,15 @@ function ProductDetail({match}) {
                 }}
               />
               <Grid item xs={12} sm={12} md={6}>
-                <TextField 
-                label="nickname"
-                defaultValue={localStorage.getItem('nickname') === null ? ("") : localStorage.getItem('nickname')}
+                <Typography className={classes.name}>
+                  Name: {localStorage.getItem('firstName')}  {localStorage.getItem('lastName')} 
+                </Typography>
+                {/* <TextField disabled={true}
+                label="name"
+                defaultValue={localStorage.getItem('firstName') === null ? ("") : localStorage.getItem('firstName')}
                 onChange={(event) => getNickname(event.target.value)}
                 fullWidth/>
+               */}
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField 
@@ -376,7 +358,7 @@ function ProductDetail({match}) {
 
 
 
-              <Button onClick={() => {sendComment() }} variant="contained">
+              <Button disabled={localStorage.getItem("isLogged")==='false'} onClick={() => {sendComment() }} variant="contained">
                 submit
               </Button>
               <Divider />
