@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
           })
         });
-        console.log("Response Status: "+response.status)
+        console.log("Response Status: "+response.status)                        //// CAHNGE LOGGEDIN
 
         if (response.status === 200){                                          //change the code
           window.location.replace(`/userpage/${match.params.user_id}`)
