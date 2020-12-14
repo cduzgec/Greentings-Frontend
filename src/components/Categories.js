@@ -100,7 +100,7 @@ function Categories({ match }) {
 
   const[items,setItems] = useState([]);
  
-  const fetchItems = async () => {         
+  const fetchItems = async () => {      
       const data = await fetch(`/categoryitems/${category.category_id}/`);                         //    /category/${category.categories_id}
 
       const items= await data.json();
@@ -138,13 +138,19 @@ function Categories({ match }) {
 
   }
 
+  const onchange = (data) => {
+    setItems(data)
+    console.log("Call back");
+    console.log(data);
+    }
+
 
   return (
     
     <React.Fragment>
       <CssBaseline />
       <main>
-      <Sidebar categoryid = {match.params.categories_id} />
+      <Sidebar categoryid = {match.params.categories_id} onchange={(e) => { onchange(e) }} />
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography

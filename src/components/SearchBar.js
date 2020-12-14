@@ -2,15 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: [
-      '"Segoe UI Emoji"'
-    ].join(','),
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -66,7 +57,8 @@ function SearchBar (props) {
 
   useEffect(() => {
     const listener = event => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
+      if ((event.code === "Enter" || event.code === "NumpadEnter") && searchRef.current.value !== "") {
+        console.log("Enter key was pressed. Running your function.");
         console.log("Enter key was pressed. Running your function.");
         window.location.replace(`/search/${searchRef.current.value}`);
       }

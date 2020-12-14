@@ -22,16 +22,15 @@ import Invoice from "./components/Invoice";
 import SalesManager from "./components/SalesManager";
 import ProductManager from "./components/ProductManager";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Alert from 'react-bootstrap/Alert';
 
 export default function App () {
 
   function hasVisitedAlert(){
     if( localStorage.getItem("hasVisited") === null ){
       localStorage.setItem("hasVisited", true)
-      alert("Hi welcome to our awesome website. We are using your localstorage for keeping your information. Dont worry. You are safe with us. Have fun :)")
-    }
-  }
+      alert("Hi welcome to our awesome website. We are using your localstorage for keeping your information. Dont worry. You are safe with us. Have fun!!"
+      )
+  }}
 
   useEffect(() => { hasVisitedAlert();}, []);
 
@@ -53,12 +52,12 @@ export default function App () {
           <Route path='/category/:categories_id' component={Categories} />
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
+          <Route path='/forgotpassword' component={ForgotPassword} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
           <ProtectedRoute path='/myaccount/:user_id' component={UserPage} />
           <ProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
-          <ProtectedRoute path='/forgotpassword' component={ForgotPassword} />
           <ProtectedRoute path='/forgotconfirmation' component={ForgotConfirmation} />
 
           

@@ -29,7 +29,7 @@ export default function PaymentForm() {
 
   function CheckCard()
   { 
-    var re = /^[0-9]*/;
+    var re = /^[0-9]*/; 
     if (card.length !== 16 || !re.test(card)){
       alert("Please check card number. It should be 16 digits number.");
     }

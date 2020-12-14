@@ -18,12 +18,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(5, 0, 1),
     backgroundColor: "#eeeee4",
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-    
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -52,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
     
       fontFamily: "Arial, Helvetica, sans-serif",
-      margin: "100px 200px",
+      margin: "50px 200px",
       width: "100%",
       height: "fit-content",
       padding: "40px",
