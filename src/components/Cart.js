@@ -84,7 +84,7 @@ const StepperCart = (props)=>{
   function CheckInput()
   { 
     if(activeStep === steps.length -1){
-      var re = /^[0-9]*/; // num
+      const re = /^[0-9\b]+$/; // num
       if (localStorage.getItem("postalCode")===null || (localStorage.getItem("postalCode")==="" || localStorage.getItem("postalCode").length >= 10 || !re.test(localStorage.getItem("postalCode")))){
         alert("Please check postal code. It should be max 10 digits number and not empty.");
         return false;
