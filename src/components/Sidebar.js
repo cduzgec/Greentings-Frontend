@@ -8,21 +8,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Checkbox from '@material-ui/core/Checkbox';
-import { FixedSizeList } from 'react-window';
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { TextField } from '@material-ui/core';
 import Rating from "@material-ui/lab/Rating";
 import { green } from '@material-ui/core/colors';
-
-
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-
-
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
 
 const drawerWidth = 240;
 
@@ -99,7 +90,6 @@ const TextTypography = withStyles({
 }
 )(Typography);
 
-
 const GreenCheckbox = withStyles({
   root: {
     color: green[400],
@@ -110,28 +100,24 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-
-
 function Sidebar(props) {
   const classes = useStyles();
 
   const [message,setMessage] = useState("");
-  const [minPrice,setminPrice] = useState("");
-  const [maxPrice,setmaxPrice] = useState("");
+  const [minPrice,setminPrice] = useState("empty");
+  const [maxPrice,setmaxPrice] = useState("empty");
   const [rating,setRating] = useState(0);
   const [checked, setChecked] = useState([]);                 // add checked brands to
   let brandsString = "";
   // fetch
   const [brands,setBrands] = useState([]);
-  const[items,setItems] = useState([]);
 
-  useEffect(() => {fetchBrands();}, []);
+  useEffect(() => {fetchBrands();}, [props.categoryid]);
 
   useEffect(() => {checkInput();}, [minPrice]);
   useEffect(() => {checkInput();}, [maxPrice]);
-  useEffect(() => {convertString();}, [checked]);
+  //useEffect(() => {convertString();}, [checked]);
 
-  //useEffect(() => {sendItemsToCategory();}, [items]);
  
   const fetchBrands = async () => {         
       const data = await fetch(`/categorynames/${props.categoryid}`);                         //    /category/${category.categories_id}
@@ -172,6 +158,31 @@ function Sidebar(props) {
 
   }
   
+
+
+  const getCheckedItems = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    setChecked(newChecked);
+    
+  };
+
+  function convertString() {
+    //brandsString = checked.join(", ");
+    for (let i = 0; i < checked.length; i++) {
+      if (brandsString === "") { brandsString = checked[i].name;}
+      else {brandsString += " "+ checked[i].name; } 
+     }
+     console.log(brandsString)
+     //brandsString = "";
+     sendFilter ()
+  }
+
   async function sendFilter () {
     try {
         const response = await fetch (`/categoryitems/${props.categoryid}/`, {       
@@ -186,16 +197,17 @@ function Sidebar(props) {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "brand":checked,
+            "brand": "empty",
             "rating": parseInt(rating),
-            "price_upper": parseInt(minPrice),
-            "price_lower": parseInt(maxPrice),
+            "price_upper": maxPrice,
+            "price_lower": minPrice
         })
         });
+        console.log(brandsString, parseInt(rating), maxPrice,minPrice )
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){
-          response.json().then(data => setItems(data))
+          response.json().then(data => {console.log({data}); sendItemsToCategory(data)})       
         }
         else {
           response.json().then(data => {setMessage(data.message)})
@@ -207,49 +219,10 @@ function Sidebar(props) {
     } 
   }   
 
-
-
-
-
-
-
-
-
-  const sendItemsToCategory = (index) => { // the callback. Use a better name
-    console.log(index);
-    setItems(index);
+  const sendItemsToCategory = (items) => { // the callback. Use a better name
+    console.log(items);
+    props.onchange(items);
   };
-
-
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-
-
-    
-  };
-
-  function convertString() {
-    brandsString = checked.join(", ");
-    for (let i = 0; i < checked.length; i++) {
-      brandsString = checked[i].name;
-     }
-
-
-
-
-    console.log(checked);
-    console.log(brandsString);
-    console.log(brandsString.length);
-    brandsString = "";
-  }
 
   return (
     <div className={classes.root}>
@@ -288,7 +261,7 @@ function Sidebar(props) {
 
                 return (
                 <List className={classes.rootforcheck}>
-                  <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                  <ListItem key={index} role={undefined} dense button onClick={getCheckedItems(index)}>
                     <ListItemIcon>
                       <GreenCheckbox
                         edge="start"
@@ -317,7 +290,7 @@ function Sidebar(props) {
             <ListItem><ListItemText primary="" /></ListItem>
           
           <Button className={classes.applybutton} variant="contained" 
-            onClick={fetchBrands}>Apply Filters</Button>
+            onClick={convertString}>Apply Filters</Button>
 
           <List
             component="nav"

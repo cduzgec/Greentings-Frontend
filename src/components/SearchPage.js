@@ -92,7 +92,7 @@ function SearchPage({ match }) {
         console.log(items);
         setItems(items);
 
-        if(items==""){
+        if(items===""){
             console.log("Items are empty") 
             setText("Sorry but we don't have anything about this :(")     
         }
