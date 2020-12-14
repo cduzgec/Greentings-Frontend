@@ -47,16 +47,17 @@ function Login() {
   const [id,setId] = useState("");
   useEffect(() => {if (id) {console.log("User logged in: "+ id);
 
-  localStorage.removeItem("isLogged")
-  localStorage.setItem("isLogged", true)
+    localStorage.removeItem("isLogged")
+    localStorage.setItem("isLogged", true)
 
-  localStorage.removeItem("user_id")
-  localStorage.setItem("user_id", id)
+    localStorage.removeItem("user_id")
+    localStorage.setItem("user_id", id)
 
-  //console.log("LOGINDEYIM")
-  console.log(localStorage.getItem("isLogged"))
-  console.log(localStorage.getItem("user_id"))
-  setFlag("go");}}, [id]);
+    //console.log("LOGINDEYIM")
+    console.log(localStorage.getItem("isLogged"))
+    console.log(localStorage.getItem("user_id"))
+    setFlag("go");}}, [id]
+  );
 
   const [flag,setFlag] = useState("");
   useEffect(() => {if (flag) {window.location.replace(`/myaccount/${id}`);}}, [flag]);

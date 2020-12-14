@@ -148,6 +148,8 @@ const Navbar= () => {
 
                       localStorage.removeItem("user_type")
                       localStorage.removeItem("isLogged")
+                      localStorage.removeItem("firstName")
+                      localStorage.removeItem("lastName")
                       localStorage.setItem("isLogged", false)
 
                       localStorage.removeItem("user_id")
