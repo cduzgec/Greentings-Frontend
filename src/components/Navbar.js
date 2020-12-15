@@ -165,7 +165,7 @@ const Navbar= () => {
                 
                 <Button className={classes.link} color="primary"
                   onClick={() => {
-                    if (localStorage.getItem("isLogged") === "false")
+                    if (localStorage.getItem("isLogged") === "false" || localStorage.getItem("isLogged") === null)
                       {window.location.replace(`/signup`);}
 
                     else if (localStorage.getItem("isLogged") === "true")

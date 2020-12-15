@@ -139,9 +139,9 @@ function Team(props) {
   return (
     <div>
       <Group
-        title="Core team"
+        title="Team 14"
         description={`The development of the project and its ecosystem is
-guided by this awesome team`}
+        guided by this awesome team`}
         members={activeCore}
         {...props}
       />

@@ -39,6 +39,15 @@ const useStyles = makeStyles((theme) => ({
     const [message,setMessage] = useState("");
     useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
+    useEffect(() => {fetchUser();}, []);
+    const [user,setUser] = useState("");
+    const fetchUser = async () => {             
+      const data = await fetch(`/user/${match.params.user_id}/`);
+      const user= await data.json();
+      setUser(user);
+      console.log(user);
+    }
+
     async function sendCode () {
       try {
         const response = await fetch ('/emailconfirm/', {       
@@ -63,7 +72,9 @@ const useStyles = makeStyles((theme) => ({
         if (response.status === 200){      
           localStorage.setItem("isLogged", true)
           localStorage.setItem("user_id", match.params.user_id)
-          window.location.replace(`/myaccount/${match.params.user_id}`);            // ıf admins also get email confirmation change this to home page                         
+          localStorage.setItem("firstName", user.first_name)       
+          localStorage.setItem("lastName", user.last_name)
+          window.location.replace(`/`);                              
         }
         else {
           response.json().then(data => {setMessage(data.message)})
@@ -73,9 +84,8 @@ const useStyles = makeStyles((theme) => ({
     catch (e)
     {
       console.log(e)
-    }
     
-  }
+  }}
 
   return (
     <div>

@@ -1,24 +1,16 @@
 import React from "react";
-import  {useRef,useState, useEffect} from 'react';
-import '../App.css';
+import  {useState, useEffect} from 'react';
 import { Grid, Typography, Divider, Button  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import {green} from '@material-ui/core/colors';
 import Paper from '@material-ui/core/Paper';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-//import Carousel from 'react-material-ui-carousel'
 import { Carousel } from 'react-responsive-carousel';
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import {TextField} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -36,13 +28,11 @@ const styles = {
       
   },
 
-  spaperContainer: { 
-   
+  spaperContainer: {    
     //margin: "10px 200px",
     marginTop: "10px",
     marginRight: "50px",
     marginLeft: "50px"
-
   }
 };
 const useStyles = makeStyles((theme) => ({
@@ -53,12 +43,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     color: "0000",
     fontSize: "20px"
-
   },
   name:{
     textAlign: "left !important",
-
-
   },
   formControl: {
     marginTop: "-12px",
@@ -103,13 +90,11 @@ function ProductDetail({match}) {
       console.log(item);
     }
     
-   
     const fetchComments = async () => {             
         const data = await fetch(`/comments/${match.params.product_id}/`);
         const comments= await data.json();
         setComments(comments);
         console.log(comments);
-
     }
 
     async function sendPhoto () {
@@ -130,15 +115,12 @@ function ProductDetail({match}) {
   
           })
         });
-
         await response.json().then(data => {setPhoto(data)})
-
       }
       catch (e)
       {
         console.log(e)
       }
-
     }
 
     async function sendProducttoCart () {
@@ -168,8 +150,8 @@ function ProductDetail({match}) {
       {
         console.log(e)
       }
-
     }
+
     async function sendComment () {
       try {
         const res = await fetch (`/comments/${match.params.product_id}/`, {
@@ -191,6 +173,7 @@ function ProductDetail({match}) {
             "validation":false
             })
         });
+
         if(res.status === 201){
           console.log("response:",res)
           localStorage.setItem("nickname", "")
@@ -207,7 +190,6 @@ function ProductDetail({match}) {
       {
         console.log(e)
       }
-
     }
     const getComment = value => {
       localStorage.setItem('comment',value);
@@ -292,9 +274,6 @@ function ProductDetail({match}) {
           <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' /> 
         </Grid>
         <Divider />
-       
-        
-
         <Grid item>
           <p className={classes.p}>
           {item.description}
@@ -308,12 +287,9 @@ function ProductDetail({match}) {
             </Typography>
           </Grid>
           <Grid item>
-   
           </Grid>
           <Grid item>
-
           </Grid>
-
         </Grid>
         <Grid item className={classes.itemContainer}>    
         <Button onClick={() => {sendProducttoCart() }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
@@ -322,11 +298,9 @@ function ProductDetail({match}) {
         <Button variant="contained" color="primary" className={classes.button} endIcon={<FavoriteBorderSharpIcon fontSize="medium" />}>
             Add To Favorites
         </Button>
- 
-        
         </Grid>
-      </Grid>
-    </Grid>
+        </Grid>
+        </Grid>
           <Divider />
           <Paper  style={styles.spaperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
@@ -356,16 +330,12 @@ function ProductDetail({match}) {
                 onChange={(event) => getComment(event.target.value)}
                 fullWidth/>
               </Grid>
-
-
-
-              <Button disabled={localStorage.getItem("isLogged")==='false'} onClick={() => {sendComment() }} variant="contained">
+              <Button disabled={localStorage.getItem("isLogged")==='false' || localStorage.getItem("rating")=== null} onClick={() => {sendComment() }} variant="contained">
                 submit
               </Button>
               <Divider />
               <List className={classes.commentStyle}>
-              {comments.map (comment => (
-                
+              {comments.map (comment => (        
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
                     <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
@@ -389,7 +359,6 @@ function ProductDetail({match}) {
                             disabled="true"
                           />
                       </React.Fragment>
-                      
                     }
                   />
                 </ListItem>
@@ -399,7 +368,6 @@ function ProductDetail({match}) {
            </Box>
           </Paper>
     </Paper>
-    
   );
 };
 

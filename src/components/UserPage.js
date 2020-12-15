@@ -87,7 +87,7 @@ function UserPage() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <h1>
-          Hello {localStorage.getItem("firstName")}
+          Hello {localStorage.getItem("firstName")}          
         </h1>
         {page === 'Orders'? <UserOrders/>: null }
         {page === 'Comments'? <UserComments/>: null }

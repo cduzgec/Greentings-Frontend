@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   toolbar: {
-    height: "20px"
+    height: "10px"
   },
 }));
 
@@ -196,7 +196,7 @@ function Sidebar(props) {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "brand": "empty",
+            "brand": brandsString,                  // boşsa empty gönder
             "rating": parseInt(rating),
             "price_upper": maxPrice,
             "price_lower": minPrice

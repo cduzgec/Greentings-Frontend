@@ -12,13 +12,17 @@ import Paper from '@material-ui/core/Paper';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import OurButton from "./button"
+import Rating from "@material-ui/lab/Rating";
+import {green} from '@material-ui/core/colors';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import {  Button  } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: theme.spacing(2),
     },
     heroContent: {
-        padding: theme.spacing(8, 0, 6),
+        padding: theme.spacing(3, 0, 1),
         backgroundColor: "#eeeee4",
     },
     heroButtons: {
@@ -62,6 +66,14 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "1200px",
         backgroundColor: "#64bf6a"
     },
+    button: {
+        margin: theme.spacing(1),
+        backgroundColor: green[500],
+        fontSize: 16,
+        '&:hover': {
+          backgroundColor: green[800],
+        },
+      },
 }));
 
 const styles = {
@@ -82,7 +94,6 @@ function SearchPage({ match }) {
     useEffect(() => { fetchItems(); }, []);
 
     const [items, setItems] = useState([]);
-    const [text, setText] = useState("Random stuff writing about Search");
 
     const fetchItems = async () => {
         const data = await fetch(`/search/?search=${match.params.search}`);
@@ -91,11 +102,6 @@ function SearchPage({ match }) {
         console.log("ITEMS");
         console.log(items);
         setItems(items);
-
-        if(items===""){
-            console.log("Items are empty") 
-            setText("Sorry but we don't have anything about this :(")     
-        }
     };         
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -143,6 +149,36 @@ function SearchPage({ match }) {
     }
     
 
+    async function sendProducttoCart (id) {
+        try {
+    
+          const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
+            method: "post",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+              "product": id,
+              "quantity": 1,
+            
+            })
+          });
+          console.log("response:",res)
+          alert("Product is added to the cart");
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+    
+      }
+
     return (
 
     <React.Fragment>
@@ -157,14 +193,7 @@ function SearchPage({ match }) {
                         color="textPrimary"
                         gutterBottom>
                         Searching: {match.params.search}
-            </Typography>
-                    <Typography
-                        variant="h5"
-                        align="center"
-                        color="textSecondary"
-                        paragraph>
-                        {text}
-            </Typography>
+                    </Typography>
                 </Container>
             </div>
 
@@ -193,12 +222,13 @@ function SearchPage({ match }) {
 
                             {items.slice(0, numberofitems).map(item => (
                                 <Grid item key={item.product_id} xs={12} sm={6} md={4}>
-                                    <Link to={`/product/${item.product_id}`} variant="body2" className={classes.link}>
                                         <Card className={classes.card}>
+                                        <Link to={`/product/${item.product_id}`} variant="body2" className={classes.link}>
                                             <CardMedia
                                                 className={classes.cardMedia}
                                                 image={item.img}
                                                 title="Image title" />
+                                                </Link>
                                             <CardContent className={classes.cardContent}>
                                                 <Typography gutterBottom variant="h5" component="h2">
                                                     {item.product_name}
@@ -209,12 +239,14 @@ function SearchPage({ match }) {
                                                 <Typography>
                                                     Brand:{item.brand_name}
                                                 </Typography>
-                                                <Typography>
-                                                    Rating: {item.rating}/5
-                                                </Typography>
+                                                <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' />
+                                                <Button onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  
+                                                endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
+                                                    Add To Cart
+                                                </Button>
                                             </CardContent>
                                         </Card>
-                                    </Link>
+                                    
                                 </Grid>
                             ))}
                         </Grid>

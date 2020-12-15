@@ -53,6 +53,7 @@ function SignUp () {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [check, setCheck] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -66,6 +67,10 @@ function SignUp () {
  
   function checkForm()
   {
+    if (check === false){
+      alert("Please check terms and conditions");
+      return false; 
+    }
     if(fname === "") {
       alert("Error: First name cannot be blank!");
       return false;
@@ -225,7 +230,8 @@ function SignUp () {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="I agree to the Terms and Conditions"
+                onClick={() => setCheck(!check)}
               />
             </Grid>
           </Grid>

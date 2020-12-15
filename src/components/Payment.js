@@ -2,15 +2,32 @@ import React, {useState,useEffect} from "react";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import OurButton from "./button.js";
 import {makeStyles} from '@material-ui/core/styles';
+import Container from "@material-ui/core/Container";
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   submit: {
     marginLeft: "500px",
     marginRight: "500px",
-  },}));
+    marginTop: "70px"
+  },
 
+
+}));
+
+  const styles = {
+    paperContainer: {
+        opacity: "0.8",
+        backgroundColor: "#ffffff",
+        marginRight: "300px",
+        marginLeft: "300px",
+        paddingTop: "50px",
+        height: "300px"
+
+    }
+  };
   // flow: get card input - CheckCard - DoPayment - PostAdress - SendOrder - forward invoice page    // need to implement DoPayment
 export default function PaymentForm() {
   const classes = useStyles();
@@ -115,6 +132,8 @@ async function SendOrder () {
 
   return (
     <React.Fragment>
+      <Paper style={styles.paperContainer} elevation={10}>
+      <Container className={classes.cardGrid} maxWidth="md">
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
@@ -160,14 +179,10 @@ async function SendOrder () {
             onChange={(event) => setCVV(event.target.value)}
           />
         </Grid>
-
-        <OurButton
-            onClick = {CheckCard}         
-            className={classes.submit}  
-            fullWidth  variant="contained" >
-            Pay
-          </OurButton>
+          <Button variant="contained" color="primary" onClick = {CheckCard} >Pay</Button>
       </Grid>
+      </Container>
+        </Paper>
     </React.Fragment>
   );
 }
