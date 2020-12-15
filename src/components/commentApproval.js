@@ -1,14 +1,9 @@
 import React from "react";
-import  {useRef,useState, useEffect} from 'react';
-import '../App.css';
-import { Grid, Typography, Divider, Button  } from "@material-ui/core";
+import  {useState, useEffect} from 'react';
+import { Grid, Typography,Button  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
-
-import {yellow,green,orange} from '@material-ui/core/colors';
-
-
-import Box from '@material-ui/core/Box';
+import {green} from '@material-ui/core/colors';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -59,7 +54,7 @@ button: {
 
 commentStyle: {
   width: '100%',
-  maxWidth: '36ch',
+  minWidth: '40ch',
   backgroundColor: theme.palette.background.paper,
 },
 inline: {
@@ -100,14 +95,11 @@ async function ApproveComment (id) {
         "Content-Encoding": "gzip, deflate, br",
         "Accept-Encoding": "gzip, deflate, br"
       },
-      body: 
-        id,
-      
-     
+      body: id,
     });
     console.log("response:",res)
     alert("Comment is approved");
-    window. location. reload();
+    window.location.reload();
   }
   catch (e)
   {
@@ -136,7 +128,7 @@ async function DeleteComment (id) {
       });
       console.log("response:",res)
       alert("Comment is deleted");
-      window. location. reload();
+      window.location.reload();
     }
     catch (e)
     {
@@ -149,8 +141,6 @@ const classes = useStyles();
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        
-
         <Grid item xs={8}>
         <Paper style={styles.spaperContainer} elevation={10}>
         <Button className={classes.button} onClick={() => {showComments() }} variant="contained">
@@ -158,8 +148,7 @@ const classes = useStyles();
         </Button>
         {visible ? (
         <List className={classes.commentStyle}>
-              {comments.map (comment => (
-                
+              {comments.map (comment => (               
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
                     <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
@@ -182,15 +171,14 @@ const classes = useStyles();
                             defaultValue={comment.rating}
                             disabled="true"
                           />
+                        <Typography> For product with product id: {comment.product} </Typography>
                          <Button   onClick={() => {ApproveComment(comment.comment_id) }}variant="contained">
                             Approve
                         </Button> 
                         <Button  onClick={() => {DeleteComment(comment.comment_id) }}variant="contained">
                            Delete
                         </Button> 
-                      </React.Fragment>
-                      
-                      
+                      </React.Fragment>  
                     }
                   />
                 </ListItem>

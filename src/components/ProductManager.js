@@ -1,5 +1,5 @@
-import React, {useState,useEffect } from "react";
-import { withRouter, Link} from "react-router-dom";
+import React, {useState} from "react";
+import { withRouter} from "react-router-dom";
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,27 +19,9 @@ import ChangeInfo from "./ChangeInfo";
 import UserInfo from "./UserInfo"; 
 import Approval from "./commentApproval"; 
 import EditAttributesOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
-
+import UserOrders from "./UserOrders";
 
 const drawerWidth = 240;
-
-const styles = {
-  paperContainer: {
-  
-      margin: "10px 200px",
-      marginTop: "150px"
-      
-  },
-
-  spaperContainer: { 
-   
-    //margin: "10px 200px",
-    marginTop: "10px",
-    marginRight: "50px",
-    marginLeft: "50px"
-
-  }
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
     height: "20px"
   },
 }));
-
-
 
 function UserPage({ match }) {
   const classes = useStyles();
@@ -122,12 +102,12 @@ function UserPage({ match }) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        {page == 'Orders'? <UserComments/>: null }
-        {page == 'Comments'? <UserComments/>: null }
-        {page == 'UserInfo'? <UserInfo/>: null }
-        {page == 'ChangeInfo'? <ChangeInfo/>: null }
-        {page == 'ChangePass'? <ChangePassword/>: null }
-        {page == 'Approve'? <Approval/>: null }
+        {page === 'Orders'? <UserOrders/>: null }
+        {page === 'Comments'? <UserComments/>: null }
+        {page === 'UserInfo'? <UserInfo/>: null }
+        {page === 'ChangeInfo'? <ChangeInfo/>: null }
+        {page === 'ChangePass'? <ChangePassword/>: null }
+        {page === 'Approve'? <Approval/>: null }
        
       </main>
     </div>
