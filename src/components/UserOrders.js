@@ -2,16 +2,14 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import OrderInfo from "./OrderInfo";
 
 const styles = {
     paperContainer: {
@@ -34,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     commentStyle: {
         width: '100%',
-        maxWidth: '36ch',
+        maxWidth: '100',
         backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -42,29 +40,55 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UserComments({ match }) {
+function UserOrders() {
     const classes = useStyles();
-    const [comments, setComments] = useState([]);
-    useEffect(() => { fetchComments(); }, []);
-    const fetchComments = async () => {
-        const data = await fetch(`/comments/6/`);                 // change url
-        const comments = await data.json();
-        setComments(comments);
-        console.log(comments);
+    const [orders, setOrders] = useState([]);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => { fetchOrder();}, []);
+    useEffect(() => {if (orders) {fetchItems();}}, [orders]);
+
+    const fetchOrder = async () => {
+        const data = await fetch(`/ord/118`);                              //${localStorage.getItem("user_id")}`);               
+        const orders = await data.json();
+        setOrders(orders);                                                // map lazım      aşağıda htmlde maple    
+        console.log(orders);
     }
 
-    
+    const fetchItems = async () => {
+        const data = await fetch(`/orditem/${orders.order_id}`);                    // map lazım      aşağıda htmlde maple    
+        const items = await data.json();
+        setItems(items);
+        console.log({items});
+    }
+
+    function goToInfo(){
+        return (
+            <OrderInfo/>
+        )
+    }
+
+
     return (
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
-                    {comments.map(comment => (
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
+                    {orders.map(order => (
+                        <ListItem alignItems="flex-start" button onClick={() => goToInfo}>         
                             <ListItemText
-                                primary={comment.text}
+                                primary= {
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            className={classes.inline}
+                                            color="textPrimary"
+                                            >
+                                            Your order with order number {order.order_id} on
+                                        </Typography>
+                                        {"\n" + order.date}
+                                    </React.Fragment>
+                                }
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -72,15 +96,9 @@ function UserComments({ match }) {
                                             variant="body2"
                                             className={classes.inline}
                                             color="textPrimary"
-                                        >
-                                            {comment.nickname}
+                                            >
+                                            Total price {order.total_price}
                                         </Typography>
-                                        {"\n" + comment.date}
-                                        <Rating
-                                            name="simple-controlled"
-                                            defaultValue={comment.rating}
-                                            disabled="true"
-                                        />
                                     </React.Fragment>
                                 }
                             />
@@ -93,4 +111,4 @@ function UserComments({ match }) {
     );
 };
 
-export default UserComments;
+export default UserOrders;
