@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    marginTop: "200px"
+    marginTop: "200px",
+
   },
   drawerContainer: {
     overflow: 'auto',
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   fixedlist: {
-    height: 300,
+    height: 200,
     maxWidth: 300,
     backgroundColor: theme.palette.background.paper,
   },
@@ -68,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+  },
+  toolbar: {
+    height: "20px"
   },
 }));
 
@@ -158,8 +162,6 @@ function Sidebar(props) {
 
   }
   
-
-
   const getCheckedItems = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -168,18 +170,15 @@ function Sidebar(props) {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    setChecked(newChecked);
-    
+    setChecked(newChecked); 
   };
 
   function convertString() {
-    //brandsString = checked.join(", ");
     for (let i = 0; i < checked.length; i++) {
       if (brandsString === "") { brandsString = checked[i].name;}
       else {brandsString += " "+ checked[i].name; } 
      }
      console.log(brandsString)
-     //brandsString = "";
      sendFilter ()
   }
 
@@ -231,7 +230,7 @@ function Sidebar(props) {
         className={classes.drawer}
         variant="permanent"
         classes={{ paper: classes.drawerPaper, }} >
-        <Toolbar />
+        <Toolbar className={classes.toolbar}/>
         <div className={classes.drawerContainer}>
         <TextTypography>Price</TextTypography>
         <TextField className={classes.input}
@@ -254,8 +253,6 @@ function Sidebar(props) {
             <div key={"brand"} className={classes.fixedlist}>
               <TextTypography>Brand</TextTypography>
 
-
-              
               {brands.map((index) => {
                 const labelId = `checkbox-list-label-${index}`;
 
@@ -276,7 +273,6 @@ function Sidebar(props) {
                   </List>
                 );
               })}
-            
 
             </div>
   

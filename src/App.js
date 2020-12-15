@@ -57,9 +57,7 @@ export default function App () {
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
           <ProtectedRoute path='/myaccount/:user_id' component={UserPage} />
-          <ProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
           <ProtectedRoute path='/forgotconfirmation' component={ForgotConfirmation} />
-
           
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>

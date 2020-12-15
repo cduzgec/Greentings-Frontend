@@ -122,7 +122,7 @@ const Navbar= () => {
     <div className={classes.root}>
       <nav>
         <AppBar position="fixed" style={{ background: '#45b245', boxShadow: 'none', height: '150px' }}>
-          <Toolbar style={{ paddingLeft: '1em', paddingRight: '2em', paddingBottom: '1em', paddingTop: '2em' }}>
+          <Toolbar style={{ paddingLeft: '1em', paddingRight: '1em', paddingBottom: '1em', paddingTop: '1em' }}>
             
             <ThemeProvider theme={theme}>
               <Typography className={classes.title} noWrap>

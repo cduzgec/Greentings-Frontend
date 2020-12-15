@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ChangePassword() {
+function ChangeInfo() {
   const classes = useStyles();
   
   return (
@@ -42,7 +42,7 @@ function ChangePassword() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Please enter your new password
+          Please enter 
         </Typography>
         <form className={classes.form} noValidate>
             <TextField
@@ -89,4 +89,4 @@ function ChangePassword() {
   );
 }
 
-export default withRouter(ChangePassword);
+export default withRouter(ChangeInfo);

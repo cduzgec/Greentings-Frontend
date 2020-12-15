@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(1, 0, 1),
     backgroundColor: ":#eeeee4"
   },
   heroButtons: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
     
       fontFamily: "Arial, Helvetica, sans-serif",
-      margin: "100px 200px",
+      margin: "50px 200px",
       width: "100%",
       height: "fit-content",
       padding: "40px",
@@ -159,14 +159,7 @@ function Categories({ match }) {
               align="center"
               color="textPrimary"
               gutterBottom>
-              Category: {category.category_name}  Page
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph>
-              Random stuff writing about category
+              {category.category_name}
             </Typography>
           </Container>
         </div>

@@ -11,7 +11,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
-import { SettingsSystemDaydream } from '@material-ui/icons';
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Visibility from "@material-ui/icons/Visibility";
+import {InputAdornment, IconButton } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,9 +47,11 @@ function Login() {
   const passRef = useRef('') 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [id,setId] = useState("");
   
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
  
   useEffect(() => {if (id) {console.log("User logged in: "+ id);
 
@@ -63,7 +68,7 @@ function Login() {
   );
 
   const [flag,setFlag] = useState("");
-  useEffect(() => {if (flag) {window.location.replace(`/myaccount/${id}`);}}, [flag]);
+  useEffect(() => {if (flag) {window.location.replace(`/`);}}, [flag]);
 
 
   const [message,setMessage] = useState("");
@@ -152,13 +157,27 @@ function Login() {
             required
             fullWidth
             name="password"
-            label="Password"
-            type="password"
+            label="Password"  
             id="password"
             autoComplete="current-password"
             inputRef={passRef}
             onChange={e => setPassword(e.target.value)} 
+            type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+              InputProps={{ // <-- This is where the toggle button is added.
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
           />
+ 
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

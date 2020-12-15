@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
     async function sendCode () {
       try {
-        const response = await fetch ('/emailconfirm/', {        // API URL
+        const response = await fetch ('/emailconfirm/', {       
           method: "post",
           mode: "cors",
           headers:
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
         if (response.status === 200){      
           localStorage.setItem("isLogged", true)
           localStorage.setItem("user_id", match.params.user_id)
-          window.location.replace(`/myaccount/${match.params.user_id}`);                                    
+          window.location.replace(`/myaccount/${match.params.user_id}`);            // ıf admins also get email confirmation change this to home page                         
         }
         else {
           response.json().then(data => {setMessage(data.message)})
@@ -118,3 +118,4 @@ const useStyles = makeStyles((theme) => ({
 }
 
 export default EmailConfirmation;
+ 

@@ -12,6 +12,9 @@ import Container from '@material-ui/core/Container';
 import {makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
 import PasswordStrengthBar from 'react-password-strength-bar';
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Visibility from "@material-ui/icons/Visibility";
+import {InputAdornment, IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -51,12 +54,16 @@ function SignUp () {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+
   const [id,setId] = useState("");
   useEffect(() => {if (id) {console.log("User logged in: "+ id); window.location.replace(`/emailconfirmation/${id}`);}}, [id]);
   const [message,setMessage] = useState("");
   useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
-
-
+ 
   function checkForm()
   {
     if(fname === "") {
@@ -192,12 +199,25 @@ function SignUp () {
                 required
                 fullWidth
                 label="Password"
-                type="password"
+                
                 id="password"
                 autoComplete="current-password"
                 inputRef={passRef}
                 onChange={e => setPassword(e.target.value)} 
-                //onChange = {handleChange} function handleChange(e) {return(setPassword(e.target.value))}
+                type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                InputProps={{ // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <PasswordStrengthBar password={password} />  
               <p>Password should contain at least one number, one lowercase, one uppercase letter and at least six characters </p>
