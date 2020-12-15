@@ -1,196 +1,137 @@
-import React from "react";
-import  {useRef,useState, useEffect} from 'react';
-import '../App.css';
-import { Grid, Typography, Divider, Button  } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
-
-import {yellow,green,orange} from '@material-ui/core/colors';
-
-
-import Box from '@material-ui/core/Box';
+import React, {useState,useEffect } from "react";
+import { withRouter, Link} from "react-router-dom";
+import {makeStyles} from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { withRouter } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
+import CommentIcon from '@material-ui/icons/Comment';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import UserComments from "./UserComments"
+import ChangePassword from "./ChangePassword";
+import ChangeInfo from "./ChangeInfo"; 
+import UserInfo from "./UserInfo"; 
+import Approval from "./commentApproval"; 
+import EditAttributesOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
 
+
+const drawerWidth = 240;
 
 const styles = {
+  paperContainer: {
+  
+      margin: "10px 200px",
+      marginTop: "150px"
+      
+  },
+
   spaperContainer: { 
    
     //margin: "10px 200px",
     marginTop: "10px",
-    marginRight: "60px",
+    marginRight: "50px",
     marginLeft: "50px"
-    
 
-  },
-
+  }
 };
+
 const useStyles = makeStyles((theme) => ({
-  gridContainer: {
-    padding: "50px",
+  root: {
+    display: 'flex',
   },
-  itemContainer: {
-    padding: "20px",
-    color: "0000",
-    fontSize: "20px"
-
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    height: "500px"
   },
-  formControl: {
-    marginTop: "-12px",
-    minWidth: 120,
+  drawerPaper: {
+    width: drawerWidth,
+    marginTop: "200px",
   },
-  p:{
-    fontSize: "14px",
-    color: "black",
-},
-button: {
-  margin: theme.spacing(1),
-  backgroundColor:orange[500],
-  fontSize: 16,
-  '&:hover': {
-    backgroundColor: orange[800],
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
-},
-approve_button: {
-  margin: theme.spacing(1),
-  backgroundColor: yellow[500],
-  fontSize: 16,
-  '&:hover': {
-    backgroundColor: yellow[800],
+  text: {
+    ...theme.typography.button,
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(1),
   },
-},
-commentStyle: {
-  width: '100%',
-  maxWidth: '36ch',
-  backgroundColor: theme.palette.background.paper,
-},
-inline: {
-  display: 'inline',
-},
-root: {
-  flexGrow: 1,
-  marginTop: "200px",
-},
-
+  applybutton: {
+    backgroundColor: "#17ba9c",
+    fontSize: 18,
+  },
+  toolbar: {
+    height: "20px"
+  },
 }));
 
-function ProductManager() {
-  useEffect(() => {fetchComments();},[]);
-  const[visible,setVisible] = useState(false);
-  const[comments,setComments] = useState([]);
-  const fetchComments = async () => {             
-    const data = await fetch(`/commentapproval`);
-    const comments= await data.json();
-    setComments(comments);
-    console.log(comments);
 
-}
-const showComments = () => { 
-  setVisible(!visible);
-}
-async function ApproveComment (id) {
-  try {
 
-    const res = await fetch (`/commentapproval`, {
-      method: "post",
-      mode: "cors",
-      headers:
-      {
-        "Accept": "*/*",
-        "Content-Type": "application/json",
-        "Connection": "keep-alive",
-        "Content-Encoding": "gzip, deflate, br",
-        "Accept-Encoding": "gzip, deflate, br"
-      },
-      body: 
-        id,
-      
-     
-    });
-    console.log("response:",res)
-    alert("Comment is approved");
-    window. location. reload();
-  }
-  catch (e)
-  {
-    console.log(e)
-  }
+function UserPage({ match }) {
+  const classes = useStyles();
+  const [page, setPage] = useState("")
 
-}
-
-const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        
+      <CssBaseline />
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={classes.toolbar} />
+        <Divider />
+        <List>
+            <ListItem button>
+              <ListItemIcon><LocalShippingIcon/></ListItemIcon>
+              <ListItemText primary="My Orders" onClick={() => {setPage("Orders");}}/>                    
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><CommentIcon/></ListItemIcon>
+              <ListItemText primary="My Comments" onClick={() => {setPage("Comments");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PersonIcon/></ListItemIcon>
+              <ListItemText primary="My User Information" onClick={() => {setPage("UserInfo");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PersonAddIcon/></ListItemIcon>
+              <ListItemText primary="Change My User Information" onClick={() => {setPage("ChangeInfo");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><LockIcon/></ListItemIcon>
+              <ListItemText primary="Change My Password" onClick={() => {setPage("ChangePass");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><EditAttributesOutlinedIcon/></ListItemIcon>
+              <ListItemText primary="Comment Approval" onClick={() => {setPage("Approve");}}/>
+            </ListItem>
 
-        <Grid item xs={6}>
-        <Paper style={styles.spaperContainer} elevation={10}>
-        <Button className={classes.button} onClick={() => {showComments() }} variant="contained">
-          See Comments
-        </Button>
-        {visible ? (
-        <List className={classes.commentStyle}>
-              {comments.map (comment => (
-                
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={comment.text}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          {comment.nickname}
-                        </Typography>
-                        {"\n"+comment.date}
-                        <Rating
-                            name="simple-controlled"
-                            defaultValue={comment.rating}
-                            disabled="true"
-                          />
-                         <Button className={classes.approve_button}  onClick={() => {ApproveComment(comment.comment_id) }}variant="contained">
-                            Approve
-                        </Button> 
-                      </React.Fragment>
-                      
-                      
-                    }
-                  />
-                </ListItem>
-                                 
-              ))}
-              </List> ) : null }
-              </Paper>
-              </Grid>
-              <Grid item xs={6} >
-                <Paper style={styles.spaperContainer} elevation={10}>
-                <Button className={classes.button}  variant="contained">
-                 Add Product
-                </Button>
-                <Button className={classes.button}  variant="contained">
-                 Delete Product
-                </Button>
-                <Button className={classes.button}  variant="contained">
-                 Edit Product
-                </Button>
-                </Paper>
-              </Grid>
-  
-        </Grid>
+        </List>
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+
+        {page == 'Orders'? <UserComments/>: null }
+        {page == 'Comments'? <UserComments/>: null }
+        {page == 'UserInfo'? <UserInfo/>: null }
+        {page == 'ChangeInfo'? <ChangeInfo/>: null }
+        {page == 'ChangePass'? <ChangePassword/>: null }
+        {page == 'Approve'? <Approval/>: null }
+       
+      </main>
     </div>
   );
 }
 
-export default withRouter(ProductManager);
+export default withRouter(UserPage);
