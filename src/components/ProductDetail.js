@@ -185,6 +185,7 @@ function ProductDetail({match}) {
           },
           body: JSON.stringify({
             "nickname":localStorage.getItem('firstName') +" "+ localStorage.getItem('lastName'),
+            "user_id": localStorage.getItem('user_id'),
             "text":comment,
             "rating":rating,
             "validation":false
