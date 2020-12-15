@@ -79,7 +79,7 @@ const styles = {
       marginLeft: "300px"
   }
 };
-const numberofitems = 4;
+const numberofitems = 40;
 
 function Categories({ match }) {
   const classes = useStyles();

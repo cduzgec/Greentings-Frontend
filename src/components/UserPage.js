@@ -1,5 +1,5 @@
-import React, {useState,useEffect } from "react";
-import { withRouter, Link} from "react-router-dom";
+import React, {useState} from "react";
+import { withRouter} from "react-router-dom";
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,27 +17,9 @@ import UserComments from "./UserComments"
 import ChangePassword from "./ChangePassword";
 import ChangeInfo from "./ChangeInfo"; 
 import UserInfo from "./UserInfo"; 
-
+import UserOrders from "./UserOrders";
 
 const drawerWidth = 240;
-
-const styles = {
-  paperContainer: {
-  
-      margin: "10px 200px",
-      marginTop: "150px"
-      
-  },
-
-  spaperContainer: { 
-   
-    //margin: "10px 200px",
-    marginTop: "10px",
-    marginRight: "50px",
-    marginLeft: "50px"
-
-  }
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,23 +38,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  text: {
-    ...theme.typography.button,
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(1),
-  },
-  applybutton: {
-    backgroundColor: "#17ba9c",
-    fontSize: 18,
-  },
   toolbar: {
     height: "20px"
   },
 }));
 
-
-
-function UserPage({ match }) {
+function UserPage() {
   const classes = useStyles();
   const [page, setPage] = useState("")
 
@@ -115,14 +86,14 @@ function UserPage({ match }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h1 paragraph>
+        <h1>
           Hello {localStorage.getItem("firstName")}
         </h1>
-        {page == 'Orders'? <UserComments/>: null }
-        {page == 'Comments'? <UserComments/>: null }
-        {page == 'UserInfo'? <UserInfo/>: null }
-        {page == 'ChangeInfo'? <ChangeInfo/>: null }
-        {page == 'ChangePass'? <ChangePassword/>: null }
+        {page === 'Orders'? <UserOrders/>: null }
+        {page === 'Comments'? <UserComments/>: null }
+        {page === 'UserInfo'? <UserInfo/>: null }
+        {page === 'ChangeInfo'? <ChangeInfo/>: null }
+        {page === 'ChangePass'? <ChangePassword/>: null }
        
       </main>
     </div>
