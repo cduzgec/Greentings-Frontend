@@ -10,6 +10,10 @@ import { Link } from 'react-router-dom'
 import Logo from './images/Logo.png';
 import SearchBar from './SearchBar'
 
+import Image from './images/greenland_background.jpg';
+
+
+
 const numberofcategories = 4;
 
 const theme = createMuiTheme({
@@ -144,6 +148,8 @@ const Navbar= () => {
 
                       localStorage.removeItem("user_type")
                       localStorage.removeItem("isLogged")
+                      localStorage.removeItem("firstName")
+                      localStorage.removeItem("lastName")
                       localStorage.setItem("isLogged", false)
 
                       localStorage.removeItem("user_id")

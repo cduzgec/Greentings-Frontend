@@ -50,16 +50,17 @@ function Login() {
  
   useEffect(() => {if (id) {console.log("User logged in: "+ id);
 
-  localStorage.removeItem("isLogged")
-  localStorage.setItem("isLogged", true)
+    localStorage.removeItem("isLogged")
+    localStorage.setItem("isLogged", true)
 
-  localStorage.removeItem("user_id")
-  localStorage.setItem("user_id", id)
- 
-  //console.log("LOGINDEYIM")
-  console.log(localStorage.getItem("isLogged"))
-  console.log(localStorage.getItem("user_id"))
-  setFlag("go");}}, [id]);
+    localStorage.removeItem("user_id")
+    localStorage.setItem("user_id", id)
+
+    //console.log("LOGINDEYIM")
+    console.log(localStorage.getItem("isLogged"))
+    console.log(localStorage.getItem("user_id"))
+    setFlag("go");}}, [id]
+  );
 
   const [flag,setFlag] = useState("");
   useEffect(() => {if (flag) {window.location.replace(`/myaccount/${id}`);}}, [flag]);
@@ -104,7 +105,11 @@ function Login() {
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){
-          response.json().then(data => {localStorage.setItem("user_type", data.user_type); setId(data.user_id); localStorage.setItem("firstName", data.first_name); localStorage.setItem("lastName", data.last_name)})
+          response.json().then(data => {
+            setId(data.user_id); 
+            localStorage.setItem("user_type", data.user_type); 
+            localStorage.setItem("firstName", data.first_name); 
+            localStorage.setItem("lastName", data.last_name)})
         }
         else {
           response.json().then(data => {setMessage(data.message)})
