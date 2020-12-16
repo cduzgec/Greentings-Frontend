@@ -131,8 +131,7 @@ function SignUp () {
           })
         });
         console.log("Sending this data: " + emailRef.current.value+" "+passRef.current.value)
-        console.log("Response Status: "+response.status)
-        
+        console.log("Response Status: "+response.status)  
 
         if (response.status === 201){
           response.json().then(data => {setId(data.user_id)})
@@ -198,6 +197,7 @@ function SignUp () {
                 onChange={e => setEmail(e.target.value)} 
               />
             </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 variant="outlined"

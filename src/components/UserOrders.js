@@ -49,7 +49,7 @@ function UserOrders() {
     useEffect(() => {if (orders) {fetchItems();}}, [orders]);
 
     const fetchOrder = async () => {
-        const data = await fetch(`/ord/118`);                              //${localStorage.getItem("user_id")}`);               
+        const data = await fetch(`/ord/${localStorage.getItem("user_id")}`);               
         const orders = await data.json();
         setOrders(orders);                                                // map lazım      aşağıda htmlde maple    
         console.log(orders);
