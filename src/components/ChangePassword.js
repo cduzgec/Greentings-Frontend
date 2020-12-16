@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import { withRouter } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -33,9 +33,62 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
 function ChangePassword() {
   const classes = useStyles();
+
+  const passwordRef = useRef('')  // passwordRef.current.value
+  const password2Ref = useRef('')  // passwordRef.current.value
+
+  const [message,setMessage] = useState("");
+  useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
+
+  function checkIfSame(){
+    if (passwordRef.current.value === password2Ref.current.value )
+    {
+      sendPassword();
+    }
+    else
+    {
+      alert("Please make sure that passwords are the same");
+      return false;
+    }
+  }
+
+  async function sendPassword () {
+    try {
+      const response = await fetch ('/pass/', {       
+        method: "post",
+        mode: "cors",
+        headers:
+        {
+          "Accept": "*/*",
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Content-Encoding": "gzip, deflate, br",
+          "Accept-Encoding": "gzip, deflate, br"
+        },
+        body: JSON.stringify({
+          "user_id": localStorage.getItem("user_id"),
+          "password": passwordRef.current.value
+        })
+      });
+      console.log("Sending this data: " + passwordRef.current.value)
+      console.log("Response Status: "+response.status)
+      
+  
+      if (response.status === 201){                                  // kodunu öğren
+        alert("Your password has been successfully changed")
+      }
+      else {
+        response.json().then(data => {setMessage(data.message)})       
+      }
+    }
+  catch (e)
+    {
+      console.log(e)
+    }
+
+  }
   
   return (
     <Container component="main" maxWidth="xs">
@@ -53,8 +106,8 @@ function ChangePassword() {
             id="new password"
             label="new password"
             name="new password"
-            autoComplete="new password"
             autoFocus
+            inputRef={passwordRef}
             />
             <Typography component="h1" variant="h5">
              Please re-enter your new password
@@ -68,13 +121,14 @@ function ChangePassword() {
             label="re-enter new password"
             type="re-enter new password"
             id="re-enter new password"
-            autoComplete="current-password"
+            inputRef={password2Ref}
           />
           <OurButton
             href="/userpage"
             className={classes.submit}  
             type="submit" 
-            fullWidth  variant="contained" >
+            fullWidth  variant="contained" 
+            onClick={checkIfSame}>
               Change password
           </OurButton>
           <Grid container>
