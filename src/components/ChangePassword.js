@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Visibility from "@material-ui/icons/Visibility";
+import {InputAdornment, IconButton } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,14 +39,25 @@ const useStyles = makeStyles((theme) => ({
 function ChangePassword() {
   const classes = useStyles();
 
-  const passwordRef = useRef('')  // passwordRef.current.value
-  const password2Ref = useRef('')  // passwordRef.current.value
+  const oldpasswordRef = useRef('')  // passwordRef.current.value
+  const newpasswordRef = useRef('')  
+  const newpassword2Ref = useRef('')  
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+  const [showPassword2, setShowPassword2] = useState(false);
+  const handleClickShowPassword2 = () => setShowPassword2(!showPassword2);
+  const handleMouseDownPassword2 = () => setShowPassword2(!showPassword2);
+
 
   const [message,setMessage] = useState("");
   useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
   function checkIfSame(){
-    if (passwordRef.current.value === password2Ref.current.value )
+    console.log("Check")
+    if (newpasswordRef.current.value === newpassword2Ref.current.value &&  oldpasswordRef.current.value !== "")
     {
       sendPassword();
     }
@@ -69,15 +83,17 @@ function ChangePassword() {
         },
         body: JSON.stringify({
           "user_id": localStorage.getItem("user_id"),
-          "password": passwordRef.current.value
+          "old_password": oldpasswordRef.current.value,
+          "new_password": newpasswordRef.current.value
         })
       });
-      console.log("Sending this data: " + passwordRef.current.value)
+      console.log("Sending this data: " + newpasswordRef.current.value)
       console.log("Response Status: "+response.status)
       
   
-      if (response.status === 201){                                  // kodunu öğren
-        alert("Your password has been successfully changed")
+      if (response.status === 200){                               
+        alert("Your password has been successfully changed");
+        window.location.replace(`/myaccount/${localStorage.getItem("user_id")}`);
       }
       else {
         response.json().then(data => {setMessage(data.message)})       
@@ -95,7 +111,7 @@ function ChangePassword() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Please enter your new password
+          Please enter your old password
         </Typography>
         <form className={classes.form} noValidate>
             <TextField
@@ -103,12 +119,40 @@ function ChangePassword() {
             margin="normal"
             required
             fullWidth
-            id="new password"
-            label="new password"
-            name="new password"
+            id="old password"
+            label="old password"
+            name="old password"
             autoFocus
-            inputRef={passwordRef}
+            inputRef={oldpasswordRef}
             />
+            <Typography component="h1" variant="h5">
+            Please enter your new password
+            </Typography>
+            <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="new password"
+            label="new password"
+            type="new password"
+            id="new password"
+            inputRef={newpasswordRef}
+            type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+            InputProps={{ // <-- This is where the toggle button is added.
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
             <Typography component="h1" variant="h5">
              Please re-enter your new password
             </Typography>
@@ -121,12 +165,25 @@ function ChangePassword() {
             label="re-enter new password"
             type="re-enter new password"
             id="re-enter new password"
-            inputRef={password2Ref}
+            inputRef={newpassword2Ref}
+            type={showPassword2 ? "text" : "password"} // <-- This is where the magic happens
+            InputProps={{ // <-- This is where the toggle button is added.
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword2}
+                    onMouseDown={handleMouseDownPassword2}
+                  >
+                    {showPassword2 ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
           />
+          
           <OurButton
-            href="/userpage"
             className={classes.submit}  
-            type="submit" 
             fullWidth  variant="contained" 
             onClick={checkIfSame}>
               Change password
