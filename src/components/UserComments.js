@@ -47,7 +47,7 @@ function UserComments({ match }) {
     const [comments, setComments] = useState([]);
     useEffect(() => { fetchComments(); }, []);
     const fetchComments = async () => {
-        const data = await fetch(`/comments/6/`);                 // change url
+        const data = await fetch(`/usercomments/${localStorage.getItem("user_id")}/`);                 // change url
         const comments = await data.json();
         setComments(comments);
         console.log(comments);
@@ -60,27 +60,21 @@ function UserComments({ match }) {
                 <List className={classes.commentStyle}>
                     {comments.map(comment => (
                         <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt={comment.nickname} src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
                             <ListItemText
                                 primary={comment.text}
                                 secondary={
                                     <React.Fragment>
-                                        <Typography
+                                            <Typography
                                             component="span"
                                             variant="body2"
                                             className={classes.inline}
-                                            color="textPrimary"
-                                        >
-                                            {comment.nickname}
-                                        </Typography>
-                                        {"\n" + comment.date}
-                                        <Rating
-                                            name="simple-controlled"
-                                            defaultValue={comment.rating}
-                                            disabled="true"
-                                        />
+                                            color="textPrimary">
+                                        {comment.date +"\n"}
+                                            </Typography>
+                                        For product: {comment.product + "\n"}
+                                            <Rating name="simple-controlled" defaultValue={comment.rating} disabled="true"/>
+                                        {"\n" + "Approved:" +comment.validation+"\n"}
+                                        
                                     </React.Fragment>
                                 }
                             />

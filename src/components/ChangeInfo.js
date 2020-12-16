@@ -71,9 +71,7 @@ function ChangeInfo() {
             autoComplete="current-password"
           />
           <OurButton
-            href="/userpage"
             className={classes.submit}  
-            type="submit" 
             fullWidth  variant="contained" >
               Change password
           </OurButton>
