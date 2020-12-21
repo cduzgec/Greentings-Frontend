@@ -69,7 +69,7 @@ root: {
 
 function ProductManager() {
   useEffect(() => {fetchComments();},[]);
-  const[visible,setVisible] = useState(false);
+ 
   const[comments,setComments] = useState([]);
   const fetchComments = async () => {             
     const data = await fetch(`/commentapproval`);
@@ -78,9 +78,7 @@ function ProductManager() {
     console.log(comments);
 
 }
-const showComments = () => { 
-  setVisible(!visible);
-}
+
 async function ApproveComment (id) {
   try {
 
@@ -142,11 +140,8 @@ const classes = useStyles();
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={8}>
-        <Paper style={styles.spaperContainer} elevation={10}>
-        <Button className={classes.button} onClick={() => {showComments() }} variant="contained">
-          See Comments
-        </Button>
-        {visible ? (
+        
+       
         <List className={classes.commentStyle}>
               {comments.map (comment => (               
                 <ListItem alignItems="flex-start">
@@ -184,8 +179,8 @@ const classes = useStyles();
                 </ListItem>
                                  
               ))}
-              </List> ) : null }
-              </Paper>
+              </List> 
+          
               </Grid>
 
   

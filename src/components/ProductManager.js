@@ -16,10 +16,16 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import UserComments from "./UserComments"
 import ChangePassword from "./ChangePassword";
 import ChangeInfo from "./ChangeInfo"; 
+import EditIcon from '@material-ui/icons/Edit';
 import UserInfo from "./UserInfo"; 
 import Approval from "./commentApproval"; 
+import AddProduct from "./addProduct"; 
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import EditAttributesOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
 import UserOrders from "./UserOrders";
+import EditProduct from "./editProduct"; 
+import SeeProduct from "./ManagerProducts"; 
 
 const drawerWidth = 240;
 
@@ -96,6 +102,18 @@ function UserPage({ match }) {
               <ListItemIcon><EditAttributesOutlinedIcon/></ListItemIcon>
               <ListItemText primary="Comment Approval" onClick={() => {setPage("Approve");}}/>
             </ListItem>
+            <ListItem button>
+              <ListItemIcon><AddBoxOutlinedIcon/></ListItemIcon>
+              <ListItemText primary="Add/Delete Product" onClick={() => {setPage("AddProduct");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><EditIcon/></ListItemIcon>
+              <ListItemText primary="Edit Product" onClick={() => {setPage("EditProduct");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FolderOpenIcon/></ListItemIcon>
+              <ListItemText primary="See My Products" onClick={() => {setPage("SeeProduct");}}/>
+            </ListItem>
 
         </List>
       </Drawer>
@@ -108,6 +126,9 @@ function UserPage({ match }) {
         {page === 'ChangeInfo'? <ChangeInfo/>: null }
         {page === 'ChangePass'? <ChangePassword/>: null }
         {page === 'Approve'? <Approval/>: null }
+        {page === 'AddProduct'? <AddProduct/>: null }
+        {page === 'EditProduct'? <EditProduct/>: null }
+        {page === 'SeeProduct'? <SeeProduct/>: null }
        
       </main>
     </div>

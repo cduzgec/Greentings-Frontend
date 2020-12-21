@@ -12,6 +12,7 @@ import Cart from "./components/Cart";
 import UserPage from "./components/UserPage";
 import Footer from "./components/footer";
 import Navbar from "./components/Navbar";
+import Edit from "./components/editProduct";
 import EmailConfirmation from "./components/EmailConfirmation";
 import ForgotConfirmation from "./components/ForgotConfirmation";
 import ChangePassword from "./components/ChangePassword";
@@ -43,6 +44,7 @@ export default function App () {
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
           <Route path='/login' component={Login} />
+          <Route path='/edit' component={Edit} />
 
           <Route path='/signup' component={Signup} />
           <Route path='/emailconfirmation/:user_id' component={EmailConfirmation} />
