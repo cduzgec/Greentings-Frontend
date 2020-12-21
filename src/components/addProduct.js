@@ -100,7 +100,7 @@ function ProductManager() {
     }
     setCategory(tempArr);
     console.log(category)
-    debugger;
+   
     }
 
     async function AddProduct (){

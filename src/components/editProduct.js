@@ -2,17 +2,12 @@ import React from "react";
 import  {useRef,useState, useEffect} from 'react';
 import { Grid, Typography,Button  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
 import {green} from '@material-ui/core/colors';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+
 import { withRouter } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+
 const styles = {
   spaperContainer: { 
    
@@ -63,10 +58,11 @@ root: {
   },
 }));
 
-function ProductManager() {
+function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, pname}) {
 
-    
+  useEffect(() => {fetchCategories();},[]);
     const [category, setCategory] =useState([]);
+    const [constantCategory, setConstantCategory] =useState([]);
     const [categoryInput, setCategoryInput] =useState("");
     const priceref = useRef('') 
     const describeref = useRef('') 
@@ -83,27 +79,18 @@ function ProductManager() {
     const [description, setDesc] = useState("");
     const [stock, setStock] = useState(0);
     const [ProductID, setProductID] = useState(0);
-    const [ProductID2, setProductID2] = useState(0);
+    const [ProductID2, setProductID2] = useState(product_id);
     
-  
-    const handleChange = (event) => {
-        setCategoryInput(event.target.value);
-      };
+ 
 
     const getCategories = async () => {             
-    const data = await fetch(`/categorise/${parseInt(ProductID2)}`);
+    const data = await fetch(`/categorise/${ProductID2}`);
     // const category= await data.json().then(data => {
     //     setCategory(data.category_name)});
     // }
     const category= await data.json();
     setCategory(category);
-    {category.map (ca => (
-        <Typography variant="h5">
-          Your product has this category:{ca}
-        </Typography>
-
-
-    ))}
+    
     }
 
     async function AddProduct (){
@@ -128,12 +115,11 @@ function ProductManager() {
                 "stock": parseInt(stock),
                 "img": image,
                 "brand_name": brand,
-                "category_name": categoryInput,
               
               })
           });
           console.log("response:",res)
-          alert("Product is added");
+          alert("Product is edited");
           window.location.reload();
         }
         catch (e)
@@ -142,6 +128,107 @@ function ProductManager() {
         }
       
       }
+
+      async function deleteCategory(categ) {
+        try {
+     
+          const res = await fetch (`/categorise/${ProductID2}/`, {
+            method: "delete",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+
+              "category_name": categ,
+            
+            })
+          });
+          console.log("response:",res)
+          if(res.status===204)
+          {alert("Category is deleted");}
+          else if(res.status===406)
+          {alert("Category cannot be deleted because a product must have at least one category");}
+          let temp=category
+          Object.keys(category).forEach(function(key) {
+            if( category[key] === categ){
+              delete temp[key];
+            }
+          })
+          setCategory(temp);
+          
+          // window.location.reload();
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+      
+      }
+      async function AddCategory() {
+        try {
+    
+          const res = await fetch (`/categorise/${ProductID2}/`, {
+            method: "post",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+
+              "category_name": categoryInput,
+            
+            })
+          });
+          console.log("response:",res)
+
+          if(res.status===201)
+          {alert("Category is added");}
+          else if(res.status===406)
+          {alert("Category cannot be added because this product has already that category");}
+          // let temp=category
+          // Object.keys(category).forEach(function(key) {
+          //   if( category[key] === categ){
+          //     delete temp[key];
+          //   }
+          // })
+          // setCategory(temp);
+          
+          // window.location.reload();
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+      
+      }
+      const handleChange = (event) => {
+        setCategoryInput(event.target.value);
+      };
+      const fetchCategories = async () => {             
+        const data = await fetch(`/category/`);
+        // const category= await data.json().then(data => {
+        //     setCategory(data.category_name)});
+        // }
+        const categories= await data.json();
+        var tempArr = [];
+        for(var i = 0;i<categories.length;i++){
+            tempArr.push(categories[i].category_name);
+        }
+        setConstantCategory(tempArr);
+  
+       
+        }
 
 
 const classes = useStyles();
@@ -157,7 +244,7 @@ const classes = useStyles();
          variant="outlined"
           label="Product ID"
           margin="normal"
-          
+          defaultValue={product_id}
           fullWidth
           margin="normal"
           
@@ -171,6 +258,7 @@ const classes = useStyles();
         required
          variant="outlined"
           label="Stock"
+          defaultValue={pstock}
           margin="normal"
           id="margin-none"
           inputRef={stockref} 
@@ -182,6 +270,7 @@ const classes = useStyles();
          variant="outlined"
           label="image url"
           margin="normal"
+          defaultValue={img}
           id="margin-none"
           inputRef={imgref} 
           onChange={e => setImage(e.target.value)}
@@ -196,7 +285,7 @@ const classes = useStyles();
           id="standard-full-width"
           label="product description"
           style={{ margin: 8 }}
-          
+          defaultValue={pdescription}
           fullWidth
           margin="normal"
           inputRef={describeref} 
@@ -212,6 +301,7 @@ const classes = useStyles();
          variant="outlined"
           label="Product Name"
           margin="normal"
+          defaultValue={pname}
           inputRef={nameref} 
           onChange={e => setName(e.target.value)}
           className={classes.textField}
@@ -222,6 +312,7 @@ const classes = useStyles();
         required
          variant="outlined"
           label="Brand"
+          defaultValue={pbrand}
           margin="normal"
           inputRef={brandref} 
           onChange={e => setBrand(e.target.value)}
@@ -233,6 +324,8 @@ const classes = useStyles();
         required
          variant="outlined"
           label="Price"
+          defaultValue={pprice}
+
           margin="normal"
           inputRef={priceref} 
           onChange={e => setPrice(e.target.value)}
@@ -255,7 +348,7 @@ const classes = useStyles();
          variant="outlined"
           label="Product ID"
           margin="normal"
-          
+          defaultValue={product_id}
           fullWidth
           margin="normal"
           
@@ -268,9 +361,22 @@ const classes = useStyles();
         <div>
         <Button   onClick={() => {getCategories() }}variant="contained">
             See the categories of this product
+
         </Button>
         </div>
-          {/* <div>
+        <div>
+        <Typography variant="h7">
+          Your product has these categories:
+        </Typography>
+        {category.map (ca => (
+        <div>
+          <Typography variant="h7">
+            {ca.category_name}
+          </Typography>
+          <Button onClick={() => {deleteCategory(ca.category_name) }}>Delete</Button>
+        </div>
+        
+        ))}
         <TextField
           required
           variant="outlined"
@@ -283,18 +389,17 @@ const classes = useStyles();
          
           className={classes.textField}
         >
-        {category.map((ca, index) => (
-        <MenuItem  key={index} value={ca}>
-            {ca}
+        {constantCategory.map((c, index) => (
+        <MenuItem  key={index} value={c}>
+            {c}
         </MenuItem>
         ))}
-        </TextField> 
+        </TextField>
         </div>
         <div>
-        <Button   onClick={() => {DeleteProduct() }}variant="contained">
-            Delete
-        </Button>
-        </div> */}
+        <Button onClick={() => {AddCategory() }}>add category</Button>
+        </div>
+
         </Grid>
         </Grid>
     </form>

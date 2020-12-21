@@ -21,9 +21,11 @@ import UserInfo from "./UserInfo";
 import Approval from "./commentApproval"; 
 import AddProduct from "./addProduct"; 
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import EditAttributesOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
 import UserOrders from "./UserOrders";
 import EditProduct from "./editProduct"; 
+import SeeProduct from "./ManagerProducts"; 
 
 const drawerWidth = 240;
 
@@ -108,6 +110,10 @@ function UserPage({ match }) {
               <ListItemIcon><EditIcon/></ListItemIcon>
               <ListItemText primary="Edit Product" onClick={() => {setPage("EditProduct");}}/>
             </ListItem>
+            <ListItem button>
+              <ListItemIcon><FolderOpenIcon/></ListItemIcon>
+              <ListItemText primary="See My Products" onClick={() => {setPage("SeeProduct");}}/>
+            </ListItem>
 
         </List>
       </Drawer>
@@ -122,6 +128,7 @@ function UserPage({ match }) {
         {page === 'Approve'? <Approval/>: null }
         {page === 'AddProduct'? <AddProduct/>: null }
         {page === 'EditProduct'? <EditProduct/>: null }
+        {page === 'SeeProduct'? <SeeProduct/>: null }
        
       </main>
     </div>

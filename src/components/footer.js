@@ -21,7 +21,7 @@ const useStyles =makeStyles(theme=>({
 const footers = [
   {
     title_: "Company",
-    description: ["Team", "History", "Contact us", "Locations"],
+    description: ["Team", "History"],
   },
   {
     title_: "Features",
