@@ -2,36 +2,24 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UserPage from "./UserPage";
 
 const styles = {
     paperContainer: {
-
-        margin: "10px 200px",
-        marginTop: "50px"
-    },
-    spaperContainer: {
-
-        //margin: "10px 200px",
-        marginTop: "10px",
-        marginRight: "50px",
-        marginLeft: "50px"
-    }
+        marginTop: "1px",
+        marginLeft: "500px",
+        marginRight: "500px"
+        },
 };
 
 const useStyles = makeStyles((theme) => ({
-    name: {
-        textAlign: "left !important",
-    },
     commentStyle: {
         width: '100%',
         maxWidth: '36ch',
@@ -42,37 +30,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function OrderInfo() {
+function OrderInfo({match}) {
+    console.log(match)
     const classes = useStyles();
     const [orders, setOrders] = useState([]);
-    const [items, setItems] = useState([]);
+
 
     useEffect(() => { fetchOrder();}, []);
-    useEffect(() => {if (orders) {fetchItems();}}, [orders]);
 
     const fetchOrder = async () => {
-        const data = await fetch(`/ord/118`);                              //${localStorage.getItem("user_id")}`);               
+        const data = await fetch(`/orditem/${match.params.order_id}`);                             //${localStorage.getItem("user_id")}`);               
         const orders = await data.json();
         setOrders(orders);                                                // map lazım      aşağıda htmlde maple    
-        console.log(orders);
-    }
-
-    const fetchItems = async () => {
-        const data = await fetch(`/orditem/${orders.order_id}`);                    // map lazım      aşağıda htmlde maple    
-        const items = await data.json();
-        setItems(items);
-        console.log({items});
+        console.log({orders});
     }
 
 
     return (
+        <div>
+        <UserPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
                     {orders.map(order => (
-                        <ListItem alignItems="flex-start" button onClick={() => {<OrderInfo/>}}>         
+                        <ListItem alignItems="flex-start" button onClick={() => {window.location.replace(`/product/${order.product}`);}}>           
                             <ListItemText
-                                primary= "Lolol"
+                                primary= {order.product}
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -81,9 +64,9 @@ function OrderInfo() {
                                             className={classes.inline}
                                             color="textPrimary"
                                         >
-                                            {order.date}
+                                            order quantitiy: {order.quantity}
                                         </Typography>
-                                        {"\n" + order.total_price}
+                                        {"\n" + order.status}
                                     </React.Fragment>
                                 }
                             />
@@ -92,7 +75,7 @@ function OrderInfo() {
                 </List>
             </Box>
         </Paper>
-
+        </div>
     );
 };
 

@@ -9,27 +9,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import OrderInfo from "./OrderInfo";
+import UserPage from "./UserPage";
 
 const styles = {
     paperContainer: {
-
-        margin: "10px 200px",
-        marginTop: "50px"
+        marginTop: "1px",
+        marginLeft: "500px",
+        marginRight: "500px"
     },
-    spaperContainer: {
-
-        //margin: "10px 200px",
-        marginTop: "10px",
-        marginRight: "50px",
-        marginLeft: "50px"
-    }
 };
 
 const useStyles = makeStyles((theme) => ({
-    name: {
-        textAlign: "left !important",
-    },
     commentStyle: {
         width: '100%',
         maxWidth: '100',
@@ -43,38 +33,25 @@ const useStyles = makeStyles((theme) => ({
 function UserOrders() {
     const classes = useStyles();
     const [orders, setOrders] = useState([]);
-    const [items, setItems] = useState([]);
 
     useEffect(() => { fetchOrder();}, []);
-    useEffect(() => {if (orders) {fetchItems();}}, [orders]);
 
     const fetchOrder = async () => {
         const data = await fetch(`/ord/${localStorage.getItem("user_id")}`);               
         const orders = await data.json();
-        setOrders(orders);                                                // map lazım      aşağıda htmlde maple    
-        console.log(orders);
-    }
-
-    const fetchItems = async () => {
-        const data = await fetch(`/orditem/${orders.order_id}`);                    // map lazım      aşağıda htmlde maple    
-        const items = await data.json();
-        setItems(items);
-        console.log({items});
-    }
-
-    function goToInfo(){
-        return (
-            <OrderInfo/>
-        )
+        setOrders(orders);                                            
+        console.log({orders});
     }
 
 
     return (
+        <div>
+        <UserPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
                     {orders.map(order => (
-                        <ListItem alignItems="flex-start" button onClick={() => goToInfo}>         
+                        <ListItem alignItems="flex-start" button onClick={() => {window.location.replace(`/orderdetail/${order.order_id}`);}}>                                       
                             <ListItemText
                                 primary= {
                                     <React.Fragment>
@@ -107,6 +84,7 @@ function UserOrders() {
                 </List>
             </Box>
         </Paper>
+        </div>
 
     );
 };

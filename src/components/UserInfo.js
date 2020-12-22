@@ -5,16 +5,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import UserPage from "./UserPage";
 
 const styles = {
-    paperContainer: {
-        margin: "10px 200px",
-        marginTop: "50px"      
-    },
-    listItemText:{
-        fontSize:'0.7em',//Insert your required size
-      }
-  };
+  paperContainer: {
+      marginTop: "1px",
+      marginLeft: "500px",
+      marginRight: "500px"
+  },
+};
 
 
   const useStyles = makeStyles({
@@ -39,7 +38,8 @@ function UserInfo(){
     };
 
     return (
-      <div>
+      <div>       
+      <UserPage/>
         <Paper style={styles.paperContainer} elevation={10}>
         <Typography variant="h6" >
         <List>

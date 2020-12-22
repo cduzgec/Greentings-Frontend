@@ -10,7 +10,7 @@ import OurButton from "./button.js";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import {InputAdornment, IconButton } from "@material-ui/core";
-
+import UserPage from "./UserPage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -107,6 +107,8 @@ function ChangePassword() {
   }
   
   return (
+    <div>       
+    <UserPage/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -197,6 +199,7 @@ function ChangePassword() {
         </form>
       </div>
     </Container>
+    </div>
   );
 }
 

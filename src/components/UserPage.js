@@ -13,11 +13,6 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import UserComments from "./UserComments"
-import ChangePassword from "./ChangePassword";
-import ChangeInfo from "./ChangeInfo"; 
-import UserInfo from "./UserInfo"; 
-import UserOrders from "./UserOrders";
 
 const drawerWidth = 240;
 
@@ -28,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    height: "500px"
+    height: "100px"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -45,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 function UserPage() {
   const classes = useStyles();
-  const [page, setPage] = useState("")
 
   return (
     <div className={classes.root}>
@@ -63,39 +57,28 @@ function UserPage() {
         <List>
             <ListItem button>
               <ListItemIcon><LocalShippingIcon/></ListItemIcon>
-              <ListItemText primary="My Orders" onClick={() => {setPage("Orders");}}/>                    
+              <ListItemText primary="My Orders" onClick={() => {window.location.replace(`/myorders/${localStorage.getItem("user_id")}`);}}/>                    
             </ListItem>
             <ListItem button>
               <ListItemIcon><CommentIcon/></ListItemIcon>
-              <ListItemText primary="My Comments" onClick={() => {setPage("Comments");}}/>
+              <ListItemText primary="My Comments" onClick={() => {window.location.replace(`/mycomments/${localStorage.getItem("user_id")}`);}}/>             
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonIcon/></ListItemIcon>
-              <ListItemText primary="My User Information" onClick={() => {setPage("UserInfo");}}/>
+              <ListItemText primary="My User Information" onClick={() => {window.location.replace(`/myinformation/${localStorage.getItem("user_id")}`);}}/>             
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonAddIcon/></ListItemIcon>
-              <ListItemText primary="Change My User Information" onClick={() => {setPage("ChangeInfo");}}/>
+              <ListItemText primary="Change My User Information" onClick={() => {window.location.replace(`/changeinformation/${localStorage.getItem("user_id")}`);}}/>             
             </ListItem>
             <ListItem button>
               <ListItemIcon><LockIcon/></ListItemIcon>
-              <ListItemText primary="Change My Password" onClick={() => {setPage("ChangePass");}}/>
+              <ListItemText primary="Change My Password" onClick={() => {window.location.replace(`/changepassword/${localStorage.getItem("user_id")}`);}}/>             
             </ListItem>
 
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <h1>
-          Hello {localStorage.getItem("firstName")}          
-        </h1>
-        {page === 'Orders'? <UserOrders/>: null }
-        {page === 'Comments'? <UserComments/>: null }
-        {page === 'UserInfo'? <UserInfo/>: null }
-        {page === 'ChangeInfo'? <ChangeInfo/>: null }
-        {page === 'ChangePass'? <ChangePassword/>: null }
-       
-      </main>
+
     </div>
   );
 }
