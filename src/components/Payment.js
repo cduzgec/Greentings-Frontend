@@ -114,7 +114,7 @@ async function SendOrder () {
       },
       body: JSON.stringify({
         "user": localStorage.getItem("user_id"),
-        "total_price": "50",                                            //localStorage.getItem("total_price"),
+        "total_price": localStorage.getItem("total_price"),                                           //localStorage.getItem("total_price"),
         "address": address_id,                                   
       })
     });
@@ -155,7 +155,7 @@ async function SendOrder () {
             label="Card number"
             fullWidth
             autoComplete="cc-number"
-            onChange={(event) => {setcard(event.target.value); console.log(card)}}
+            onChange={(event) => {setcard(event.target.value);}}
           />
         </Grid>
         <Grid item xs={12} md={6}>

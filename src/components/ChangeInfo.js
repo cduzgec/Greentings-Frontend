@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles} from '@material-ui/core/styles';
 import OurButton from "./button.js";
-
+import UserPage from "./UserPage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +38,8 @@ function ChangeInfo() {
   const classes = useStyles();
   
   return (
+    <div>       
+    <UserPage/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -84,6 +86,7 @@ function ChangeInfo() {
         </form>
       </div>
     </Container>
+    </div>
   );
 }
 

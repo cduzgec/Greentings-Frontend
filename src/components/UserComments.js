@@ -9,23 +9,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UserPage from "./UserPage";
 
 const styles = {
     paperContainer: {
-
-        margin: "10px 200px",
-        marginTop: "50px"
+        marginTop: "1px",
+        marginLeft: "500px",
+        marginRight: "500px"
     },
-    spaperContainer: {
-
-        //margin: "10px 200px",
-        marginTop: "10px",
-        marginRight: "50px",
-        marginLeft: "50px"
-    }
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -55,6 +48,8 @@ function UserComments({ match }) {
 
     
     return (
+        <div>
+        <UserPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
@@ -83,6 +78,7 @@ function UserComments({ match }) {
                 </List>
             </Box>
         </Paper>
+        </div>
 
     );
 };

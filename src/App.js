@@ -15,7 +15,6 @@ import Navbar from "./components/Navbar";
 import Edit from "./components/editProduct";
 import EmailConfirmation from "./components/EmailConfirmation";
 import ForgotConfirmation from "./components/ForgotConfirmation";
-import ChangePassword from "./components/ChangePassword";
 import ProductDetail from "./components/ProductDetail";
 import Categories from "./components/Categories";
 import SearchPage from "./components/SearchPage";
@@ -23,6 +22,12 @@ import Invoice from "./components/Invoice";
 import SalesManager from "./components/SalesManager";
 import ProductManager from "./components/ProductManager";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UserOrders from './components/UserOrders';
+import UserComments from './components/UserComments';
+import UserInfo from './components/UserInfo';
+import ChangeInfo from './components/ChangeInfo';
+import ChangePassword from './components/ChangePassword';
+import OrderInfo from './components/OrderInfo';
 
 export default function App () {
 
@@ -55,11 +60,17 @@ export default function App () {
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
+          <Route path='/forgotconfirmation' component={ForgotConfirmation} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
           <ProtectedRoute path='/myaccount/:user_id' component={UserPage} />
-          <ProtectedRoute path='/forgotconfirmation' component={ForgotConfirmation} />
+          <ProtectedRoute path='/myorders/:user_id' component={UserOrders} />
+          <ProtectedRoute path='/mycomments/:user_id' component={UserComments} />
+          <ProtectedRoute path='/myinformation/:user_id' component={UserInfo} />
+          <ProtectedRoute path='/changeinformation/:user_id' component={ChangeInfo} />
+          <ProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
+          <Route path='/orderdetail/:order_id' component={OrderInfo} />
           
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>
