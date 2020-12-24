@@ -10,7 +10,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { withRouter } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
 
 
 const styles = {

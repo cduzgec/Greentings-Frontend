@@ -98,8 +98,9 @@ function SignUp () {
       if(!re.test(password)) {
         alert("The password you have entered is not valid!");
         return false;
-      }
-    } else {
+        }
+    } 
+    else {
       alert("Error: Please check that you've entered and confirmed your password!");
       return false;
     }

@@ -15,6 +15,7 @@ import EditProduct from "./editProduct";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {  Button  } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),

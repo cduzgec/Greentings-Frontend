@@ -152,7 +152,7 @@ function SearchPage({ match }) {
     async function sendProducttoCart (id) {
         try {
     
-          const res = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
+          const response = await fetch (`/basket/${localStorage.getItem("user_id")}/`, {
             method: "post",
             mode: "cors",
             headers:
@@ -169,8 +169,16 @@ function SearchPage({ match }) {
             
             })
           });
-          console.log("response:",res)
-          alert("Product is added to the cart");
+          if (response.status === 201){
+            response.json().then(data => {
+              console.log(data)
+              console.log(data[0].user_id)
+              localStorage.setItem("user_id",data[0].user_id); 
+              alert("Product is added to the cart");
+          })}
+          else {
+            response.json().then(data => {alert(data.message)})
+          }
         }
         catch (e)
         {
