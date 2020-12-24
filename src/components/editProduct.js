@@ -226,8 +226,14 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
             tempArr.push(categories[i].category_name);
         }
         setConstantCategory(tempArr);
-  
-       
+                  
+          setPrice(pprice);
+          setBrand(pbrand);
+          setName(pname);
+          setImage(img);
+          setDesc(pdescription);
+          setStock(pstock);
+          setProductID(product_id);
         }
 
 
