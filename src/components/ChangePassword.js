@@ -11,6 +11,10 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import {InputAdornment, IconButton } from "@material-ui/core";
 import UserPage from "./UserPage";
+//import jsSHA from 'jssha'
+import jsSHA from "jssha/dist/sha.mjs"
+//import jsSHA256 from "jssha/dist/sha256.js";
+import jsSHA256 from "jssha"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,18 +59,42 @@ function ChangePassword() {
   const [message,setMessage] = useState("");
   useEffect(() => {if (message) {console.log("Response message: "+ message); alert("Error: "+ message);}}, [message]);
 
-  function checkIfSame(){
-    console.log("Check")
-    if (newpasswordRef.current.value === newpassword2Ref.current.value &&  oldpasswordRef.current.value !== "")
+  function CheckPassword(){
+    console.log("Check the password inputs")
+    if (oldpasswordRef.current.value === "" || newpasswordRef.current.value === "" || newpassword2Ref.current.value === "" )
     {
-      sendPassword();
+      alert("Please fill the required places.");
+      return false;
     }
-    else
+    if (newpasswordRef.current.value !== newpassword2Ref.current.value)
     {
       alert("Please make sure that passwords are the same");
       return false;
     }
+    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    // at least one number, one lowercase and one uppercase letter
+    // at least six characters
+    if(!re.test(newpasswordRef.current.value)) {
+      alert("The password you have entered is not valid! You should have at least one number, one lowercase and one uppercase letter and at least six characters.");
+      return false;
+    }
+    else
+    {
+      hashPassword();
+    }
   }
+
+  function hashPassword(){
+    const jsSHA = require("jssha");
+    const shaObj = new jsSHA("SHA-512", "TEXT", { encoding: "UTF8" });
+    shaObj.update(newpasswordRef.current.value);
+    const hash = shaObj.getHash("HEX");
+    console.log(hash);
+
+    //sendPassword();
+  }
+
+
 
   async function sendPassword () {
     try {
@@ -183,11 +211,12 @@ function ChangePassword() {
               )
             }}
           />
+          <p>Password should contain at least one number, one lowercase, one uppercase letter and at least six characters </p>
           
           <OurButton
             className={classes.submit}  
             fullWidth  variant="contained" 
-            onClick={checkIfSame}>
+            onClick={hashPassword}>
               Change password
           </OurButton>
           <Grid container>

@@ -34,6 +34,7 @@ export default function App () {
   function hasVisitedAlert(){
     if( localStorage.getItem("hasVisited") === null ){
       localStorage.setItem("hasVisited", true)
+      localStorage.setItem("user_id", "0")
       alert("Hi welcome to our awesome website. We are using your localstorage for keeping your information. Dont worry. You are safe with us. Have fun!!"
       )
   }}
