@@ -55,12 +55,11 @@ function OrderInfo({match}) {
                 <Typography variant="h6">{product}</Typography>
                 <Typography variant="h5">{price}</Typography>
               </CardContent>
-              <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
-            </Grid>
+
             <Grid item container direction="row-reverse" alignItems="center">
               <Typography variant="h7"> {status}</Typography>
             </Grid>
+
             </Card>
           </CardActionArea>
         );

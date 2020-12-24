@@ -29,12 +29,12 @@ function UserInfo(){
 
     useEffect(() => { fetchUser(); }, []);
     const [user, setUser] = useState("")
-    const fetchUser = async () => {             /// try catchle
+    const fetchUser = async () => {            
       const data = await fetch(`/user/${localStorage.getItem("user_id")}`);
     
       const userinfo = await data.json();
       setUser(userinfo);
-      console.log(user)
+      console.log(userinfo)
     };
 
     return (
