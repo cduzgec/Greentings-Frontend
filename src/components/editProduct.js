@@ -79,18 +79,17 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
     const [stock, setStock] = useState(0);
     const [ProductID, setProductID] = useState(0);
     const [ProductID2, setProductID2] = useState(product_id);
+    const [photos, setPhoto] = useState([]);
+    const [imgInput, setIMGinput] = useState("");
     
  
 
     const getCategories = async () => {             
     const data = await fetch(`/categorise/${ProductID2}`);
-    // const category= await data.json().then(data => {
-    //     setCategory(data.category_name)});
-    // }
     const category= await data.json();
     setCategory(category);
-    
     }
+    
 
     async function AddProduct (){
         try {
@@ -127,6 +126,35 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
         }
       
       }
+
+      async function getPhotos (){
+        try {
+      
+          const response = await fetch(`/photos/`, {
+            method: "post",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+                "product_id": ProductID2
+              
+              })
+          });
+          await response.json().then(data => {setPhoto(data)})
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+      
+      }
+
 
       async function deleteCategory(categ) {
         try {
@@ -195,15 +223,76 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
           {alert("Category is added");}
           else if(res.status===406)
           {alert("Category cannot be added because this product has already that category");}
-          // let temp=category
-          // Object.keys(category).forEach(function(key) {
-          //   if( category[key] === categ){
-          //     delete temp[key];
-          //   }
-          // })
-          // setCategory(temp);
-          
-          // window.location.reload();
+
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+      
+      }
+      async function AddMorePhotos() {
+        try {
+    
+          const res = await fetch (`/addphoto/`, {
+            method: "post",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+
+              "product": parseInt(ProductID2),
+              "image_url":imgInput
+            
+            })
+          });
+          console.log("response:",res)
+
+          if(res.status===201)
+          {alert("Photo is added");}
+          // else if(res.status===406)
+          // {alert("Category cannot be added because this product has already that category");}
+
+        }
+        catch (e)
+        {
+          console.log(e)
+        }
+      
+      }
+      async function deletePhoto(idtobedeleted) {
+        try {
+    
+          const res = await fetch (`/photos/`, {
+            method: "delete",
+            mode: "cors",
+            headers:
+            {
+              "Accept": "*/*",
+              "Content-Type": "application/json",
+              "Connection": "keep-alive",
+              "Content-Encoding": "gzip, deflate, br",
+              "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+
+              "id":parseInt(idtobedeleted)
+            
+            })
+          });
+          console.log("response:",res)
+
+          if(res.status===201)
+          {alert("Photo is added");}
+          // else if(res.status===406)
+          // {alert("Category cannot be added because this product has already that category");}
+
         }
         catch (e)
         {
@@ -214,6 +303,11 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
       const handleChange = (event) => {
         setCategoryInput(event.target.value);
       };
+      const handleChange3 = (event) => {
+        setIMGinput(event.target.value);
+      };
+
+
       const fetchCategories = async () => {             
         const data = await fetch(`/category/`);
         // const category= await data.json().then(data => {
@@ -233,6 +327,9 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
           setDesc(pdescription);
           setStock(pstock);
           setProductID(product_id);
+          setIMGinput(img);
+        
+
         }
 
 
@@ -404,6 +501,64 @@ const classes = useStyles();
         <div>
         <Button onClick={() => {AddCategory() }}>add category</Button>
         </div>
+
+        
+
+        </Grid>
+        <Grid item xs={6}>
+          <h1>Add More Photos</h1>
+          <div>
+          <TextField
+        required
+         variant="outlined"
+          label="Product ID"
+          margin="normal"
+          defaultValue={product_id}
+          fullWidth
+          margin="normal"
+          
+          inputRef={Productref2} 
+          onChange={e => setProductID2(e.target.value)}
+          helperText="Please enter the id of product to see photos"
+          className={classes.textField}
+        />
+        </div>
+        <div>
+        <Button   onClick={() => {getPhotos() }}variant="contained">
+            See all photos of this product
+
+        </Button>
+        </div>
+        <div>
+        <Typography variant="h6">
+          Your product has these photos:
+        </Typography>
+
+        {photos.map (p => (
+        <div>
+          <Typography variant="h7">
+            {p.image_url}
+          </Typography>
+          <Button onClick={() => {deletePhoto(p.image_id) }}>Delete</Button>
+        </div>
+        
+        ))}
+        <TextField
+          required
+          variant="outlined"
+          label="Enter Url for photo"
+          margin="normal"
+          id="margin-none"
+          onChange={handleChange3}
+          className={classes.textField}
+        >
+        </TextField>
+        </div>
+        <div>
+        <Button onClick={() => {AddMorePhotos() }}>add this photo</Button>
+        </div>
+
+        
 
         </Grid>
         </Grid>

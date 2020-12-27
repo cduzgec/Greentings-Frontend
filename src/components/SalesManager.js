@@ -20,6 +20,9 @@ import UserInfo from "./UserInfo";
 import ChangeOrderStatus from "./changeOrderStatus"
 import UserOrders from "./UserOrders";
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -85,6 +88,18 @@ function SalesManager() {
             <ListItem button>
               <ListItemIcon><AlarmOnIcon/></ListItemIcon>
               <ListItemText primary="Edit Order" onClick={() => {setPage("ChangeOrderStatus");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FindInPageIcon/></ListItemIcon>
+              <ListItemText primary="See Invoices" onClick={() => {setPage("ChangeOrderStatus");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><LoyaltyIcon/></ListItemIcon>
+              <ListItemText primary="Campaigns" onClick={() => {setPage("ChangeOrderStatus");}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><ShowChartIcon/></ListItemIcon>
+              <ListItemText primary="Analyze Sales" onClick={() => {setPage("ChangeOrderStatus");}}/>
             </ListItem>
 
         </List>
