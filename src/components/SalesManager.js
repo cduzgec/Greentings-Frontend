@@ -19,6 +19,7 @@ import ChangeInfo from "./ChangeInfo";
 import UserInfo from "./UserInfo"; 
 import ChangeOrderStatus from "./changeOrderStatus"
 import UserOrders from "./UserOrders";
+import ManageOrders from "./managerOrderEdit";
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
@@ -87,7 +88,7 @@ function SalesManager() {
             </ListItem>
             <ListItem button>
               <ListItemIcon><AlarmOnIcon/></ListItemIcon>
-              <ListItemText primary="Edit Order" onClick={() => {setPage("ChangeOrderStatus");}}/>
+              <ListItemText primary="Edit Order" onClick={() => {setPage("ManageOrders");}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><FindInPageIcon/></ListItemIcon>
@@ -106,15 +107,14 @@ function SalesManager() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h1>
-          Hello {localStorage.getItem("firstName")}          
-        </h1>
+
         {page === 'Orders'? <UserOrders/>: null }
         {page === 'Comments'? <UserComments/>: null }
         {page === 'UserInfo'? <UserInfo/>: null }
         {page === 'ChangeInfo'? <ChangeInfo/>: null }
         {page === 'ChangePass'? <ChangePassword/>: null }
         {page === 'ChangeOrderStatus'? <ChangeOrderStatus/>: null }
+        {page === 'ManageOrders'? <ManageOrders/>: null }
        
       </main>
     </div>
