@@ -104,6 +104,7 @@ function MainPageItems() {
       const data = await fetch(`/manage/${localStorage.getItem("user_id")}/`);
 
       const items= await data.json();
+      debugger;
       //console.log(items); 
       setItems(items);
     }
@@ -190,7 +191,7 @@ function MainPageItems() {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
+            {items.map(item => (                                              
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 
                 <Card className={classes.card}>
