@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { getByDisplayValue } from "@testing-library/react";
 
+
+
 const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
@@ -65,6 +67,7 @@ function OrderInfoMANAGER({match}) {
         // }      
         // setStatus(statusTemp);                             
         console.log({orders});
+        debugger;
     }
 
     const getValue = (status) => {
@@ -115,6 +118,7 @@ function OrderInfoMANAGER({match}) {
                 })
             });
             console.log("response:",res)
+            
 
             }
             catch (e)
@@ -123,6 +127,7 @@ function OrderInfoMANAGER({match}) {
             }
         
         }
+        alert("Updated status")
         window.location.reload();
     }
 
@@ -130,15 +135,15 @@ function OrderInfoMANAGER({match}) {
         <div>
         <ManagerPage/>
 
-              <Typography variant="h4" gutterBottom>
-                Order Details for MANAGERorder {match.params.order_id}
+              <Typography variant="h5" gutterBottom>
+                Order Details for Order {match.params.order_id}
               </Typography>
        
   
             {orders.map ( (product, index) => (
               <div key={index}>
             <Grid item>
-    
+           
             <CardActionArea key={index}>
             <Card className={classes.card}>
               <div className={classes.cardDetails}>
@@ -146,7 +151,9 @@ function OrderInfoMANAGER({match}) {
               </div>
               <CardContent style={{ marginLeft: "0" }}>
                 <Typography variant="h6">{ product.product_name}</Typography>
-                <Typography variant="h5">{product.price + "$"}</Typography>
+                <Typography variant="h7">{"price :" + product.price + "$ " + "brand: " + product.brand_name}</Typography>
+               
+                <Typography variant="h6">{"product id: " +product.product_id}</Typography>
               </CardContent>
               <Grid item>
               
@@ -184,7 +191,7 @@ function OrderInfoMANAGER({match}) {
             ))}
                 <div>
           <Button variant="contained"  onClick={UpdateOrderStatus}>
-              slm
+              SAVE CHANGES
           </Button>
       </div>  
 

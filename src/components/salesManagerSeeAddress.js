@@ -30,27 +30,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Orders() {
+function Address({addressid}) {
     const classes = useStyles();
-    const [orders, setOrders] = useState([]);
-    const [invoice, setInvoices] = useState([]);
+    const [address, setAddress] = useState("");
+    
 
-    useEffect(() => { fetchOrder();}, []);
+    useEffect(() => { fetchRequest();}, []);
 
-    const fetchOrder = async () => {
-        const data = await fetch(`/order/`);               
-        const orders = await data.json();
-        setOrders(orders);                                            
-        console.log({orders});
+    const fetchRequest = async () => {
+        const data = await fetch(`/address/${addressid}/`);               
+        const adds = await data.json();
+        setAddress(adds); 
+        debugger;                                           
+        
     }
-
-    // const fetchInvoices = async (orderr_id) => {
-    //     debugger;
-    //     const data = await fetch(`/seepdf/${orderr_id}/`);               
-    //     const invoice = await data.json();
-    //     setInvoices(invoice);                                            
-    //     console.log({orders});
-    // }
 
 
     return (
@@ -60,7 +53,7 @@ function Orders() {
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
-                    {orders.map(order => (
+        
                         <ListItem alignItems="flex-start" >                                       
                             <ListItemText
                                 primary= {
@@ -71,41 +64,48 @@ function Orders() {
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            Customer {order.user} with order number {order.order_id} on
+                                            Name: {address.first_name}  {address.last_name}
                                         </Typography>
-                                        {"\n" + order.date}
+                                        <Typography>
+                                            city: {address.city}
+                                            
+                                        </Typography>
+                                        <Typography>
+                                        country : {address.country}
+                                        </Typography>
                                     </React.Fragment>
                                 }
                                 secondary={
                                     <React.Fragment>
                                         <Typography
                                             component="span"
-                                            variant="body2"
+                                            variant="body3"
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            Total price: {order.total_price+"\n"}
-                                            All delivered: {order.allDelivered}
+                                            address line:{address.address_line} 
+                                            
+                                            
+                                            {/* All delivered: {order.allDelivered} */}
+                                        </Typography>
+                                        <Typography>
+                                        phono number: {address.phone_number}
                                         </Typography>
                                     </React.Fragment>
                                 }
                                 
                             />
-                        <Button variant="contained"  onClick={() => {window.location.replace(`/adminOrderdetail/${order.order_id}`);}}>
-                        See Details
-                        </Button>
-                        <Button variant="contained" >
-                        {/* onClick={() => {fetchInvoices(order.order_id)}} */}
-                        See Invoice
-                        </Button>
+ 
                         </ListItem>
-                    ))}
+                
                 </List>
             </Box>
         </Paper>
+
         </div>
+        
 
     );
 };
 
-export default Orders;
+export default Address;

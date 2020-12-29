@@ -28,7 +28,9 @@ import UserInfo from './components/UserInfo';
 import ChangeInfo from './components/ChangeInfo';
 import ChangePassword from './components/ChangePassword';
 import OrderInfo from './components/OrderInfo';
+import OrderEdit from './components/managerOrderEdit';
 import OrderInfoForManager from './components/managerOrderDetail';
+import AddressChange from './components/salesManagerAddressChange';
 
 export default function App () {
 
@@ -73,6 +75,8 @@ export default function App () {
           <ProtectedRoute path='/changeinformation/:user_id' component={ChangeInfo} />
           <ProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
           <Route path='/orderdetail/:order_id' component={OrderInfo} />
+          <Route path='/editorder' component={OrderEdit} />
+          <Route path='/addressChange' component={AddressChange} />
           <Route path='/adminOrderdetail/:order_id' component={OrderInfoForManager} />
           
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
