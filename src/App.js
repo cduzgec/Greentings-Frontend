@@ -31,6 +31,8 @@ import OrderInfo from './components/OrderInfo';
 import OrderEdit from './components/managerOrderEdit';
 import OrderInfoForManager from './components/managerOrderDetail';
 import AddressChange from './components/salesManagerAddressChange';
+import Campaigns from './components/salesManagerCampaigns';
+
 
 export default function App () {
 
@@ -78,6 +80,7 @@ export default function App () {
           <Route path='/editorder' component={OrderEdit} />
           <Route path='/addressChange' component={AddressChange} />
           <Route path='/adminOrderdetail/:order_id' component={OrderInfoForManager} />
+          <Route path='/editCampaigns' component={Campaigns} />
           
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>

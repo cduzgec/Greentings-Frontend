@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function Orders() {
     const classes = useStyles();
     const [orders, setOrders] = useState([]);
-    const [invoice, setInvoices] = useState([]);
+    
 
     useEffect(() => { fetchOrder();}, []);
 
@@ -43,14 +43,6 @@ function Orders() {
         setOrders(orders);                                            
         console.log({orders});
     }
-
-    // const fetchInvoices = async (orderr_id) => {
-    //     debugger;
-    //     const data = await fetch(`/seepdf/${orderr_id}/`);               
-    //     const invoice = await data.json();
-    //     setInvoices(invoice);                                            
-    //     console.log({orders});
-    // }
 
 
     return (
@@ -94,8 +86,8 @@ function Orders() {
                         <Button variant="contained"  onClick={() => {window.location.replace(`/adminOrderdetail/${order.order_id}`);}}>
                         See Details
                         </Button>
-                        <Button variant="contained" >
-                        {/* onClick={() => {fetchInvoices(order.order_id)}} */}
+                        <Button variant="contained" onClick={() => {window.open(`http://127.0.0.1:8000/static/invoice_number_${order.order_id}.pdf`, "blank");}}>
+                        
                         See Invoice
                         </Button>
                         </ListItem>
