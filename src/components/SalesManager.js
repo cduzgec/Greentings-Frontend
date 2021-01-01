@@ -19,7 +19,11 @@ import ChangeInfo from "./ChangeInfo";
 import UserInfo from "./UserInfo"; 
 import ChangeOrderStatus from "./changeOrderStatus"
 import UserOrders from "./UserOrders";
+import ManageOrders from "./managerOrderEdit";
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    height: "500px"
+    height: "40px"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -64,44 +68,44 @@ function SalesManager() {
         <List>
             <ListItem button>
               <ListItemIcon><LocalShippingIcon/></ListItemIcon>
-              <ListItemText primary="My Orders" onClick={() => {setPage("Orders");}}/>                    
+              <ListItemText primary="My Orders" onClick={() => {window.location.replace(`/SalesManagerMyOrders/${localStorage.getItem("user_id")}`);}}/>                  
             </ListItem>
             <ListItem button>
               <ListItemIcon><CommentIcon/></ListItemIcon>
-              <ListItemText primary="My Comments" onClick={() => {setPage("Comments");}}/>
+              <ListItemText primary="My Comments" onClick={() => {window.location.replace(`/SalesManagerMyComments/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonIcon/></ListItemIcon>
-              <ListItemText primary="My User Information" onClick={() => {setPage("UserInfo");}}/>
+              <ListItemText primary="My User Information" onClick={() => {window.location.replace(`/SalesManagerMyInfo/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonAddIcon/></ListItemIcon>
-              <ListItemText primary="Change My User Information" onClick={() => {setPage("ChangeInfo");}}/>
+              <ListItemText primary="Change My User Information" onClick={() => {window.location.replace(`/SalesManagerChangeInfo/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><LockIcon/></ListItemIcon>
-              <ListItemText primary="Change My Password" onClick={() => {setPage("ChangePass");}}/>
+              <ListItemText primary="Change My Password" onClick={() => {window.location.replace(`/SalesManagerChangePassword/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><AlarmOnIcon/></ListItemIcon>
-              <ListItemText primary="Edit Order" onClick={() => {setPage("ChangeOrderStatus");}}/>
+              <ListItemText primary="Edit Order" onClick={() => {window.location.replace(`/editorder`);}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FindInPageIcon/></ListItemIcon>
+              <ListItemText primary="See Address Change Requests" onClick={() => {window.location.replace(`/addressChange`);}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><LoyaltyIcon/></ListItemIcon>
+              <ListItemText primary="Campaigns" onClick={() => {window.location.replace(`/editCampaigns`);}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><ShowChartIcon/></ListItemIcon>
+              <ListItemText primary="Analyze Sales" onClick={() => {window.location.replace(`/AnalyzeSales`);}}/>
             </ListItem>
 
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <h1>
-          Hello {localStorage.getItem("firstName")}          
-        </h1>
-        {page === 'Orders'? <UserOrders/>: null }
-        {page === 'Comments'? <UserComments/>: null }
-        {page === 'UserInfo'? <UserInfo/>: null }
-        {page === 'ChangeInfo'? <ChangeInfo/>: null }
-        {page === 'ChangePass'? <ChangePassword/>: null }
-        {page === 'ChangeOrderStatus'? <ChangeOrderStatus/>: null }
-       
-      </main>
+
     </div>
   );
 }

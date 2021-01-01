@@ -69,12 +69,14 @@ function ProductManager() {
     const nameref = useRef('') 
     const stockref = useRef(0) 
     const [price, setPrice] = useState("");
+    // const [id, setProductID] = useState(0);
     const [brand, setBrand] = useState("");
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [description, setDesc] = useState("");
     const [stock, setStock] = useState(0);
     const [DeleteProductID, setDeleteProductID] = useState(0);
+    const [i, setProductimg] = useState("");
     
   
     const handleChange = (event) => {
@@ -95,8 +97,45 @@ function ProductManager() {
     console.log(category)
    
     }
+    async function AddMorePhotos(id) {
+      
+      try {
+  
+        const res = await fetch (`/addphoto/`, {
+          method: "post",
+          mode: "cors",
+          headers:
+          {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+          },
+          body: JSON.stringify({
 
+            "product": parseInt(id),
+            "image_url":image
+          
+          })
+        });
+        console.log("response:",res)
+
+        if(res.status===201)
+        {alert("Photo is added");window.location.reload();}
+        
+        // else if(res.status===406)
+        // {alert("Category cannot be added because this product has already that category");}
+
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+    
+    }
     async function AddProduct (){
+      let id =0;
         try {
       
           const res = await fetch(`/manage/${localStorage.getItem("user_id")}/`, {
@@ -121,16 +160,20 @@ function ProductManager() {
               
               })
           });
-          console.log("response:",res)
+          
+          await res.json().then(data => {id=(data.product_id)} )
           alert("Product is added");
-          window.location.reload();
+          
+          // window.location.reload();
         }
         catch (e)
         {
           console.log(e)
         }
+        AddMorePhotos(id);
       
       }
+     
       async function DeleteProduct() {
         try {
       
@@ -262,7 +305,7 @@ const classes = useStyles();
         </div>
         </div>
         <div>
-        <Button   onClick={() => {AddProduct() }}variant="contained">
+        <Button   onClick={() => {AddProduct()  }}variant="contained">
             Add
         </Button>
         </div>
