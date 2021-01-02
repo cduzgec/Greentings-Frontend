@@ -1,15 +1,13 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import  {useRef,useState, useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography,Grid, Card,CardActionArea,CardMedia,CardContent,Divider, Button} from "@material-ui/core";
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ManagerPage from "./SalesManager";
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import { getByDisplayValue } from "@testing-library/react";
-import InfiniteScroll from 'react-infinite-scroller';
-
+import Checkbox from '@material-ui/core/Checkbox';
+import { DataGrid } from '@material-ui/data-grid';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,16 +39,44 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         width: "111px",
       },
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginLeft: "500px",
+      },
       
 }));
 
 function OrderInfoMANAGER({match}) {
+  const [page, setPage] = React.useState(1);
     const classes = useStyles();
     const[items,setItems] = useState([]);
-    
+    const [description, setDesc] = useState("");
+    const describeref = useRef('') 
+    const [name, setName] = useState("");
+    const nameref = useRef('') ;
+    const[chosenIDs,setID]=useState([]);
 
     useEffect(() => {fetchItems();}, []);
 
+    const [checkeds, setCheckeds] = React.useState([]);
+
+    const handleChange2 = (event,index, id) => {
+      let ids = [...chosenIDs];
+      if(checkeds[index] === false) {
+        ids.push(id);
+      }
+      else {
+        delete ids[index];
+        // ids.pop(id);
+      }
+      setID(ids);
+      debugger;
+      let checks = [...checkeds];
+      checks[index] = !checkeds[index]
+      setCheckeds(checks);
+      
+    };
    
     const fetchItems = async () => {          
   
@@ -58,7 +84,14 @@ function OrderInfoMANAGER({match}) {
   
         const items= await data.json();
         //console.log(items); 
-        setItems(items);}
+        setItems(items);
+
+        let checks = [];
+        for (let item in items ) {
+            checks.push(false);
+        }
+        setCheckeds(checks);
+      }
 
     const handleChange = (index, event) => {
         let itemsTemp = [...items];
@@ -102,17 +135,61 @@ function OrderInfoMANAGER({match}) {
 
       return (
         <div>
+        
         <ManagerPage/>
-
+        <form className={classes.root}>
+        <Grid container spacing={3}>
+        <Grid item xs={7}>
+        <TextField
+        variant="outlined"
+          id="standard-full-width"
+          label="Campaign Name"
+          style={{ margin: 8 }}
+          
+          fullWidth
+          margin="normal"
+          inputRef={nameref} 
+          onChange={e => setName(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+          <TextField
+        variant="outlined"
+          id="standard-full-width"
+          label="Campaign Description"
+          style={{ margin: 8 }}
+          
+          fullWidth
+          margin="normal"
+          inputRef={describeref} 
+          onChange={e => setDesc(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        </Grid>
+        </Grid>
+        </form>
               <Typography variant="h5" gutterBottom>
-                Set Discounted Price {match.params.order_id}
+                Select Products for this Campaign {match.params.order_id}
               </Typography>
        
   
             {items.map ( (product, index) => (
+              
               <div key={index}>
+              {/* <DataGrid
+                page={page}
+                onPageChange={(params) => {
+                  setPage(params.page);
+                }}
+                pageSize={5}
+                pagination
+                {...items}
+              /> */}
             <Grid item>
-           
+            
             <CardActionArea key={index}>
             <Card className={classes.card}>
               <div className={classes.cardDetails}>
@@ -129,7 +206,12 @@ function OrderInfoMANAGER({match}) {
             </Grid>
             <form className={classes.textfield_} >
             <Grid item container direction="row-reverse" alignItems="center">
-            <TextField
+            <Checkbox
+              checked={checkeds[index]}
+               onChange={(e) => {handleChange2(e,index,product.product_id)}}
+                 inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+            {/* <TextField
             required
             variant="outlined"
             
@@ -147,7 +229,7 @@ function OrderInfoMANAGER({match}) {
           <Button variant="contained" onClick={() => {UpdatePrice(product.product_id, product.price);}} >
               SAVE CHANGES
           </Button>
-             </div> 
+             </div>  */}
             </Grid>
             </form>
             <Divider></Divider>

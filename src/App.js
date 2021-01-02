@@ -32,6 +32,14 @@ import OrderEdit from './components/managerOrderEdit';
 import OrderInfoForManager from './components/managerOrderDetail';
 import AddressChange from './components/salesManagerAddressChange';
 import Campaigns from './components/salesManagerCampaigns';
+import SalesManagerInfoChange from './components/salesManagerChangeInfo';
+import SalesManagerPasswordChange from './components/salesManagerChangePassword';
+import SalesManagerOrders from './components/salesManagerMyOrders';
+import SalesManagerComments from './components/salesManagerMyComments';
+import SalesManagerInfo from './components/salesManagerMyInfo';
+import AnalyseSales from './components/salesManagerCharts';
+
+
 
 
 export default function App () {
@@ -81,7 +89,17 @@ export default function App () {
           <Route path='/addressChange' component={AddressChange} />
           <Route path='/adminOrderdetail/:order_id' component={OrderInfoForManager} />
           <Route path='/editCampaigns' component={Campaigns} />
-          
+          <Route path='/analyzeSales' component={AnalyseSales} />
+
+          <Route path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
+          <Route path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
+          <Route path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
+          <Route path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
+          <Route path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
+
+
+
+
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>
         <Footer />

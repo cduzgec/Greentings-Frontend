@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SalesManagerChangeInfo() {
+function ChangeInfo() {
   const classes = useStyles();
   
   return (
@@ -90,4 +90,4 @@ function SalesManagerChangeInfo() {
   );
 }
 
-export default withRouter(SalesManagerChangeInfo);
+export default withRouter(ChangeInfo);
