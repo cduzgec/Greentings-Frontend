@@ -1,16 +1,169 @@
 import React from "react";
+import {useState,useEffect } from "react";
+import {Typography,Grid,Card,CardActionArea, CardMedia,CardContent,Divider,TextField} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-function Invoice({ match }) {
+const useStyles = makeStyles(theme=>({
+  gridContainer: {
+    padding: "50px", 
+    [theme.breakpoints.down('sm')]: {
+        padding: "5px",
+      }
+  },
+  card: {
+    display: "flex",
+  },
+  cardDetails: {
+    flex: 0,
+  },
+  media: {
+    height: "100%",
+    width: "111px",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    [theme.breakpoints.down('sm')]: {
+        minWidth: 0,
+      }
+  },
+  itemTotal:{
+      padding: "10px 0"
+  }
+}));
 
-    console.log(match.params.order_id)
-    //const data = await fetch(`/user/${match.params.user_id}`)
+function Invoice ({match}) {
+  const classes = useStyles();
+  const[products,setProducts] = useState([]);
 
+  
+  
+  useEffect(() => {fetchProducts();}, [])
+ 
+  const fetchProducts = async () => {            
+
+      const data = await fetch(`/orditem/${match.params.order_id}`);  
+
+      const products= await data.json();
+     
+      setProducts(products);
+     
+  } 
+
+  const getTotal = () =>
+  {
+    var total = 0;
+    for (var key in products) {
+      total = total + products[key].price *  products[key].quantity ;
+    }
+    return Number(total.toFixed(2));
+  }
+ 
+  const calculateShippingCost= () =>
+  {
+    if(getTotal()>100 || getTotal()===0)
+    {
+      return 0;
+    }
+    else{return 13;}
+      
+  }
+  const calculateTax = () =>
+  {
+    let tax=0;
+    tax= 0.18* getTotal();
+    return Number( tax.toFixed(2));
+  }
+  const getTotalforOrder= () => {
+    localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
+    
+    return Number((getTotal()+calculateShippingCost()+calculateTax()).toFixed(2));
+  };
+
+  const getShoppingCard = (index, product, price, imageUrl, quantity,id) => {
+    return (
+      <CardActionArea key={index}>
+        <Card className={classes.card}>
+          <div className={classes.cardDetails}>
+            <CardMedia image={imageUrl} className={classes.media} />
+          </div>
+
+          <CardContent style={{ marginLeft: "0" }}>
+            <Typography variant="h6">{product}</Typography>
+            <Typography variant="h5">{price}</Typography>
+          </CardContent>
+        <Grid item container direction="row-reverse" alignItems="center">
+        </Grid>
+        </Card>
+      </CardActionArea>
+    );
+  };
 
   return (
-    <div>
-        <h1>INVOICE PAGE for invoice ID: {match.params.order_id} </h1>
-    </div>
+    <Grid container className={classes.gridContainer} spacing={2}>
+      <Grid item xs={12} sm={8} container direction="column">
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            Invoice for Order {match.params.order_id}
+          </Typography>
+        </Grid>
+        <Divider />
+        {products.map ( (product, index) => (
+          <div>
+        <Grid item>
+
+          {getShoppingCard(
+            index,
+            product.product_name,
+            product.price + "$",
+            product.img,
+            product.quantity,
+            product.product_id
+            
+          )}
+          
+        </Grid>
+         <Divider />
+         </div>
+        ))}
+        
+      </Grid>
+      <Grid item xs={12} sm={4}>
+          <Typography variant="h4" gutterBottom>
+              Summary
+          </Typography>
+       
+          <Divider />
+          <table width="100%">
+              <tr>
+                  <td align="left" className={classes.itemTotal}>SUBTOTAL</td>
+          <td align="right" className={classes.itemTotal}>{getTotal()+"$"}</td>
+              </tr>
+              <tr>
+                  <td align="left" className={classes.itemTotal}>SHIPPING</td>
+                  <td align="right" className={classes.itemTotal}>{calculateShippingCost()+"$"}</td>
+              </tr>
+              <tr>
+                  <td align="left" className={classes.itemTotal}>TAXES</td>
+                  <td align="right" className={classes.itemTotal}>{calculateTax()+"$"}</td>
+              </tr>
+              
+
+          </table>
+          <Divider />
+          <table width="100%">
+              <tr>
+                  <td align="left" className={classes.itemTotal}>
+                      <Typography variant="h5" component="p"> TOTAL</Typography>
+                      </td>
+                  <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotalforOrder()+"$"}</Typography></td>
+              </tr>
+              
+          </table>
+      </Grid>
+    </Grid>
   );
-}
+};
 
 export default Invoice;

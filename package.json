@@ -28,6 +28,7 @@
     "react-medium-image-zoom": "^4.3.1",
     "react-password-strength": "^2.4.0",
     "react-password-strength-bar": "^0.3.2",
+    "react-pdf": "^5.1.0",
     "react-responsive-carousel": "^3.2.10",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
