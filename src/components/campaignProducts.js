@@ -71,22 +71,46 @@ const styles = {
       backgroundColor: "#64bf6a"
   }
 };
-const numberofitems = 3;
 
-function MainPageItems() {
+
+function CampaignItems({match}) {
   const classes = useStyles();
 
-  useEffect(() => {fetchItems();}, []);
+  useEffect(() => {getCampaignItems();}, []);
 
   const[items,setItems] = useState([]);
  
-  const fetchItems = async () => {             /// try catchle
+  async function getCampaignItems(){
+        
+    try {
+    
+        const res = await fetch(`/campaignitems/${match.params.campaign_id}/`, {
+            method: "post",
+            mode: "cors",
+            headers:
+            {
+            "Accept": "*/*",
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Content-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate, br"
+            },
+            body: JSON.stringify({
+            
+            })
+        });
+        const items = await res.json();
+        debugger;
+        setItems(items);
 
-      const data = await fetch("/product/");
+    }
+        catch (e)
+        {
+        console.log(e)
+        }
+        
+ }
 
-      const items= await data.json();
-      //console.log(items); 
-      setItems(items);}
 
 
   async function sendProducttoCart (id) {
@@ -141,7 +165,7 @@ function MainPageItems() {
               align="center"
               color="textPrimary"
               gutterBottom>
-              New Arrivals
+              Campaign Items
             </Typography>
             <Typography
               variant="h5"
@@ -158,7 +182,7 @@ function MainPageItems() {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
+            {items.map(item => (                                                             
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 
                 <Card className={classes.card}>
@@ -173,7 +197,7 @@ function MainPageItems() {
                     {item.product_name}
                     </Typography>
                     <Typography>
-                     Price: {item.price} $
+                     New Price: {item.price} $
                     </Typography>
                     <Typography>
                      Old Price: {item.base_price} $
@@ -205,4 +229,4 @@ function MainPageItems() {
 }
 
 
-export default MainPageItems;
+export default CampaignItems;
