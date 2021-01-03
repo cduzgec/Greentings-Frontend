@@ -56,6 +56,8 @@ function OrderInfoMANAGER({match}) {
     const [name, setName] = useState("");
     const nameref = useRef('') ;
     const[chosenIDs,setID]=useState([]);
+    const percentageref = useRef(0) ;
+    const[percentage,setPercentage]=useState(0);
 
     useEffect(() => {fetchItems();}, []);
 
@@ -98,11 +100,11 @@ function OrderInfoMANAGER({match}) {
         itemsTemp[index].price =(event.target.value); 
         setItems(itemsTemp);
         };
-    async function UpdatePrice(id, price){
+    async function SendCampaign(){
 
         try {
     
-        const res = await fetch(`/discountpanel/${id}/`, {
+        const res = await fetch(`/discountpanel/`, {
             method: "post",
             mode: "cors",
             headers:
@@ -114,10 +116,14 @@ function OrderInfoMANAGER({match}) {
             "Accept-Encoding": "gzip, deflate, br"
             },
             body: JSON.stringify({
-                "new_price": price
+              "campaign": name,
+              "description":description,
+              "discount":parseInt(percentage),
+              "products":chosenIDs,
             
             })
         });
+        debugger;
         console.log("response:",res)
         
 
@@ -127,7 +133,7 @@ function OrderInfoMANAGER({match}) {
         console.log(e)
         }
         
-        alert("Price is Updated")
+        alert("Campaign is added")
         window.location.reload();
     }
 
@@ -140,6 +146,10 @@ function OrderInfoMANAGER({match}) {
         <form className={classes.root}>
         <Grid container spacing={3}>
         <Grid item xs={7}>
+          
+        <Button variant="contained"  onClick={SendCampaign}>
+              SAVE CHANGES
+          </Button>
         <TextField
         variant="outlined"
           id="standard-full-width"
@@ -168,14 +178,24 @@ function OrderInfoMANAGER({match}) {
             shrink: true,
           }}
         />
+        <TextField
+        required
+         variant="outlined"
+          label="Discount Percentage"
+          margin="normal"
+          inputRef={percentageref} 
+          onChange={e => setPercentage(e.target.value)}
+          className={classes.textField}
+          
+        />
         </Grid>
         </Grid>
         </form>
-              <Typography variant="h5" gutterBottom>
-                Select Products for this Campaign {match.params.order_id}
-              </Typography>
-       
+        <Typography variant="h5" gutterBottom>
+          Select Products for this Campaign {match.params.order_id}
+        </Typography>
   
+
             {items.map ( (product, index) => (
               
               <div key={index}>
@@ -211,25 +231,7 @@ function OrderInfoMANAGER({match}) {
                onChange={(e) => {handleChange2(e,index,product.product_id)}}
                  inputProps={{ 'aria-label': 'primary checkbox' }}
               />
-            {/* <TextField
-            required
-            variant="outlined"
-            
-            label="PRICE"
-            // defaultValue={product.status}  
-            value={product.price}
-            margin="normal"
-            id="margin-none"
-            onChange={ (e) => handleChange(index,e)}
-            className={classes.textField}
-            >
 
-            </TextField>
-            <div>
-          <Button variant="contained" onClick={() => {UpdatePrice(product.product_id, product.price);}} >
-              SAVE CHANGES
-          </Button>
-             </div>  */}
             </Grid>
             </form>
             <Divider></Divider>
@@ -241,14 +243,17 @@ function OrderInfoMANAGER({match}) {
             <Grid>
                 .
             </Grid>
+            
 
              </div>
+             
              
             ))}
   
 
-
-
+         <Grid item xs={6}>
+          <h1>EDIT CATEGORY</h1>
+          </Grid>
         </div>
         
         

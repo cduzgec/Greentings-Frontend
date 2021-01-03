@@ -194,6 +194,9 @@ function Categories({ match }) {
                      Price: {item.price} $
                     </Typography>
                     <Typography>
+                     Old Price: {item.base_price} $
+                    </Typography>
+                    <Typography>
                     Brand:{item.brand_name}
                     </Typography>
                     <Typography>

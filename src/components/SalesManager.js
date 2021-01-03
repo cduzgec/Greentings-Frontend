@@ -13,13 +13,7 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import UserComments from "./UserComments"
-import ChangePassword from "./ChangePassword";
-import ChangeInfo from "./ChangeInfo"; 
-import UserInfo from "./UserInfo"; 
-import ChangeOrderStatus from "./changeOrderStatus"
-import UserOrders from "./UserOrders";
-import ManageOrders from "./managerOrderEdit";
+
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
@@ -44,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   toolbar: {
-    height: "20px"
+    height: "5px"
   },
 }));
 
@@ -84,7 +78,7 @@ function SalesManager() {
             </ListItem>
             <ListItem button>
               <ListItemIcon><LockIcon/></ListItemIcon>
-              <ListItemText primary="Change My Password" onClick={() => {window.location.replace(`/SalesManagerChangePassword/${localStorage.getItem("user_id")}`);}}/>
+              <ListItemText primary="Change Password" onClick={() => {window.location.replace(`/SalesManagerChangePassword/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><AlarmOnIcon/></ListItemIcon>
@@ -92,11 +86,19 @@ function SalesManager() {
             </ListItem>
             <ListItem button>
               <ListItemIcon><FindInPageIcon/></ListItemIcon>
-              <ListItemText primary="See Address Change Requests" onClick={() => {window.location.replace(`/addressChange`);}}/>
+              <ListItemText primary="Address Change Requests" onClick={() => {window.location.replace(`/addressChange`);}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FindInPageIcon/></ListItemIcon>
+              <ListItemText primary="Order Cancellation Requests" onClick={() => {window.location.replace(`/orderCancellation`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><LoyaltyIcon/></ListItemIcon>
-              <ListItemText primary="Campaigns" onClick={() => {window.location.replace(`/editCampaigns`);}}/>
+              <ListItemText primary="Create Campaign" onClick={() => {window.location.replace(`/editCampaigns`);}}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><LoyaltyIcon/></ListItemIcon>
+              <ListItemText primary="See/Edit Campaigns" onClick={() => {window.location.replace(`/existingCampaigns`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><ShowChartIcon/></ListItemIcon>

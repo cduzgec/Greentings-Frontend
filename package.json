@@ -26,6 +26,7 @@
     "react": "^16.2.0",
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",
+    "react-animated-slider": "^2.0.0",
     "react-bootstrap": "^1.4.0",
     "react-confetch": "^1.0.6",
     "react-credit-cards": "^0.8.3",

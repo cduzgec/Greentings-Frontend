@@ -38,9 +38,9 @@ import SalesManagerOrders from './components/salesManagerMyOrders';
 import SalesManagerComments from './components/salesManagerMyComments';
 import SalesManagerInfo from './components/salesManagerMyInfo';
 import AnalyseSales from './components/salesManagerCharts';
-
-
-
+import SeeCampaigns from './components/salesManagerSeeCampaigns';
+import CancelOrders from './components/salesManagerOrderCancellation';
+import CampaignProducts from './components/campaignProducts';
 
 export default function App () {
 
@@ -89,14 +89,16 @@ export default function App () {
           <Route path='/addressChange' component={AddressChange} />
           <Route path='/adminOrderdetail/:order_id' component={OrderInfoForManager} />
           <Route path='/editCampaigns' component={Campaigns} />
-          <Route path='/analyzeSales' component={AnalyseSales} />
 
+          <Route path='/analyzeSales' component={AnalyseSales} />
+          <Route path='/existingCampaigns' component={SeeCampaigns} />
+          <Route path='/orderCancellation' component={CancelOrders} />
           <Route path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
           <Route path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
           <Route path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
           <Route path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
           <Route path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
-
+          <Route path='/campaignProducts/:campaign_id' component={CampaignProducts} />
 
 
 
