@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Team from './team';
 
 const useStyles =makeStyles(theme=>({
     footer: {
@@ -21,7 +22,7 @@ const useStyles =makeStyles(theme=>({
 const footers = [
   {
     title_: "Company",
-    description: ["Team", "History"],
+    description: ["Team", "History", "Contact"],
   },
   {
     title_: "Features",
@@ -53,22 +54,54 @@ const Footer = () => {
   return (
     <Container maxWidth="md" component="footer" className={classes.footer}>
       <Grid container spacing={4} justify="space-evenly">
-        {footers.map((footer) => (
-          <Grid item xs={6} sm={3} key={footer.title_}>
+        
+          <Grid item xs={6} sm={3} key="Company">
             <Typography variant="h6" color="textPrimary" gutterBottom>
-              {footer.title_}
+             Company
             </Typography>
             <ul>
-              {footer.description.map((item) => (
-                <li key={item}>
-                  <Link href="#" variant="subtitle1" color="textSecondary">
-                    {item}
+              
+                <li key="Team">
+                  <Link href="/team" variant="subtitle1" color="textSecondary">
+                    Team
                   </Link>
                 </li>
-              ))}
+                <li key="History">
+                  <Link href="/history" variant="subtitle1" color="textSecondary">
+                    History
+                  </Link>
+                </li>
+                <li key="Contact">
+                  <Link href="/contact" variant="subtitle1" color="textSecondary">
+                    Contact
+                  </Link>
+                </li>
+              
             </ul>
           </Grid>
-        ))}
+        
+
+  
+          <Grid item xs={6} sm={3} key="Legal">
+            <Typography variant="h6" color="textPrimary" gutterBottom>
+              Legal
+            </Typography>
+            <ul>
+            
+                <li key="Privacy policy">
+                  <Link href="/privacypolicy" variant="subtitle1" color="textSecondary">
+                    Privacy policy
+                  </Link>
+                </li>
+                <li key="Terms of use">
+                  <Link href="/termsofuse" variant="subtitle1" color="textSecondary">
+                    Terms of use
+                  </Link>
+                </li>
+            
+            </ul>
+          </Grid>
+      
       </Grid>
       <Box mt={5}>
         <p className="copyRight">Copyright © 2020. All Rights Reserved</p> 

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   fixedlist: {
-    height: 200,
+    height: 450,
     maxWidth: 300,
     backgroundColor: theme.palette.background.paper,
   },
@@ -113,7 +113,7 @@ function Sidebar(props) {
   const [rating,setRating] = useState(0);
   const [checked, setChecked] = useState([]);                 // add checked brands to
   let brandsString = "";
-  // fetch
+
   const [brands,setBrands] = useState([]);
 
   useEffect(() => {fetchBrands();}, [props.categoryid]);
@@ -171,6 +171,7 @@ function Sidebar(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked); 
+    console.log(newChecked)
   };
 
   function convertString() {
@@ -178,7 +179,12 @@ function Sidebar(props) {
       if (brandsString === "") { brandsString = checked[i].name;}
       else {brandsString += " "+ checked[i].name; } 
      }
+     console.log("brandsString")
      console.log(brandsString)
+     if (brandsString === "")
+        {
+          brandsString = "empty";
+        }
      sendFilter ()
   }
 
@@ -202,6 +208,7 @@ function Sidebar(props) {
             "price_lower": minPrice
         })
         });
+        console.log("New Filter sent")
         console.log(brandsString, parseInt(rating), maxPrice,minPrice )
         console.log("Response Status: "+response.status)
 

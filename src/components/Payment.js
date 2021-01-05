@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
     }
   };
-  // flow: get card input - CheckCard - DoPayment - PostAdress - SendOrder - forward invoice page    // need to implement DoPayment
+  // flow: get card input - CheckCard - DoPayment - PostAdress - SendOrder - SendPDF - forward invoice page    // need to implement DoPayment
 export default function PaymentForm() {
   const classes = useStyles();
   const [name, setName] = useState("")
@@ -41,7 +41,10 @@ export default function PaymentForm() {
 
   const [order_id, setOrderID] = useState("")
   const [order_date, setOrdDate] = useState("")
-  useEffect(() => {if (order_id) {console.log("Order ID: "+ order_id); window.location.replace(`/invoice/${order_id}`);}}, [order_id]); // input: PostAdress output: SendOrder
+  useEffect(() => {if (order_id) {console.log("Sending invoice for order id: "+ order_id); SendPDF();}}, [order_id]); // input: SendOrder output: SendPDF
+
+  const [message, setMessage] = useState("")
+  useEffect(() => {if (order_id) {console.log("Order ID: "+ order_id); window.location.replace(`/invoice/${order_id}`);}}, [message]); // input: SendPDF output: Forward page
 
 
   function CheckCard()
@@ -77,7 +80,7 @@ export default function PaymentForm() {
           "postal_code" : localStorage.getItem("postalCode"),
           "country" : localStorage.getItem("country"),
           "address_line" : localStorage.getItem("addressLine"),
-          "phone_number" : "0251",                                                //localStorage.getItem("phone_number"),
+          "phone_number" : localStorage.getItem("phone_number"),                                                
           "user" : localStorage.getItem("user_id"),
           "state" : "EYALET",
         })
@@ -98,7 +101,6 @@ export default function PaymentForm() {
     }
   }
 
-
 async function SendOrder () {
   try {
     const response = await fetch ('/ord/', {       
@@ -114,7 +116,7 @@ async function SendOrder () {
       },
       body: JSON.stringify({
         "user": localStorage.getItem("user_id"),
-        "total_price": localStorage.getItem("total_price"),                                           //localStorage.getItem("total_price"),
+        "total_price": localStorage.getItem("total_price"),                                           
         "address": address_id,                                   
       })
     });
@@ -128,6 +130,12 @@ async function SendOrder () {
       console.log(e)
     }
   }
+
+  const SendPDF = async () => {      
+    const data = await fetch(`/pdfsend/${order_id}`);                         //    /category/${category.categories_id}
+
+    const mes= await data.json();
+    setMessage(mes);};         // brand_name: description: img: price: product_id: product_name: rating: stock:
 
 
   return (

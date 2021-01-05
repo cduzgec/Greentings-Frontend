@@ -56,7 +56,7 @@ function UserInfo(){
               <ListItemText className={classes.item} primary="Last Name:" /> {user.last_name}
             </ListItem>
             <ListItem >
-              <ListItemText className={classes.item} primary="Phone:" /> {user.phone_number} 
+              <ListItemText className={classes.item} primary="Phone:" /> {(user.phone_number == "NULL" )? "Please register your number" : user.phone_number}
             </ListItem>
         </List>
         </Typography>

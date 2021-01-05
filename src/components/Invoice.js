@@ -44,9 +44,7 @@ function Invoice ({match}) {
   const fetchProducts = async () => {            
 
       const data = await fetch(`/orditem/${match.params.order_id}`);  
-
       const products= await data.json();
-     
       setProducts(products);
      
   } 
@@ -131,10 +129,32 @@ function Invoice ({match}) {
       </Grid>
       <Grid item xs={12} sm={4}>
           <Typography variant="h4" gutterBottom>
-              Summary
+              Order  Summary
           </Typography>
+
+          <Divider />
+            <table width="100%">
+                <tr>
+                    <td align="left" className={classes.itemTotal}>FIRST NAME</td>
+            <td align="right" className={classes.itemTotal}>{localStorage.getItem("firstName")}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>LAST NAME</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("lastName")}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>PHONE NUMBER</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("phone_number")}</td>
+                </tr>
+            </table>
+          <Divider />
        
           <Divider />
+
+          <Typography variant="h4" gutterBottom>
+              Price Information
+          </Typography>
+
           <table width="100%">
               <tr>
                   <td align="left" className={classes.itemTotal}>SUBTOTAL</td>
@@ -152,6 +172,7 @@ function Invoice ({match}) {
 
           </table>
           <Divider />
+          
           <table width="100%">
               <tr>
                   <td align="left" className={classes.itemTotal}>
@@ -159,8 +180,34 @@ function Invoice ({match}) {
                       </td>
                   <td align="right" className={classes.itemTotal}><Typography variant="h5" component="span"> {getTotalforOrder()+"$"}</Typography></td>
               </tr>
-              
           </table>
+
+          <Divider />
+
+          <Typography variant="h4" gutterBottom>
+              Address Information
+          </Typography>
+
+            <table width="100%">
+                <tr>
+                    <td align="left" className={classes.itemTotal}>ADDRESS LINE</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("addressLine")}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>CITY</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("city")}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>COUNTRY</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("country")}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>POSTAL CODE</td>
+                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("postalCode")}</td>
+                </tr>
+            </table>
+          <Divider />
+          
       </Grid>
     </Grid>
   );

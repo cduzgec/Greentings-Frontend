@@ -6,6 +6,15 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
+
+import History from './components/footerHistory';
+import Privacy from './components/footerPrivacy';
+import Terms from './components/footerTerms';
+import Team from './components/team';
+import Contact from './components/footerContact';
+
+
+
 import ForgotPassword from "./components/ForgotPassword";
 import Payment from "./components/Payment";
 import Cart from "./components/Cart";
@@ -27,7 +36,7 @@ import UserComments from './components/UserComments';
 import UserInfo from './components/UserInfo';
 import ChangeInfo from './components/ChangeInfo';
 import ChangePassword from './components/ChangePassword';
-import OrderInfo from './components/OrderInfo';
+import OrderInfo from './components/UserOrderInfo';
 import OrderEdit from './components/managerOrderEdit';
 import OrderInfoForManager from './components/managerOrderDetail';
 import AddressChange from './components/salesManagerAddressChange';
@@ -63,7 +72,11 @@ export default function App () {
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
           <Route path='/login' component={Login} />
-          <Route path='/edit' component={Edit} />
+          <Route path='/team' component={Team} />
+          <Route path='/history' component={History} />
+          <Route path='/privacypolicy' component={Privacy} />Contact
+          <Route path='/termsofuse' component={Terms} />
+          <Route path='/contact' component={Contact} />
 
           <Route path='/signup' component={Signup} />
           <Route path='/emailconfirmation/:user_id' component={EmailConfirmation} />
@@ -93,14 +106,12 @@ export default function App () {
           <Route path='/analyzeSales' component={AnalyseSales} />
           <Route path='/existingCampaigns' component={SeeCampaigns} />
           <Route path='/orderCancellation' component={CancelOrders} />
-          <Route path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
-          <Route path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
-          <Route path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
-          <Route path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
-          <Route path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
+          <ProtectedRoute path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
+          <ProtectedRoute path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
+          <ProtectedRoute path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
+          <ProtectedRoute path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
+          <ProtectedRoute path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
           <Route path='/campaignProducts/:campaign_id' component={CampaignProducts} />
-
-
 
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>

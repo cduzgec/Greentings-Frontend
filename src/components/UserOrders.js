@@ -51,7 +51,7 @@ function UserOrders() {
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
                     {orders.map(order => (
-                        <ListItem alignItems="flex-start" button onClick={() => {window.location.replace(`/orderdetail/${order.order_id}`);}}>                                       
+                        <ListItem alignItems="flex-start" key = {order.order_id} button onClick={() => {window.location.replace(`/orderdetail/${order.order_id}`);}}>                                       
                             <ListItemText
                                 primary= {
                                     <React.Fragment>
@@ -61,9 +61,9 @@ function UserOrders() {
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            Your order with order number {order.order_id} on
+                                            Your order with order number {order.order_id} on {order.date}
                                         </Typography>
-                                        {"\n" + order.date}
+                                        
                                     </React.Fragment>
                                 }
                                 secondary={
@@ -74,8 +74,10 @@ function UserOrders() {
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            Total price {order.total_price}
+                                            Total price {order.total_price+ "\n"}
                                         </Typography>
+                                        {(order.allDelivered == true )? "status: all delivered \n" : "status: not delivered \n"}
+                                        {(order.cancelled == true )? "Cancelled" : ""}
                                     </React.Fragment>
                                 }
                             />
