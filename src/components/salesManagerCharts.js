@@ -3,31 +3,24 @@ import ManagerPage from "./SalesManager";
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from "@material-ui/core/styles";
 import Ch1 from './charts/chart1';
-import Ch2 from './charts/chart2';
+import Ch4 from './charts/chart4';
 import Ch3 from './charts/chart3';
 
 
-import {
-  Chart,
-  PieSeries,
-  Title,
-} from '@devexpress/dx-react-chart-material-ui';
-
-import { Animation } from '@devexpress/dx-react-chart';
 
 const useStyles = makeStyles((theme) => ({
 
     paperContainer: {
         marginTop: "1px",
         marginLeft: "400px",
-        marginRight: "400px"
+        marginRight: "300px"
     },
 }));
 const styles = {
     paperContainer: {
         marginTop: "1px",
         marginLeft: "400px",
-        marginRight: "400px"
+        marginRight: "300px"
     },
 };
 
@@ -59,11 +52,11 @@ export default class Demo extends React.PureComponent {
 <Paper style={styles.paperContainer} elevation={10}>
      <ManagerPage/>
      <div>
-     <Ch3/>
+     <Ch4/>
 
      </div>
      <div>
-     <Ch2/>
+     <Ch3/>
 
      </div>
    

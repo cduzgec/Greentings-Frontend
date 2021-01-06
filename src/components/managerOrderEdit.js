@@ -52,6 +52,7 @@ function Orders() {
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
+                <h1>Orders</h1>
                     {orders.map(order => (
                         <ListItem alignItems="flex-start" >                                       
                             <ListItemText
@@ -77,7 +78,7 @@ function Orders() {
                                             color="textPrimary"
                                             >
                                             Total price: {order.total_price+"\n"}
-                                            All delivered: {order.allDelivered}
+                                         
                                         </Typography>
                                     </React.Fragment>
                                 }

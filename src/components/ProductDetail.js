@@ -84,7 +84,7 @@ function ProductDetail({match}) {
     const [value, setValue] = React.useState(2);
 
     const fetchItem =async() => {
-      const fetchItem = await fetch (`/product/${match.params.product_id}`);
+      const fetchItem = await fetch (`/prod/${match.params.product_id}`);
       const item = await fetchItem.json();
       setItem(item);
       console.log(item);
@@ -116,6 +116,8 @@ function ProductDetail({match}) {
           })
         });
         await response.json().then(data => {setPhoto(data)})
+        console.log(photos);
+        debugger;
       }
       catch (e)
       {
@@ -215,14 +217,7 @@ function ProductDetail({match}) {
       setRating(value);
     };
 
-  // function getAllImages ( item_img, photos) {
-  //   let allPhotos = []
-  //   allPhotos.push(item_img)
-  //   for (var key in photos) {
-  //     allPhotos.push(photos.image_url)
-  //  }
-  //  return allPhotos;
-  // }
+
   
   const classes = useStyles();
   return (
@@ -230,23 +225,11 @@ function ProductDetail({match}) {
     <Grid container>
       
       <Grid item xs={12} sm={6}>
-      {/* <Paper style={styles.spaperContainer} elevation={10}>
 
-      <Zoom>
-      <Carousel autoPlay interval="5000" transitionTime="1000">
-        <img
-          src={ item.img}
-          width="100%"
-          height="500px"
-          flex="1"
-          resizeMode= "contain"
-        />
-        </Carousel>
-         </Zoom> 
-         </Paper> */}
     <Paper style={styles.spaperContainer} elevation={10}>
       <Carousel autoPlay interval="5000" transitionTime="500">
-      {photos.map (photo => ( 
+      {photos.map  (photo => ( 
+   
          <Zoom>
         <img
           src={ photo.image_url}
@@ -260,7 +243,6 @@ function ProductDetail({match}) {
       </Carousel>
    </Paper>
       
-     {/* <ImageGallaryComponent images={getAllImages(item.img, photos)} /> */}
        
       </Grid>
       
@@ -291,8 +273,11 @@ function ProductDetail({match}) {
         <Grid item className={classes.itemContainer} container spacing={2}>
           <Grid item>
             <Typography variant="h4" style={{ display: "inline" }}>
-            {item.price}$
-            </Typography>
+                     Price: {item.price} $
+                    </Typography>
+                    {(item.discount===true) ? ( <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+                     Old Price: {item.base_price} $
+                    </Typography>) : null}
           </Grid>
           <Grid item>
           </Grid>

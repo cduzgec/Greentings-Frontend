@@ -199,7 +199,7 @@ function CampaignItems({match}) {
                     <Typography>
                      New Price: {item.price} $
                     </Typography>
-                    <Typography>
+                    <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
                      Old Price: {item.base_price} $
                     </Typography>
                     <Typography>

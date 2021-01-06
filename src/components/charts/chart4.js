@@ -57,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
   useEffect(() => { fetchData(); }, []);
   
   const fetchData = async () => {
-      const data = await fetch(`/categorysales/`);       
+      const data = await fetch(`/brandsales/`);       
       const datas = await data.json();
       // burada setlemedene once datas 'ı asagaıdakı data sekılıne getır json formatı sanırım o .
       let graphData = [];
       Object.keys(datas).forEach(function(key) {
-        let row = {category: key, sales: datas[key]};
+        let row = {brand: key, sales: datas[key]};
         graphData.push(row);
       })
       setGraphData(graphData);
@@ -78,16 +78,17 @@ const useStyles = makeStyles((theme) => ({
     <Paper>
       <Chart
         data={graphData}
+        rotated
       >
         <ArgumentAxis />
         <ValueAxis max={7} />
 
         <BarSeries
           valueField="sales"
-          argumentField="category"
-          color="pink"
+          argumentField="brand"
+          color="purple"
         />
-        <Title text="Sales by Categories" />
+        <Title text="Sales by Brand" />
         <Animation />
         <EventTracker />
           <Tooltip />

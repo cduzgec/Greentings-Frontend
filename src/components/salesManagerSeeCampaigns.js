@@ -125,6 +125,7 @@ function Campaigns() {
         <ManagerPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
+         <h2>Existing Campaigns</h2>
                 <List className={classes.commentStyle}>
                     {campaigns.map(campaign => (
                         <ListItem alignItems="flex-start" >                                       

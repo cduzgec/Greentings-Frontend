@@ -52,6 +52,7 @@ function UserComments({ match }) {
         <ManagerPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
+            <h1>My Comments</h1>
                 <List className={classes.commentStyle}>
                     {comments.map(comment => (
                         <ListItem alignItems="flex-start">
