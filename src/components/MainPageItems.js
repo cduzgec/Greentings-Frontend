@@ -158,7 +158,7 @@ function MainPageItems() {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.slice(0,numberofitems).map(item => (                                                               //// sayı loopu ekle    
+            {items.slice(0,numberofitems).map(item => (                                                              
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 
                 <Card className={classes.card}>
@@ -175,9 +175,9 @@ function MainPageItems() {
                     <Typography>
                      Price: {item.price} $
                     </Typography>
-                    <Typography>
+                    {(item.discount===true) ? ( <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
                      Old Price: {item.base_price} $
-                    </Typography>
+                    </Typography>) : null}
                     <Typography>
                     Brand:{item.brand_name}
                     </Typography>
