@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Please put the code you received
+          Please enter the code you received
         </Typography>
         <form className={classes.form} noValidate>
           <TextField

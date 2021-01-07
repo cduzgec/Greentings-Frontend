@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function About() {
+export default function History() {
   const classes = useStyles();
 
   return (
