@@ -36,18 +36,43 @@ const useStyles = makeStyles(theme=>({
 function Invoice ({match}) {
   const classes = useStyles();
   const[products,setProducts] = useState([]);
+  const[userID,setUserID] = useState();
+  const[user,setUser] = useState([]);
+  const[orderDate,setOrderDate] = useState();
+  const[orderDetail,setOrderDetail] = useState([]);
+  const[address,setAddress] = useState([]);
 
-  
-  
-  useEffect(() => {fetchProducts();}, [])
- 
+  useEffect(() => {fetchProducts(); fetchUserID(); }, [])
+  useEffect(() => {if (userID) {fetchUserInfo(); console.log(userID); }}, [userID]);
+  useEffect(() => {if (orderDetail) {fetchAdress(); console.log(orderDetail); }}, [orderDetail]);
+
   const fetchProducts = async () => {            
 
       const data = await fetch(`/orditem/${match.params.order_id}`);  
       const products= await data.json();
-      setProducts(products);
-     
+      setProducts(products);  
+      //console.log({products})
   } 
+  const fetchUserID = async () => {            
+    const data = await fetch(`/order/${match.params.order_id}`);  
+    const orderDetail= await data.json();
+    setUserID(orderDetail.user)
+    setOrderDetail(orderDetail)
+    console.log({orderDetail})
+  } 
+  const fetchUserInfo = async () => {            
+    const data = await fetch(`/user/${userID}`);  
+    const userinfo= await data.json();
+    setUser(userinfo)
+    console.log({userinfo})
+  }
+  const fetchAdress = async () => {            
+    const data = await fetch(`/address/${orderDetail.address}`);  
+    const addressinfo= await data.json();
+    setAddress(addressinfo)
+    console.log({addressinfo})
+  }
+
 
   const getTotal = () =>
   {
@@ -74,8 +99,6 @@ function Invoice ({match}) {
     return Number( tax.toFixed(2));
   }
   const getTotalforOrder= () => {
-    localStorage.setItem('total_price', (getTotal()+calculateShippingCost()+calculateTax()));
-    
     return Number((getTotal()+calculateShippingCost()+calculateTax()).toFixed(2));
   };
 
@@ -136,15 +159,19 @@ function Invoice ({match}) {
             <table width="100%">
                 <tr>
                     <td align="left" className={classes.itemTotal}>FIRST NAME</td>
-            <td align="right" className={classes.itemTotal}>{localStorage.getItem("firstName")}</td>
+                    <td align="right" className={classes.itemTotal}>{user.first_name}</td>
                 </tr>
                 <tr>
                     <td align="left" className={classes.itemTotal}>LAST NAME</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("lastName")}</td>
+                    <td align="right" className={classes.itemTotal}>{user.last_name}</td>
                 </tr>
                 <tr>
                     <td align="left" className={classes.itemTotal}>PHONE NUMBER</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("phone_number")}</td>
+                    <td align="right" className={classes.itemTotal}>{address.phone_number}</td>
+                </tr>
+                <tr>
+                    <td align="left" className={classes.itemTotal}>ORDER DATE</td>
+                    <td align="right" className={classes.itemTotal}>{orderDetail.date}</td>
                 </tr>
             </table>
           <Divider />
@@ -191,19 +218,19 @@ function Invoice ({match}) {
             <table width="100%">
                 <tr>
                     <td align="left" className={classes.itemTotal}>ADDRESS LINE</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("addressLine")}</td>
+                    <td align="right" className={classes.itemTotal}>{address.address_line}</td>
                 </tr>
                 <tr>
                     <td align="left" className={classes.itemTotal}>CITY</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("city")}</td>
+                    <td align="right" className={classes.itemTotal}>{address.city}</td>
                 </tr>
                 <tr>
                     <td align="left" className={classes.itemTotal}>COUNTRY</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("country")}</td>
+                    <td align="right" className={classes.itemTotal}>{address.country}</td>
                 </tr>
                 <tr>
                     <td align="left" className={classes.itemTotal}>POSTAL CODE</td>
-                    <td align="right" className={classes.itemTotal}>{localStorage.getItem("postalCode")}</td>
+                    <td align="right" className={classes.itemTotal}>{address.postal_code}</td>
                 </tr>
             </table>
           <Divider />

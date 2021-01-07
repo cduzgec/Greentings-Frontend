@@ -80,7 +80,8 @@ function ChangePassword() {
     }
     else
     {
-      hashPassword();
+      //hashPassword();
+      sendPassword();
     }
   }
 
@@ -216,7 +217,7 @@ function ChangePassword() {
           <OurButton
             className={classes.submit}  
             fullWidth  variant="contained" 
-            onClick={hashPassword}>
+            onClick={CheckPassword}>
               Change password
           </OurButton>
           <Grid container>

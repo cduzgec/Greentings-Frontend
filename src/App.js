@@ -74,7 +74,7 @@ export default function App () {
           <Route path='/login' component={Login} />
           <Route path='/team' component={Team} />
           <Route path='/history' component={History} />
-          <Route path='/privacypolicy' component={Privacy} />Contact
+          <Route path='/privacypolicy' component={Privacy} />
           <Route path='/termsofuse' component={Terms} />
           <Route path='/contact' component={Contact} />
 
@@ -87,7 +87,7 @@ export default function App () {
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
-          <Route path='/forgotconfirmation' component={ForgotConfirmation} />
+          <Route path='/forgotconfirmation/user_id' component={ForgotConfirmation} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />

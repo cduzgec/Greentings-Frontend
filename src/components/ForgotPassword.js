@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import { withRouter } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -32,8 +32,47 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
+
+
 function ForgotPassword() {
   const classes = useStyles();
+
+  const emailRef = useRef('')  
+  const [message,setMessage] = useState("");
+
+  async function sendPassword () {
+    try {
+      const response = await fetch ('/forgot/', {       
+        method: "post",
+        mode: "cors",
+        headers:
+        {
+          "Accept": "*/*",
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Content-Encoding": "gzip, deflate, br",
+          "Accept-Encoding": "gzip, deflate, br"
+        },
+        body: JSON.stringify({
+          "email": emailRef.current.value
+        })
+      });
+      console.log("Sending this data: " + emailRef.current.value)
+      console.log("Response Status: "+response.status)
+  
+      if (response.status === 200){                               
+        alert("Please check your inbox");
+      }
+      else {
+        response.json().then(data => {setMessage(data.message)})       
+      }
+    }
+  catch (e)
+    {
+      console.log(e)
+    }
+  }
+
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -52,13 +91,11 @@ function ForgotPassword() {
             label="Email Adress"
             type="Email Adress"
             id="Email Adress"
-            autoComplete="current-password"
+            inputRef={emailRef}
           />
           <OurButton
-            href="/forgotconfirmation"
-            //onClick={getCode}
+            onClick={sendPassword}
             className={classes.submit}  
-            type="submit" 
             fullWidth  variant="contained" >
               Confirm
           </OurButton>
