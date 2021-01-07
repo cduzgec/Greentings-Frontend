@@ -100,7 +100,6 @@ function CampaignItems({match}) {
             })
         });
         const items = await res.json();
-        debugger;
         setItems(items);
 
     }

@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme=>({
   },
   itemTotal:{
       padding: "10px 0"
+  },
+  div: {
+    height: "135px"
   }
 }));
 const ShoppingCartTab = () => {
@@ -231,7 +234,7 @@ const ShoppingCartTab = () => {
         </Grid>
         <Divider />
         {products.map ( (product, index) => (
-          <div>
+          <div  className={classes.div}>
         <Grid item>
 
           {getShoppingCard(
