@@ -10,7 +10,7 @@ import OurButton from "./button.js";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import {InputAdornment, IconButton } from "@material-ui/core";
-import UserPage from "./UserPage";
+
 //import jsSHA from 'jssha'
 import jsSHA from "jssha/dist/sha.mjs"
 //import jsSHA256 from "jssha/dist/sha256.js";
@@ -134,7 +134,6 @@ function ForgotConfirmation({match}) {
   
   return (
     <div>       
-    <UserPage/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
