@@ -76,8 +76,8 @@ function UserOrders() {
                                             >
                                             Total price {order.total_price+ "\n"}
                                         </Typography>
-                                        {(order.allDelivered == true )? "status: all delivered \n" : "status: not delivered \n"}
-                                        {(order.cancelled == true )? "Cancelled" : ""}
+                                        {(order.allDelivered === true )? "status: Delivery Completed\n" : "status: Delivery Not Completed \n"}
+                                        {(order.cancelled === true )? "-Cancelled" : ""}
                                     </React.Fragment>
                                 }
                             />

@@ -40,9 +40,7 @@ function Address({addressid}) {
     const fetchRequest = async () => {
         const data = await fetch(`/address/${addressid}/`);               
         const adds = await data.json();
-        setAddress(adds); 
-        debugger;                                           
-        
+        setAddress(adds);                                               
     }
 
 
@@ -89,7 +87,7 @@ function Address({addressid}) {
                                             {/* All delivered: {order.allDelivered} */}
                                         </Typography>
                                         <Typography>
-                                        phono number: {address.phone_number}
+                                        phone number: {address.phone_number}
                                         </Typography>
                                     </React.Fragment>
                                 }
