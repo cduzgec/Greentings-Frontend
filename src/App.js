@@ -58,6 +58,7 @@ import ProductManagerOrders from './components/productManagerMyOrders';
 import ProductManagerCommentApproval from './components/productManagerCommentApproval';
 import ProductManagerAddProduct from './components/productManagerAddProduct';
 import ProductManagerEditProduct from './components/productManagerProducts';
+import ML from './components/ML';
 
 export default function App () {
 
@@ -96,6 +97,7 @@ export default function App () {
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
           <Route path='/forgotconfirmation/:user_id' component={ForgotConfirmation} />
+          <Route path='/foryou/:user_id' component={ML} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />

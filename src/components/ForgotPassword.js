@@ -64,7 +64,7 @@ function ForgotPassword() {
         alert("Please check your inbox");
       }
       else {
-        response.json().then(data => {setMessage(data.message)})       
+        alert("You need to insert a valid email")       
       }
     }
   catch (e)
