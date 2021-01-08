@@ -129,7 +129,6 @@ function ForgotConfirmation({match}) {
     {
       console.log(e)
     }
-
   }
   
   return (
