@@ -244,14 +244,20 @@ function SearchPage({ match }) {
                                                 <Typography>
                                                     Price: {item.price} $
                                                 </Typography>
+                                                {(item.discount===true) ? ( <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+                                                Old Price: {item.base_price} $
+                                                </Typography>) : null}
                                                 <Typography>
                                                     Brand:{item.brand_name}
                                                 </Typography>
                                                 <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' />
-                                                <Button onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  
+                                                <Button disabled={item.stock===0} onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  
                                                 endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
                                                     Add To Cart
                                                 </Button>
+                                                {(item.stock===0) ? ( <Typography >
+                                                 Sold Out
+                                                </Typography>) : null}
                                             </CardContent>
                                         </Card>
                                     

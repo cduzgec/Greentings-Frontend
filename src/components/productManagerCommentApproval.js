@@ -86,7 +86,7 @@ function ProductManager() {
 async function ApproveComment (id) {
   try {
 
-    const res = await fetch (`/commentapproval`, {
+    const res = await fetch (`/commentapproval/`, {
       method: "post",
       mode: "cors",
       headers:
