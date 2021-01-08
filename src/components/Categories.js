@@ -193,9 +193,9 @@ function Categories({ match }) {
                     <Typography>
                      Price: {item.price} $
                     </Typography>
-                    <Typography>
+                    {(item.discount===true) ? ( <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
                      Old Price: {item.base_price} $
-                    </Typography>
+                    </Typography>) : null}
                     <Typography>
                     Brand:{item.brand_name}
                     </Typography>

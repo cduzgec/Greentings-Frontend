@@ -18,14 +18,15 @@ import ChangePassword from "./ChangePassword";
 import ChangeInfo from "./ChangeInfo"; 
 import EditIcon from '@material-ui/icons/Edit';
 import UserInfo from "./UserInfo"; 
-import Approval from "./commentApproval"; 
-import AddProduct from "./addProduct"; 
+import Approval from "./productManagerCommentApproval"; 
+import AddProduct from "./productManagerAddProduct"; 
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import EditAttributesOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
 import UserOrders from "./UserOrders";
 import EditProduct from "./editProduct"; 
-import SeeProduct from "./ManagerProducts"; 
+import SeeProduct from "./productManagerProducts"; 
+
 
 const drawerWidth = 240;
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    height: "500px"
+    height: "40px"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -46,17 +47,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  text: {
-    ...theme.typography.button,
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(1),
-  },
-  applybutton: {
-    backgroundColor: "#17ba9c",
-    fontSize: 18,
-  },
   toolbar: {
-    height: "20px"
+    height: "5px"
   },
 }));
 
@@ -80,39 +72,39 @@ function UserPage({ match }) {
         <List>
             <ListItem button>
               <ListItemIcon><LocalShippingIcon/></ListItemIcon>
-              <ListItemText primary="My Orders" onClick={() => {setPage("Orders");}}/>                    
+              <ListItemText primary="My Orders"  onClick={() => {window.location.replace(`/ProductManagerMyOrders/${localStorage.getItem("user_id")}`);}}/>                  
             </ListItem>
             <ListItem button>
               <ListItemIcon><CommentIcon/></ListItemIcon>
-              <ListItemText primary="My Comments" onClick={() => {setPage("Comments");}}/>
+              <ListItemText primary="My Comments" onClick={() => {window.location.replace(`/ProductManagerMyComments/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonIcon/></ListItemIcon>
-              <ListItemText primary="My User Information" onClick={() => {setPage("UserInfo");}}/>
+              <ListItemText primary="My User Information" onClick={() => {window.location.replace(`/ProductManagerMyInfo/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><PersonAddIcon/></ListItemIcon>
-              <ListItemText primary="Change My User Information" onClick={() => {setPage("ChangeInfo");}}/>
+              <ListItemText primary="Change My User Information" onClick={() => {window.location.replace(`/ProductManagerChangeInfo/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><LockIcon/></ListItemIcon>
-              <ListItemText primary="Change My Password" onClick={() => {setPage("ChangePass");}}/>
+              <ListItemText primary="Change My Password" onClick={() => {window.location.replace(`/ProductManagerChangePassword/${localStorage.getItem("user_id")}`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><EditAttributesOutlinedIcon/></ListItemIcon>
-              <ListItemText primary="Comment Approval" onClick={() => {setPage("Approve");}}/>
+              <ListItemText primary="Comment Approval" onClick={() => {window.location.replace(`/commentApproval`);}}/>
             </ListItem>
             <ListItem button>
               <ListItemIcon><AddBoxOutlinedIcon/></ListItemIcon>
-              <ListItemText primary="Add/Delete Product" onClick={() => {setPage("AddProduct");}}/>
+              <ListItemText primary="Add/Delete Product" onClick={() => {window.location.replace(`/addProduct`);}}/>
             </ListItem>
-            <ListItem button>
+            {/* <ListItem button>
               <ListItemIcon><EditIcon/></ListItemIcon>
               <ListItemText primary="Edit Product" onClick={() => {setPage("EditProduct");}}/>
-            </ListItem>
+            </ListItem> */}
             <ListItem button>
               <ListItemIcon><FolderOpenIcon/></ListItemIcon>
-              <ListItemText primary="See My Products" onClick={() => {setPage("SeeProduct");}}/>
+              <ListItemText primary="See/Edit My Products" onClick={() => {window.location.replace(`/editProducts`);}}/>
             </ListItem>
 
         </List>

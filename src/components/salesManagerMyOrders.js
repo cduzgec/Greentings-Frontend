@@ -46,9 +46,11 @@ function UserOrders() {
 
     return (
         <div>
+        
         <ManagerPage/>
         <Paper style={styles.paperContainer} elevation={10}>
             <Box component="fieldset" mb={3} borderColor="transparent">
+            <h1>My Orders</h1>
                 <List className={classes.commentStyle}>
                     {orders.map(order => (
                         <ListItem alignItems="flex-start" button onClick={() => {window.location.replace(`/orderdetail/${order.order_id}`);}}>                                       

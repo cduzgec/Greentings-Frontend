@@ -141,7 +141,6 @@ function OrderInfoMANAGER({match}) {
 
       return (
         <div>
-        
         <ManagerPage/>
         <form className={classes.root}>
         <Grid container spacing={3}>
