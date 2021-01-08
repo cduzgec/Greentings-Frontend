@@ -15,6 +15,7 @@ import EditProduct from "./editProduct";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {  Button  } from "@material-ui/core";
+import ManagerPage from "./ProductManager";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
     
       fontFamily: "Arial, Helvetica, sans-serif",
-      margin: "50px 200px",
+      margin: "40px 300px",
       width: "100%",
       height: "fit-content",
       padding: "40px",
@@ -169,6 +170,7 @@ function MainPageItems() {
     
   return (
     <React.Fragment>
+      <ManagerPage/>
       <CssBaseline />
       <main>
         {/* Hero unit */}

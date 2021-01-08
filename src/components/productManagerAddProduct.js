@@ -6,6 +6,8 @@ import {green} from '@material-ui/core/colors';
 import { withRouter } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import ManagerPage from "./ProductManager";
+
 const styles = {
   spaperContainer: { 
    
@@ -48,6 +50,7 @@ button: {
 root: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginLeft: "130px",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -208,7 +211,9 @@ function ProductManager() {
 const classes = useStyles();
   return (
     <form className={classes.root}>
+     
       <Grid container spacing={3}>
+      <ManagerPage/>
       <Grid item xs={6}>
         <div>
             <h1>ADD A NEW PRODUCT</h1>
@@ -310,7 +315,7 @@ const classes = useStyles();
         </Button>
         </div>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={10.5}>
           <h1>DELETE PRODUCT</h1>
           <div>
         <TextField
