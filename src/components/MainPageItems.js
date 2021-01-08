@@ -71,7 +71,7 @@ const styles = {
       backgroundColor: "#64bf6a"
   }
 };
-const numberofitems = 3;
+const numberofitems = 9;
 
 function MainPageItems() {
   const classes = useStyles();
@@ -82,7 +82,7 @@ function MainPageItems() {
  
   const fetchItems = async () => {             /// try catchle
 
-      const data = await fetch("/product/");
+      const data = await fetch("/reccom/");
 
       const items= await data.json();
       //console.log(items); 
@@ -141,7 +141,7 @@ function MainPageItems() {
               align="center"
               color="textPrimary"
               gutterBottom>
-              New Arrivals
+              Editor's Choice
             </Typography>
             <Typography
               variant="h5"

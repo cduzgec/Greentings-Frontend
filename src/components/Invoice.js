@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme=>({
       padding: "10px 0"
   },
   div: {
-    height: "135px"
+    height: "150px"
   }
 }));
 
@@ -148,7 +148,9 @@ function Invoice ({match}) {
           
         </Grid>
          <Divider />
+         <div>.</div>
          </div>
+
         ))}
         
       </Grid>
