@@ -108,21 +108,15 @@ function Sidebar(props) {
   const classes = useStyles();
 
   const [message,setMessage] = useState("");
-  const [minPrice,setminPrice] = useState("empty");
-  const [maxPrice,setmaxPrice] = useState("empty");
+  const [brands,setBrands] = useState([]);
+  const [minPrice,setminPrice] = useState("0");
+  const [maxPrice,setmaxPrice] = useState("10000");
   const [rating,setRating] = useState(0);
   const [checked, setChecked] = useState([]);                 // add checked brands to
-  let brandsString = "";
-
-  const [brands,setBrands] = useState([]);
+  const [checkedNames, setCheckedNames] = useState([]);    
 
   useEffect(() => {fetchBrands();}, [props.categoryid]);
 
-  useEffect(() => {checkInput();}, [minPrice]);
-  useEffect(() => {checkInput();}, [maxPrice]);
-  //useEffect(() => {convertString();}, [checked]);
-
- 
   const fetchBrands = async () => {         
       const data = await fetch(`/categorynames/${props.categoryid}`);                         //    /category/${category.categories_id}
 
@@ -130,63 +124,23 @@ function Sidebar(props) {
       console.log("BRANDS");
       console.log(brands); 
       setBrands(brands);};         // name: 
-
-  function checkInput(){ // okay cases:// min: number, max: number // min: empty, max: empty  --> rest is unacceptable
-    var re = /^[0-9]*$/;
-
-    if (minPrice === "" && maxPrice === "") {setminPrice("empty"); setmaxPrice("empty") } // both are null set them as empty for backend
-
-    else if (minPrice === "" || minPrice === "empty" )
-    {
-      if (maxPrice === "empty") {setminPrice("empty")}
-      else if (!re.test(maxPrice)) { alert("Please insert numbers to maximum price box"); return false;}
-      else {setminPrice(0)}
-    }
-
-    else if (maxPrice === "" || maxPrice === "empty" )
-    {
-      if (minPrice === "empty") {setmaxPrice("empty")}
-      else if (!re.test(minPrice)) { alert("Please insert numbers to minimum price box"); return false;}
-      else {setmaxPrice(100000)}
-    }
-
-    else { // both have inputs
-      if (minPrice !== "empty" && maxPrice !== "empty") 
-      {
-        if (!re.test(minPrice)) { alert("Please insert numbers to minimum price box"); return false;}
-        if (!re.test(maxPrice)) { alert("Please insert numbers to maximum price box"); return false;}
-      }    
-  }
-    console.log("New Filter with these values:") 
-    console.log(minPrice,maxPrice)
-
-  }
   
   const getCheckedItems = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
+    const newCheckedNames = [...checkedNames];
     if (currentIndex === -1) {
       newChecked.push(value);
+      newCheckedNames.push(value.name);
     } else {
       newChecked.splice(currentIndex, 1);
+      newCheckedNames.splice(currentIndex, 1);
     }
     setChecked(newChecked); 
+    setCheckedNames(newCheckedNames)
     console.log(newChecked)
+    console.log(newCheckedNames)
   };
-
-  function convertString() {
-    for (let i = 0; i < checked.length; i++) {
-      if (brandsString === "") { brandsString = checked[i].name;}
-      else {brandsString += " "+ checked[i].name; } 
-     }
-     console.log("brandsString")
-     console.log(brandsString)
-     if (brandsString === "")
-        {
-          brandsString = "empty";
-        }
-     sendFilter ()
-  }
 
   async function sendFilter () {
     try {
@@ -202,14 +156,14 @@ function Sidebar(props) {
             "Accept-Encoding": "gzip, deflate, br"
           },
           body: JSON.stringify({
-            "brand": brandsString,                  // boşsa empty gönder
+            "brand_name": checkedNames,               
             "rating": parseInt(rating),
             "price_upper": maxPrice,
             "price_lower": minPrice
         })
         });
         console.log("New Filter sent")
-        console.log(brandsString, parseInt(rating), maxPrice,minPrice )
+        console.log(checkedNames, parseInt(rating), maxPrice,minPrice )
         console.log("Response Status: "+response.status)
 
         if (response.status === 202){
@@ -225,7 +179,7 @@ function Sidebar(props) {
     } 
   }   
 
-  const sendItemsToCategory = (items) => { // the callback. Use a better name
+  const sendItemsToCategory = (items) => { // the callback function for categories page component
     console.log(items);
     props.onchange(items);
   };
@@ -265,7 +219,7 @@ function Sidebar(props) {
 
                 return (
                 <List className={classes.rootforcheck}>
-                  <ListItem key={index} role={undefined} dense button onClick={getCheckedItems(index)}>
+                  <ListItem key={index} role={undefined} dense button onClick= {getCheckedItems(index)}>
                     <ListItemIcon>
                       <GreenCheckbox
                         edge="start"
@@ -293,7 +247,7 @@ function Sidebar(props) {
             <ListItem><ListItemText primary="" /></ListItem>
           
           <Button className={classes.applybutton} variant="contained" 
-            onClick={convertString}>Apply Filters</Button>
+            onClick={sendFilter}>Apply Filters</Button>
 
           <List
             component="nav"
@@ -321,7 +275,6 @@ function Sidebar(props) {
 
 
 export default Sidebar;
-
 
 
 

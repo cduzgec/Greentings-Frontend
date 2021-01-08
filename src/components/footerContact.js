@@ -57,7 +57,6 @@ export default function History() {
       </div>
       </Paper>
 
-      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3016.0637026719273!2d29.3746576!3d40.8924175!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad980437cfef7%3A0x60c6be7f4c4238d1!2sSabanc%C4%B1%20%C3%9Cniversitesi!5e0!3m2!1sen!2str!4v1609955331590!5m2!1sen!2str" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </div>
   );
 }

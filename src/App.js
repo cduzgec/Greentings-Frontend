@@ -95,7 +95,7 @@ export default function App () {
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
-          <Route path='/forgotconfirmation/user_id' component={ForgotConfirmation} />
+          <Route path='/forgotconfirmation/:user_id' component={ForgotConfirmation} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />

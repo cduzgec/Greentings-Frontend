@@ -1,6 +1,6 @@
 import React from "react";
 import {useState,useEffect } from "react";
-import {Typography,Grid,Card,CardActionArea, CardMedia,CardContent,Divider,TextField} from "@material-ui/core";
+import {Typography,Grid,Card,CardActionArea, CardMedia,CardContent,Divider} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme=>({
   },
   itemTotal:{
       padding: "10px 0"
+  },
+  div: {
+    height: "135px"
   }
 }));
 
@@ -38,7 +41,6 @@ function Invoice ({match}) {
   const[products,setProducts] = useState([]);
   const[userID,setUserID] = useState();
   const[user,setUser] = useState([]);
-  const[orderDate,setOrderDate] = useState();
   const[orderDetail,setOrderDetail] = useState([]);
   const[address,setAddress] = useState([]);
 
@@ -131,7 +133,7 @@ function Invoice ({match}) {
         </Grid>
         <Divider />
         {products.map ( (product, index) => (
-          <div>
+          <div  className={classes.div}>
         <Grid item>
 
           {getShoppingCard(
