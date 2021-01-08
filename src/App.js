@@ -50,6 +50,14 @@ import AnalyseSales from './components/salesManagerCharts';
 import SeeCampaigns from './components/salesManagerSeeCampaigns';
 import CancelOrders from './components/salesManagerOrderCancellation';
 import CampaignProducts from './components/campaignProducts';
+import ProductManagerPasswordChange from './components/productManagerChangePassword';
+import ProductManagerInfoChange from './components/productManagerChangeInfo';
+import ProductManagerInfo from './components/productManagerMyInfo';
+import ProductManagerComments from './components/productManagerMyComments';
+import ProductManagerOrders from './components/productManagerMyOrders';
+import ProductManagerCommentApproval from './components/productManagerCommentApproval';
+import ProductManagerAddProduct from './components/productManagerAddProduct';
+import ProductManagerEditProduct from './components/productManagerProducts';
 
 export default function App () {
 
@@ -112,6 +120,16 @@ export default function App () {
           <ProtectedRoute path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
           <ProtectedRoute path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
           <Route path='/campaignProducts/:campaign_id' component={CampaignProducts} />
+
+          <ProtectedRoute path='/ProductManagerChangePassword/:user_id' component={ProductManagerPasswordChange} />
+          <ProtectedRoute path='/ProductManagerChangeInfo/:user_id' component={ProductManagerInfoChange} />
+          <ProtectedRoute path='/ProductManagerMyInfo/:user_id' component={ProductManagerInfo} />
+          <ProtectedRoute path='/ProductManagerMyComments/:user_id' component={ProductManagerComments} />
+          <ProtectedRoute path='/ProductManagerMyOrders/:user_id' component={ProductManagerOrders} />
+          <Route path='/commentApproval' component={ProductManagerCommentApproval} />
+          <Route path='/addProduct' component={ProductManagerAddProduct} />
+          <Route path='/editProducts' component={ProductManagerEditProduct} />
+
 
           <Route path='*' component={() => <h1>ERROR 404: SORRY BUT WE DON'T HAVE THIS PAGE </h1> } />
         </Switch>

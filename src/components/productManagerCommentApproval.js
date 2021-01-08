@@ -10,6 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { withRouter } from "react-router-dom";
+import ManagerPage from "./ProductManager";
+
 
 
 const styles = {
@@ -62,6 +64,9 @@ inline: {
 root: {
   flexGrow: 1,
   marginTop: "20px",
+  marginRight: "60px",
+  marginLeft: "400px"
+
 },
 
 }));
@@ -137,6 +142,7 @@ async function DeleteComment (id) {
 const classes = useStyles();
   return (
     <div className={classes.root}>
+        <ManagerPage/>
       <Grid container spacing={3}>
         <Grid item xs={8}>
         
