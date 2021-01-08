@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Address({user_id, order_id}) {
     const classes = useStyles();
-    const [address, setAddresses] = useState("");
+    const [addresses, setAddresses] = useState("");
     const [message,setMessage] = useState("");
     
 
@@ -42,7 +42,7 @@ function Address({user_id, order_id}) {
         const adds = await data.json();
         setAddresses(adds);
         console.log({adds})  
-        console.log(address)                                              
+        console.log(addresses)                                              
     }
 
     async function ChangeAddress (address_id) {
@@ -112,9 +112,10 @@ function Address({user_id, order_id}) {
         <div>
 
         <Paper style={styles.paperContainer} elevation={10}>
+
         <Box component="fieldset" mb={3} borderColor="transparent">
-        <List className={classes.commentStyle}>
-                
+                <List className={classes.commentStyle}>
+                {addresses.map(address => (
                         <ListItem alignItems="flex-start" key = {address.address_id} button>  
                             <ListItemText
                                 primary= {
@@ -147,17 +148,17 @@ function Address({user_id, order_id}) {
                                             address line:{address.address_line} 
                                         </Typography>
                                         <Typography>
-                                            phone number: {address.phone_number}
+                                        phone number: {address.phone_number}
                                         </Typography>
                                     </React.Fragment>
                                 }
                             />
                             <Button variant="contained" onClick={() => ChangeAddress(address.address_id)}>Select</Button>
-                            <Button variant="contained" onClick={() => DeleteAddress(address.address_id)} >Delete</Button>
+                            <Button variant="contained" >Delete</Button>
                         </ListItem>
-                   
+                    ))}
                 </List>
-        </Box>
+            </Box>
         </Paper>
         </div>
 
