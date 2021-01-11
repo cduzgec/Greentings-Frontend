@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Address({user_id, order_id}) {
     const classes = useStyles();
-    const [addresses, setAddresses] = useState("");
+    const [addresses, setAddresses] = useState([]);
     const [message,setMessage] = useState("");
     
 
@@ -154,11 +154,11 @@ function Address({user_id, order_id}) {
                                 }
                             />
                             <Button variant="contained" onClick={() => ChangeAddress(address.address_id)}>Select</Button>
-                            <Button variant="contained" >Delete</Button>
+                            <Button variant="contained" onClick={() => DeleteAddress(address.address_id)}> Delete</Button>
                         </ListItem>
                     ))}
                 </List>
-            </Box>
+        </Box>
         </Paper>
         </div>
 

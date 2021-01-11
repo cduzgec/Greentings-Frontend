@@ -11,14 +11,14 @@ const useStyles = makeStyles(theme=>({
       }
   },
   card: {
-    display: "flex",
-  },
-  cardDetails: {
-    flex: 0,
+    display: "grid",
+    gridTemplateColumns: "4fr 2fr 2fr",
+    gridTemplateRows: "200px",
+    marginLeft: "100px"
   },
   media: {
     height: "100%",
-    width: "111px",
+    width: "150px",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme=>({
       padding: "10px 0"
   },
   div: {
-    height: "150px"
+    marginBottom: "20px"
   }
 }));
 
@@ -107,12 +107,15 @@ function Invoice ({match}) {
     return (
       <CardActionArea key={index}>
         <Card className={classes.card}>
-          <div className={classes.cardDetails}>
-            <CardMedia image={imageUrl} className={classes.media} />
-          </div>
 
           <CardContent style={{ marginLeft: "0" }}>
+            <CardMedia image={imageUrl} className={classes.media} />
+          </CardContent>
+
+          <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
             <Typography variant="h6">{product}</Typography>
+          </CardContent>
+          <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
             <Typography variant="h5">{price}</Typography>
           </CardContent>
         <Grid item container direction="row-reverse" alignItems="center">
@@ -131,7 +134,7 @@ function Invoice ({match}) {
             Invoice for Order {match.params.order_id}
           </Typography>
         </Grid>
-        <Divider />
+        
         {products.map ( (product, index) => (
           <div  className={classes.div}>
         <Grid item>
@@ -147,13 +150,15 @@ function Invoice ({match}) {
           )}
           
         </Grid>
-         <Divider />
-         <div>.</div>
+         
+
          </div>
 
         ))}
         
       </Grid>
+
+
       <Grid item xs={12} sm={4}>
           <Typography variant="h4" gutterBottom>
               Order  Summary

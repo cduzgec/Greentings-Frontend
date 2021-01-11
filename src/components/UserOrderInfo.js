@@ -15,16 +15,14 @@ const useStyles = makeStyles(theme=>({
       }
   },
   card: {
-    display: "flex",
-    marginLeft: "200px",
-    marginRight: "5px"
-  },
-  cardDetails: {
-    flex: 0,
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    gridTemplateRows: "200px",
+    marginLeft: "200px"
   },
   media: {
     height: "100%",
-    width: "111px",
+    width: "150px",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -37,7 +35,7 @@ const useStyles = makeStyles(theme=>({
       padding: "10px 0"
   },
   div: {
-    height: "165px"
+    marginBottom: "20px"
   }
 }));
 
@@ -146,21 +144,21 @@ function OrderInfo ({match}) {
     return (
       <CardActionArea key={index}>
         <Card className={classes.card}>
-          <div className={classes.cardDetails}>
+        <CardContent style={{ marginLeft: "0" }}>
             <CardMedia image={imageUrl} className={classes.media} />
-          </div>
-          <CardContent style={{ marginLeft: "0" }}>
-            <Typography variant="h6">{product}</Typography>
-            <Typography variant="h5">{price}</Typography>
           </CardContent>
 
-          <Grid item container direction="row-reverse" alignItems="center">
-          <Typography variant="h7"> {quantity}</Typography>
-        </Grid>
+          <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
+            <Typography variant="h6">{product}</Typography>
+          </CardContent>
+          <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
+            <Typography variant="h6">{price}</Typography>
+            <Typography variant="h6"> Quantity: {quantity}</Typography>
+          </CardContent>
 
-        <Grid item container direction="row-reverse" alignItems="center">
-          <Typography variant="h7"> {status}</Typography>
-        </Grid>
+          <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
+          <Typography variant="h6"> Status: {status}</Typography>
+          </CardContent>
 
         </Card>
       </CardActionArea>
@@ -177,7 +175,7 @@ function OrderInfo ({match}) {
             Order Details for Order {match.params.order_id}
           </Typography>
         </Grid>
-        <Divider />
+        
         {products.map ( (product, index) => (
           <div  className={classes.div}>
         <Grid item>
@@ -185,7 +183,7 @@ function OrderInfo ({match}) {
           {getShoppingCard(index,product.product_name,product.price + "$",product.img,product.quantity,product.product_id,product.status  )}
           
         </Grid>
-         <Divider />
+        
          
          </div>
         ))}
