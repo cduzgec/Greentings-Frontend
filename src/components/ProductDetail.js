@@ -117,7 +117,6 @@ function ProductDetail({match}) {
         });
         await response.json().then(data => {setPhoto(data)})
         console.log(photos);
-        debugger;
       }
       catch (e)
       {
@@ -186,11 +185,9 @@ function ProductDetail({match}) {
 
         if(res.status === 201){
           console.log("response:",res)
-          localStorage.setItem("nickname", "")
-          localStorage.setItem("rating", "")
-          localStorage.setItem("comment", "")
+          localStorage.removeItem("rating", "")
+          localStorage.removeItem("comment", "")
           setComment('')
-          setNickname('')
           setRating("")
           window.location.reload();
           alert("We received your comment. You may see it after approval.")
@@ -206,11 +203,7 @@ function ProductDetail({match}) {
       
       setComment(value);
     };
-    const getNickname = value => {
-      localStorage.setItem('nickname',value);
-      
-      setNickname(value);
-    };
+
     const getRating = value => {
       localStorage.setItem('rating',value);
       

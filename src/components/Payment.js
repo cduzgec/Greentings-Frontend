@@ -57,7 +57,14 @@ export default function PaymentForm() {
       alert("Please check CVV number. It should be 3 digits number.");
     }
     else
-    { PostAdress () }   // DoPayment (); 
+    { 
+      if (localStorage.getItem("address_id")===null){
+          PostAdress (); }
+      else {
+        setAddressID(localStorage.getItem("address_id"));
+        //SendOrder();
+      }
+    }   // DoPayment (); 
   }
 
   async function PostAdress () {
@@ -88,6 +95,10 @@ export default function PaymentForm() {
       console.log("Response Status: "+response.status)
        
       if (response.status === 201){                                       // returns Response: 201  {address_id}
+        localStorage.removeItem("addressLine");
+        localStorage.removeItem("postalCode");
+        localStorage.removeItem("city");
+        localStorage.removeItem("country")
         response.json().then(data => {setAddressID(data.address_id)})
       }
       else {
@@ -122,7 +133,15 @@ async function SendOrder () {
     });
     console.log("Response Status: "+response.status)                  // returns  Response: 201 {order_id user date address total_price}
     
-    if (response.status === 201){ response.json().then(data => {setOrderID(data.order_id); setOrdDate(data.date) })}
+    if (response.status === 201){ response.json().then(data => {
+      setOrderID(data.order_id); 
+      setOrdDate(data.date);
+      localStorage.removeItem("addressLine");
+      localStorage.removeItem("postalCode");
+      localStorage.removeItem("city");
+      localStorage.removeItem("country");
+      localStorage.removeItem("address_id")
+    })}
     else { response.json().then(data => {console.log(data)}) }
     }
   catch (e)
@@ -132,7 +151,7 @@ async function SendOrder () {
   }
 
   const SendPDF = async () => {      
-    const data = await fetch(`/pdfsend/${order_id}`);                         //    /category/${category.categories_id}
+    const data = await fetch(`/pdfsend/${order_id}/`);                         //    /category/${category.categories_id}
 
     const mes= await data.json();
     setMessage(mes);};         // brand_name: description: img: price: product_id: product_name: rating: stock:

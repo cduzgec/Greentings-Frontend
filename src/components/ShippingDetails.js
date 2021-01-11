@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {useEffect } from "react";
+import Button from "@material-ui/core/Button";
 import {
     Typography,
     Grid,
@@ -8,6 +9,7 @@ import {
     TextField
   } from "@material-ui/core";
 import { SettingsOverscanOutlined } from "@material-ui/icons";
+import ShippingAddresses from "./ShippingAddresses";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -45,6 +47,7 @@ const ShippingDetailsTap = () => {
   const [postalCode, setPostalCode] = useState("")
   const [country, setCountry] = useState("")
   const [phone_number, setTelephone] = useState(0)
+  const [page,setPage] = useState("");
 
   const handleChange = (event) => {
     setShipping(event.target.value);
@@ -245,8 +248,10 @@ const ShippingDetailsTap = () => {
               </tr>
               
           </table>
+
+          <Button variant="contained" onClick={() => setPage('Forward')}> Select From My Addresses</Button>
+          {page === 'Forward'? <ShippingAddresses user_id= {localStorage.getItem("user_id")} order_id={59} />: null }
       </Grid>
-     
     </Grid>
   );
 };

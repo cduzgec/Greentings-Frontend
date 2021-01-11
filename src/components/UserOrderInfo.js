@@ -157,7 +157,8 @@ function OrderInfo ({match}) {
           </CardContent>
 
           <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
-          <Typography variant="h6"> Status: {status}</Typography>
+          <Typography variant="h6"> Status: </Typography>
+          <Typography variant="h6">{status}</Typography>
           </CardContent>
 
         </Card>

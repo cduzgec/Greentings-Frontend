@@ -13,6 +13,7 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import HomeIcon from '@material-ui/icons/Home';
 
 const drawerWidth = 240;
 
@@ -74,6 +75,10 @@ function UserPage() {
             <ListItem button>
               <ListItemIcon><LockIcon/></ListItemIcon>
               <ListItemText primary="Change My Password" onClick={() => {window.location.replace(`/changepassword/${localStorage.getItem("user_id")}`);}}/>             
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><HomeIcon/></ListItemIcon>
+              <ListItemText primary="Manage My Addresses" onClick={() => {window.location.replace(`/myaddresses/${localStorage.getItem("user_id")}`);}}/>             
             </ListItem>
 
         </List>

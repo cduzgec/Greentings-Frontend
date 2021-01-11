@@ -2,41 +2,47 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import './App.css';
+
+import ProtectedRoute from "./components/UserProtectedRoute";
+import UserProtectedRoute from "./components/UserProtectedRoute";
+
 import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import ForgotPassword from "./components/ForgotPassword";
+import EmailConfirmation from "./components/EmailConfirmation";
+import ForgotConfirmation from "./components/ForgotConfirmation";
 
+import Cart from "./components/Cart";
+import Payment from "./components/Payment";
+import Invoice from "./components/Invoice";
+
+import Navbar from "./components/Navbar";
+import Categories from "./components/Categories";
+import ProductDetail from "./components/ProductDetail";
+import SearchPage from "./components/SearchPage";
+import ML from './components/ML';
+
+import Footer from "./components/footer";
 import History from './components/footerHistory';
 import Privacy from './components/footerPrivacy';
 import Terms from './components/footerTerms';
 import Team from './components/team';
 import Contact from './components/footerContact';
 
-
-
-import ForgotPassword from "./components/ForgotPassword";
-import Payment from "./components/Payment";
-import Cart from "./components/Cart";
-import UserPage from "./components/UserPage";
-import Footer from "./components/footer";
-import Navbar from "./components/Navbar";
 import Edit from "./components/editProduct";
-import EmailConfirmation from "./components/EmailConfirmation";
-import ForgotConfirmation from "./components/ForgotConfirmation";
-import ProductDetail from "./components/ProductDetail";
-import Categories from "./components/Categories";
-import SearchPage from "./components/SearchPage";
-import Invoice from "./components/Invoice";
-import SalesManager from "./components/SalesManager";
-import ProductManager from "./components/ProductManager";
-import ProtectedRoute from "./components/ProtectedRoute";
+
+import UserPage from "./components/UserPage";
 import UserOrders from './components/UserOrders';
 import UserComments from './components/UserComments';
 import UserInfo from './components/UserInfo';
 import ChangeInfo from './components/ChangeInfo';
 import ChangePassword from './components/ChangePassword';
 import OrderInfo from './components/UserOrderInfo';
+import UserManageAddress from './components/UserManageAddress';
+
+import SalesManager from "./components/SalesManager";
 import OrderEdit from './components/managerOrderEdit';
 import OrderInfoForManager from './components/managerOrderDetail';
 import AddressChange from './components/salesManagerAddressChange';
@@ -50,6 +56,8 @@ import AnalyseSales from './components/salesManagerCharts';
 import SeeCampaigns from './components/salesManagerSeeCampaigns';
 import CancelOrders from './components/salesManagerOrderCancellation';
 import CampaignProducts from './components/campaignProducts';
+
+import ProductManager from "./components/ProductManager";
 import ProductManagerPasswordChange from './components/productManagerChangePassword';
 import ProductManagerInfoChange from './components/productManagerChangeInfo';
 import ProductManagerInfo from './components/productManagerMyInfo';
@@ -58,7 +66,7 @@ import ProductManagerOrders from './components/productManagerMyOrders';
 import ProductManagerCommentApproval from './components/productManagerCommentApproval';
 import ProductManagerAddProduct from './components/productManagerAddProduct';
 import ProductManagerEditProduct from './components/productManagerProducts';
-import ML from './components/ML';
+
 
 export default function App () {
 
@@ -96,17 +104,21 @@ export default function App () {
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
+
           <Route path='/forgotconfirmation/:user_id' component={ForgotConfirmation} />
           <Route path='/foryou/:user_id' component={ML} />
 
           <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
-          <ProtectedRoute path='/myaccount/:user_id' component={UserPage} />
-          <ProtectedRoute path='/myorders/:user_id' component={UserOrders} />
-          <ProtectedRoute path='/mycomments/:user_id' component={UserComments} />
-          <ProtectedRoute path='/myinformation/:user_id' component={UserInfo} />
-          <ProtectedRoute path='/changeinformation/:user_id' component={ChangeInfo} />
-          <ProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
+
+          <UserProtectedRoute path='/myaccount/:user_id' component={UserPage} />
+          <UserProtectedRoute path='/myorders/:user_id' component={UserOrders} />
+          <UserProtectedRoute path='/mycomments/:user_id' component={UserComments} />
+          <UserProtectedRoute path='/myinformation/:user_id' component={UserInfo} />
+          <UserProtectedRoute path='/changeinformation/:user_id' component={ChangeInfo} />
+          <UserProtectedRoute path='/changepassword/:user_id' component={ChangePassword} />
+          <UserProtectedRoute path='/myaddresses/:user_id' component={UserManageAddress} />
+
           <Route path='/orderdetail/:order_id' component={OrderInfo} />
           <Route path='/editorder' component={OrderEdit} />
           <Route path='/addressChange' component={AddressChange} />

@@ -49,26 +49,26 @@ function Invoice ({match}) {
 
   const fetchProducts = async () => {            
 
-      const data = await fetch(`/orditem/${match.params.order_id}`);  
+      const data = await fetch(`/orditem/${match.params.order_id}/`);  
       const products= await data.json();
       setProducts(products);  
       //console.log({products})
   } 
   const fetchUserID = async () => {            
-    const data = await fetch(`/order/${match.params.order_id}`);  
+    const data = await fetch(`/order/${match.params.order_id}/`);  
     const orderDetail= await data.json();
     setUserID(orderDetail.user)
     setOrderDetail(orderDetail)
     console.log({orderDetail})
   } 
   const fetchUserInfo = async () => {            
-    const data = await fetch(`/user/${userID}`);  
+    const data = await fetch(`/user/${userID}/`);  
     const userinfo= await data.json();
     setUser(userinfo)
     console.log({userinfo})
   }
   const fetchAdress = async () => {            
-    const data = await fetch(`/address/${orderDetail.address}`);  
+    const data = await fetch(`/address/${orderDetail.address}/`);  
     const addressinfo= await data.json();
     setAddress(addressinfo)
     console.log({addressinfo})
