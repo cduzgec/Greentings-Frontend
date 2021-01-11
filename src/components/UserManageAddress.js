@@ -9,12 +9,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UserPage from "./UserPage";
 
 const styles = {
     paperContainer: {
-        marginTop: "1px",
-        marginLeft: "1px",
-        marginRight: "1px"
+        marginTop: "20px",
+        marginLeft: "500px",
+        marginRight: "500px"
     },
 };
 
@@ -38,43 +39,12 @@ function Address({user_id, order_id}) {
     useEffect(() => { fetchAddress();}, []);
 
     const fetchAddress = async () => {
-        const data = await fetch(`/myaddress/${user_id}/`);               
+        const data = await fetch(`/myaddress/${localStorage.getItem("user_id")}/`);               
         const adds = await data.json();
         setAddresses(adds);
         console.log({adds})  
         console.log(addresses)                                              
     }
-
-    async function SelectAddress (address_id) {
-        try {
-          const response = await fetch (`/orderaddresschange/`, {       
-            method: "post",
-            mode: "cors",
-            headers:
-            {
-              "Accept": "*/*",
-              "Content-Type": "application/json",
-              "Connection": "keep-alive",
-              "Content-Encoding": "gzip, deflate, br",
-              "Accept-Encoding": "gzip, deflate, br"
-            },
-            body: JSON.stringify({
-                "order": order_id,
-                "address": address_id          
-            })
-          });
-          if (response.status === 201){                               
-            alert("Your address change request has been successfully sent. We will notify you shortly.");
-          }
-          else {
-            response.json().then(data => {setMessage(data.message)})       
-          }
-        }
-      catch (e)
-        {
-          console.log(e)
-        }
-      }
 
       async function DeleteAddress (address_id) {
         try {
@@ -110,7 +80,7 @@ function Address({user_id, order_id}) {
 
     return (
         <div>
-
+        <UserPage/>
         <Paper style={styles.paperContainer} elevation={10}>
 
         <Box component="fieldset" mb={3} borderColor="transparent">
@@ -153,7 +123,7 @@ function Address({user_id, order_id}) {
                                     </React.Fragment>
                                 }
                             />
-                            <Button variant="contained" onClick={() => SelectAddress(address.address_id)}>Select</Button>
+                            
                             <Button variant="contained" onClick={() => DeleteAddress(address.address_id)}> Delete</Button>
                         </ListItem>
                     ))}

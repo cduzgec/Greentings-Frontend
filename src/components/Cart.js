@@ -81,41 +81,47 @@ const StepperCart = (props)=>{
   function CheckInput()
   { 
     if(activeStep === steps.length -1){
-      const re = /^[0-9\b]+$/; // num
-      if (localStorage.getItem("postalCode")===null || (localStorage.getItem("postalCode")==="" || localStorage.getItem("postalCode").length >= 10 || !re.test(localStorage.getItem("postalCode")))){
-        alert("Please check postal code. It should be max 10 digits number and not empty.");
-        return false;
-      }
-      if(localStorage.getItem("phone_number")===null || localStorage.getItem("phone_number")==="" || localStorage.getItem("phone_number").length !== 11 || !re.test(localStorage.getItem("phone_number"))){
-        alert("Please check phone number. It should be 11 digits number and not empty.");
-        return false;
-      }
-      var re2= /^[A-Za-z]+$/; // strıng
-      if(localStorage.getItem("firstName")===null|| localStorage.getItem("firstName")==="" || !re2.test(localStorage.getItem("firstName"))) {
-        alert("Please check first name. It should be consisted of characters and not empty.");
-        return false;
-      }
-      if(localStorage.getItem("lastName")===null || localStorage.getItem("lastName")==="" || !re2.test(localStorage.getItem("lastName"))) {
-        alert("Please check last name. It should be consisted of characters and not empty.");
-        return false;
-      }
-      if(localStorage.getItem("city")===null || localStorage.getItem("city")==="" || !re2.test(localStorage.getItem("city"))) {
-        alert("Please check city name. It should be consisted of characters and not empty.");
-        return false;
-      }
-      if(localStorage.getItem("country")===null|| localStorage.getItem("country")==="" || !re2.test(localStorage.getItem("country"))) {
-        alert("Please check country name. It should be consisted of characters and not empty.");
-        return false;
-      }
-      if(localStorage.getItem("addressLine")===null || localStorage.getItem("addressLine")===""){
-        alert("Please check address line. It shouldn't be empty.");
-        return false;
-      }
-      else
-      {
+      if (localStorage.getItem("address_id")!==null){
         history.push('/payment');
-         return true;
-      }  
+        return true;
+      }
+      else {
+        const re = /^[0-9\b]+$/; // num
+        if (localStorage.getItem("postalCode")===null || (localStorage.getItem("postalCode")==="" || localStorage.getItem("postalCode").length >= 10 || !re.test(localStorage.getItem("postalCode")))){
+          alert("Please check postal code. It should be max 10 digits number and not empty.");
+          return false;
+        }
+        if(localStorage.getItem("phone_number")===null || localStorage.getItem("phone_number")==="" || localStorage.getItem("phone_number").length !== 11 || !re.test(localStorage.getItem("phone_number"))){
+          alert("Please check phone number. It should be 11 digits number and not empty.");
+          return false;
+        }
+        var re2= /^[A-Za-z]+$/; // strıng
+        if(localStorage.getItem("firstName")===null|| localStorage.getItem("firstName")==="" || !re2.test(localStorage.getItem("firstName"))) {
+          alert("Please check first name. It should be consisted of characters and not empty.");
+          return false;
+        }
+        if(localStorage.getItem("lastName")===null || localStorage.getItem("lastName")==="" || !re2.test(localStorage.getItem("lastName"))) {
+          alert("Please check last name. It should be consisted of characters and not empty.");
+          return false;
+        }
+        if(localStorage.getItem("city")===null || localStorage.getItem("city")==="" || !re2.test(localStorage.getItem("city"))) {
+          alert("Please check city name. It should be consisted of characters and not empty.");
+          return false;
+        }
+        if(localStorage.getItem("country")===null|| localStorage.getItem("country")==="" || !re2.test(localStorage.getItem("country"))) {
+          alert("Please check country name. It should be consisted of characters and not empty.");
+          return false;
+        }
+        if(localStorage.getItem("addressLine")===null || localStorage.getItem("addressLine")===""){
+          alert("Please check address line. It shouldn't be empty.");
+          return false;
+        }
+        else
+        {
+          history.push('/payment');
+          return true;
+        } 
+      } 
     }
     else{return false;}
   }

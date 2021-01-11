@@ -45,37 +45,6 @@ function Address({user_id, order_id}) {
         console.log(addresses)                                              
     }
 
-    async function SelectAddress (address_id) {
-        try {
-          const response = await fetch (`/orderaddresschange/`, {       
-            method: "post",
-            mode: "cors",
-            headers:
-            {
-              "Accept": "*/*",
-              "Content-Type": "application/json",
-              "Connection": "keep-alive",
-              "Content-Encoding": "gzip, deflate, br",
-              "Accept-Encoding": "gzip, deflate, br"
-            },
-            body: JSON.stringify({
-                "order": order_id,
-                "address": address_id          
-            })
-          });
-          if (response.status === 201){                               
-            alert("Your address change request has been successfully sent. We will notify you shortly.");
-          }
-          else {
-            response.json().then(data => {setMessage(data.message)})       
-          }
-        }
-      catch (e)
-        {
-          console.log(e)
-        }
-      }
-
       async function DeleteAddress (address_id) {
         try {
           const response = await fetch (`/address/${address_id}/`, {       
@@ -108,6 +77,9 @@ function Address({user_id, order_id}) {
         }
       }
 
+      function SelectAddress(address_id){
+          localStorage.setItem("address_id", address_id )
+      }
     return (
         <div>
 
