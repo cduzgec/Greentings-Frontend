@@ -56,7 +56,6 @@ function Campaign() {
         const data = await fetch(`/campaigns/`);               
         const campaigns = await data.json();
         setCampaigns(campaigns);                                            
-        debugger;
     }
 
     
