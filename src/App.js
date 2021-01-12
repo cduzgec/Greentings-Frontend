@@ -85,7 +85,9 @@ export default function App () {
   return (
 
     <BrowserRouter>
+
       <div className="App" >
+
       <Route component={Navbar}/>
         <Switch> 
           <Route exact path='/' component={Home} />

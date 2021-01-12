@@ -248,11 +248,7 @@ function OrderInfoMANAGER({match}) {
              
              
             ))}
-  
 
-         <Grid item xs={6}>
-          <h1>EDIT CATEGORY</h1>
-          </Grid>
         </div>
         
         
