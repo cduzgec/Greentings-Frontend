@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Address({user_id, order_id}) {
+function Address({user_id}) {
     const classes = useStyles();
     const [addresses, setAddresses] = useState([]);
     const [message,setMessage] = useState("");
