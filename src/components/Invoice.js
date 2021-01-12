@@ -118,8 +118,7 @@ function Invoice ({match}) {
           <CardContent style={{ marginLeft: "0", alignSelf: "center" }}>
             <Typography variant="h5">{price}</Typography>
           </CardContent>
-        <Grid item container direction="row-reverse" alignItems="center">
-        </Grid>
+          
         </Card>
       </CardActionArea>
     );

@@ -8,10 +8,10 @@ import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import UserPage from "./UserPage";
+import { Link } from 'react-router-dom'
 
 const styles = {
     paperContainer: {
@@ -33,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
     },
+    link: {
+        textDecoration: 'none',
+        color: '#000',
+        fontSize: 15,
+        justifyContent: "center",
+        "&:hover": {
+          backgroundColor: "transparent"
+      },},
 }));
 
 function UserComments({ match }) {
@@ -54,6 +62,7 @@ function UserComments({ match }) {
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <List className={classes.commentStyle}>
                     {comments.map(comment => (
+                        <Link to={`/product/${comment.product}/`} className = {classes.link} color="primary" >
                         <ListItem alignItems="flex-start">
                             <ListItemText
                                 primary={comment.text}
@@ -66,7 +75,9 @@ function UserComments({ match }) {
                                             color="textPrimary">
                                         {comment.date +"\n"}
                                             </Typography>
-                                        For product: {comment.product + "\n"}
+                                            
+                                            For product: {comment.product + "\n"}
+                                            
                                             <Rating name="simple-controlled" defaultValue={comment.rating} disabled="true"/>
                                         {"\n" + "Approved:" +comment.validation+"\n"}
                                         
@@ -74,6 +85,7 @@ function UserComments({ match }) {
                                 }
                             />
                         </ListItem>
+                        </Link>
                     ))}
                 </List>
             </Box>

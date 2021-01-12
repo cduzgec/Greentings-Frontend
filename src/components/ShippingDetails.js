@@ -213,6 +213,7 @@ const ShippingDetailsTap = () => {
             fullWidth/>
         </Grid>
         
+        <Button variant="contained" onClick={() => localStorage.removeItem("address_id")}> Continue with This Address</Button>
 
       </Grid>
         
@@ -250,7 +251,7 @@ const ShippingDetailsTap = () => {
           </table>
 
           <Button variant="contained" onClick={() => setPage('Forward')}> Select From My Addresses</Button>
-          {page === 'Forward'? <ShippingAddresses user_id= {localStorage.getItem("user_id")} order_id={59} />: null }
+          {page === 'Forward'? <ShippingAddresses user_id= {localStorage.getItem("user_id")} />: null }
       </Grid>
     </Grid>
   );

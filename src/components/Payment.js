@@ -98,7 +98,8 @@ export default function PaymentForm() {
         localStorage.removeItem("addressLine");
         localStorage.removeItem("postalCode");
         localStorage.removeItem("city");
-        localStorage.removeItem("country")
+        localStorage.removeItem("country");
+        localStorage.removeItem("phone_number")
         response.json().then(data => {setAddressID(data.address_id)})
       }
       else {
@@ -141,6 +142,8 @@ async function SendOrder () {
       localStorage.removeItem("city");
       localStorage.removeItem("country");
       localStorage.removeItem("address_id")
+      localStorage.removeItem("total_price");
+      localStorage.removeItem("phone_number")
     })}
     else { response.json().then(data => {console.log(data)}) }
     }

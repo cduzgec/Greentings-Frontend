@@ -5,6 +5,8 @@ import './App.css';
 
 import ProtectedRoute from "./components/UserProtectedRoute";
 import UserProtectedRoute from "./components/UserProtectedRoute";
+import SalesProtectedRoute from "./components/SalesProtectedRoute";
+import ProductProtectedRoute from "./components/ProductProtectedRoute";
 
 import Home from './components/Home';
 import About from './components/About';
@@ -88,6 +90,7 @@ export default function App () {
         <Switch> 
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
+          <Route path='/signup' component={Signup} />
           <Route path='/login' component={Login} />
           <Route path='/team' component={Team} />
           <Route path='/history' component={History} />
@@ -95,8 +98,6 @@ export default function App () {
           <Route path='/termsofuse' component={Terms} />
           <Route path='/contact' component={Contact} />
 
-          <Route path='/signup' component={Signup} />
-          <Route path='/emailconfirmation/:user_id' component={EmailConfirmation} />
           <Route path='/payment' component={Payment} />
           <Route path='/cart' component={Cart} />
           <Route path='/product/:product_id' component={ProductDetail} />
@@ -104,12 +105,10 @@ export default function App () {
           <Route path='/search/:search' component={SearchPage} />
           <Route path='/invoice/:order_id' component={Invoice} />
           <Route path='/forgotpassword' component={ForgotPassword} />
-
           <Route path='/forgotconfirmation/:user_id' component={ForgotConfirmation} />
-          <Route path='/foryou/:user_id' component={ML} />
 
-          <ProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
-          <ProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
+          <ProtectedRoute path='/emailconfirmation/:user_id' component={EmailConfirmation} />
+          <ProtectedRoute path='/foryou/:user_id' component={ML} />
 
           <UserProtectedRoute path='/myaccount/:user_id' component={UserPage} />
           <UserProtectedRoute path='/myorders/:user_id' component={UserOrders} />
@@ -125,21 +124,23 @@ export default function App () {
           <Route path='/adminOrderdetail/:order_id' component={OrderInfoForManager} />
           <Route path='/editCampaigns' component={Campaigns} />
 
+          <SalesProtectedRoute path='/salesmanager/:user_id' component={SalesManager} />
           <Route path='/analyzeSales' component={AnalyseSales} />
           <Route path='/existingCampaigns' component={SeeCampaigns} />
           <Route path='/orderCancellation' component={CancelOrders} />
-          <ProtectedRoute path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
-          <ProtectedRoute path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
-          <ProtectedRoute path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
-          <ProtectedRoute path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
-          <ProtectedRoute path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
+          <SalesProtectedRoute path='/SalesManagerChangeInfo/:user_id' component={SalesManagerInfoChange} />
+          <SalesProtectedRoute path='/SalesManagerChangePassword/:user_id' component={SalesManagerPasswordChange} />
+          <SalesProtectedRoute path='/SalesManagerMyOrders/:user_id' component={SalesManagerOrders} />
+          <SalesProtectedRoute path='/SalesManagerMyComments/:user_id' component={SalesManagerComments} />
+          <SalesProtectedRoute path='/SalesManagerMyInfo/:user_id' component={SalesManagerInfo} />
           <Route path='/campaignProducts/:campaign_id' component={CampaignProducts} />
 
-          <ProtectedRoute path='/ProductManagerChangePassword/:user_id' component={ProductManagerPasswordChange} />
-          <ProtectedRoute path='/ProductManagerChangeInfo/:user_id' component={ProductManagerInfoChange} />
-          <ProtectedRoute path='/ProductManagerMyInfo/:user_id' component={ProductManagerInfo} />
-          <ProtectedRoute path='/ProductManagerMyComments/:user_id' component={ProductManagerComments} />
-          <ProtectedRoute path='/ProductManagerMyOrders/:user_id' component={ProductManagerOrders} />
+          <ProductProtectedRoute path='/productmanager/:user_id' component={ProductManager} />
+          <ProductProtectedRoute path='/ProductManagerChangePassword/:user_id' component={ProductManagerPasswordChange} />
+          <ProductProtectedRoute path='/ProductManagerChangeInfo/:user_id' component={ProductManagerInfoChange} />
+          <ProductProtectedRoute path='/ProductManagerMyInfo/:user_id' component={ProductManagerInfo} />
+          <ProductProtectedRoute path='/ProductManagerMyComments/:user_id' component={ProductManagerComments} />
+          <ProductProtectedRoute path='/ProductManagerMyOrders/:user_id' component={ProductManagerOrders} />
           <Route path='/commentApproval' component={ProductManagerCommentApproval} />
           <Route path='/addProduct' component={ProductManagerAddProduct} />
           <Route path='/editProducts' component={ProductManagerEditProduct} />
