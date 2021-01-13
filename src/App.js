@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import './App.css';
+import firebase from "./firebase";
 
 import ProtectedRoute from "./components/UserProtectedRoute";
 import UserProtectedRoute from "./components/UserProtectedRoute";
@@ -72,6 +73,17 @@ import ProductManagerEditProduct from './components/productManagerProducts';
 
 export default function App () {
 
+  useEffect(() => { hasVisitedAlert();}, []);
+  useEffect(() => {
+    const msg = firebase.messaging();
+    msg.requestPermission().then(()=>{
+      return msg.getToken();
+    }).then((data)=>{
+      console.warn("token", data)
+    })
+  }, []);
+
+
   function hasVisitedAlert(){
     if( localStorage.getItem("hasVisited") === null ){
       localStorage.setItem("hasVisited", true)
@@ -80,7 +92,7 @@ export default function App () {
       )
   }}
 
-  useEffect(() => { hasVisitedAlert();}, []);
+
 
   return (
 
