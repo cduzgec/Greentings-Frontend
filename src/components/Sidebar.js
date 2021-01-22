@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     marginTop: "200px",
-
   },
   drawerContainer: {
     overflow: 'auto',
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listitem: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: 300,
     marginLeft: "1px",
     backgroundColor: theme.palette.background.paper,
   },
@@ -47,8 +46,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   fixedlist: {
-    height: 450,
+    height: 300,
     maxWidth: 300,
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
   },
   text: {
@@ -114,6 +114,9 @@ function Sidebar(props) {
   const [rating,setRating] = useState(0);
   const [checked, setChecked] = useState([]);                 // add checked brands to
   const [checkedNames, setCheckedNames] = useState([]);    
+  const [flag,setFlag] = useState();
+
+  useEffect(() => {if (flag) {console.log("Sending filter"); setFlag(); sendFilter();}}, [flag]);
 
   useEffect(() => {fetchBrands();}, [props.categoryid]);
 
@@ -141,6 +144,29 @@ function Sidebar(props) {
     console.log(newChecked)
     console.log(newCheckedNames)
   };
+
+  function check(){
+    if ((maxPrice === "") && (minPrice === "")) {
+      console.log("both empty")
+      setmaxPrice("10000");
+      setminPrice("0");
+      setFlag("go");
+    }
+    else if (maxPrice === "") {
+      console.log("max empty")
+      setmaxPrice("10000");
+      setFlag("go");
+    }
+    else if (minPrice === "") {
+      console.log("min empty")
+      setminPrice("0");
+      setFlag("go");
+    }
+    else{
+      setFlag("go");
+    }
+    
+  }
 
   async function sendFilter () {
     try {
@@ -209,10 +235,10 @@ function Sidebar(props) {
             onChange={e => {setmaxPrice(e.target.value)}}
           />
             <ListItem><ListItemText primary="" /></ListItem>
-            <ListItem><ListItemText primary="" /></ListItem>
 
+            <TextTypography>Brand</TextTypography>
             <div key={"brand"} className={classes.fixedlist}>
-              <TextTypography>Brand</TextTypography>
+              
 
               {brands.map((index) => {
                 const labelId = `checkbox-list-label-${index}`;
@@ -236,6 +262,8 @@ function Sidebar(props) {
               })}
 
             </div>
+
+          <ListItem><ListItemText primary="" /></ListItem>
   
         <TextTypography>Rating</TextTypography>
         <Rating
@@ -244,10 +272,9 @@ function Sidebar(props) {
             onChange={e => {setRating(e.target.value);}}/>
 
             <ListItem><ListItemText primary="" /></ListItem>
-            <ListItem><ListItemText primary="" /></ListItem>
           
           <Button className={classes.applybutton} variant="contained" 
-            onClick={sendFilter}>Apply Filters</Button>
+            onClick={check}>Apply Filters</Button>
 
           <List
             component="nav"
