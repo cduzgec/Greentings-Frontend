@@ -9,8 +9,8 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from 'react-responsive-carousel';
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {TextField} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -18,7 +18,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 
 const styles = {
@@ -117,6 +118,7 @@ function ProductDetail({match}) {
           })
         });
         await response.json().then(data => {setPhoto(data)})
+        debugger;
         console.log(photos);
       }
       catch (e)
@@ -221,11 +223,12 @@ function ProductDetail({match}) {
       <Grid item xs={12} sm={6}>
 
     <Paper style={styles.spaperContainer} elevation={10}>
-      <Carousel autoPlay interval="5000" transitionTime="500">
+    
+      <Carousel arrows dots>
       {photos.map  (photo => ( 
    
          <Zoom>
-        <img
+        <img className="img-example"
           src={ photo.image_url}
           width="100%"
           height="100%"
@@ -235,6 +238,8 @@ function ProductDetail({match}) {
        </Zoom>
       ))}
       </Carousel>
+
+
    </Paper>
       
        

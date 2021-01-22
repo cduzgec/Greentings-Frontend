@@ -172,7 +172,7 @@ function Requests() {
                         <Button variant="contained" onClick={() => setLocalVariables(req.address)}>
                         See New Adress in Detail
                         </Button>
-                        <Button variant="contained" onClick={() => {window.location.replace(`/adminOrderdetail/${req.order}`);}}>
+                        <Button variant="contained" onClick={() => {window.open(`/adminOrderdetail/${req.order}`);}}>
                         See Order in Detail
                         </Button>
                         <Button variant="contained" onClick={() => Approve(req.orderadresschange_id)}>

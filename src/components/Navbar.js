@@ -106,9 +106,9 @@ const Navbar= () => {
       { setLogin("Logout");
 
         if ( localStorage.getItem("user_type") === "Sales Manager")
-        {setSignup("Sales Admin")}
+        {setSignup("Sales Manager")}
         else if ( localStorage.getItem("user_type") === "Product Manager")
-        {setSignup("Product Admin")}
+        {setSignup("Product Manager")}
         else
         {setSignup("My Account")}
       }

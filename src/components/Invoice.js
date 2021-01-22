@@ -178,6 +178,10 @@ function Invoice ({match}) {
                     <td align="right" className={classes.itemTotal}>{address.phone_number}</td>
                 </tr>
                 <tr>
+                    <td align="left" className={classes.itemTotal}>EMAIL</td>
+                    <td align="right" className={classes.itemTotal}>{user.email}</td>
+                </tr>
+                <tr>
                     <td align="left" className={classes.itemTotal}>ORDER DATE</td>
                     <td align="right" className={classes.itemTotal}>{orderDetail.date}</td>
                 </tr>

@@ -43,24 +43,27 @@ export default function History() {
         
         <h2 className={classes.h1}>About Us</h2>
         <p className={classes.p}>
-        We’re on a mission to make building UIs with React fun.
+        We’re on a mission to to help make sustainable, 
+        earth-friendly commerce the new normal. 
+        We inspire conscious commerce by offering trusted, 
+        high quality goods that create authentic positive impact. 
+        Together, we aim to learn, share, and celebrate a healthier planet..
         </p>
-        <h3 className={classes.h1}>Our Mission</h3>
-        <p className={classes.p}>
-        Our company is focused on making React UIs development easier, better, and accessible to more people. We build open source and commercial tools used by many hundreds of thousands of developers in production. We're proud not only of the products we make, but also the community and partnerships we've cultivated with other developers and companies.
-        </p>
-        <h3 className={classes.h1}>Our Vision</h3>
-        <p className={classes.p}>
-        Our vision is to provide React components for faster and easier web development. Read more.
-        </p>
+ 
         <h3 className={classes.h1}>Our Values</h3>
         <p className={classes.p}>
-        Our core values include transparency (our work is public most of the time); creating a safe, high-trust team; building incredible developer experiences; maintaining a healthy working environment; and helping to deliver web experiences that feel amazing to use on every device and connection type.
+       
+Be transparent, 
+Be authentic, 
+Be passionate, 
+Inspire our customers, 
+Create positive change, 
+Details matter
         </p>
         <h3 className={classes.h1}>Our Story</h3>
         <p className={classes.p}>        
-        Material-UI started back in 2014 to unify React and Material Design.
-        Today, Material-UI has grown to become one of the world's most popular React UI libraries – backed by a vibrant community of more than 1M developers in over 180 countries.
+        Greentings started back in 2020  as a CS308 Software Engineering Course Project.
+        Today, we aim to build first green shopping environment in Turkey.
         </p>
     
       </div>

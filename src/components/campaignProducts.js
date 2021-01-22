@@ -207,9 +207,12 @@ function CampaignItems({match}) {
                     <Typography>
                     <Rating name="read-only" defaultValue={2} value={parseInt(item.rating)} readOnly='true' /> 
                     </Typography>
-                    <Button onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
+                    <Button disabled={item.stock===0} onClick={() => {sendProducttoCart(item.product_id) }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
                      Add To Cart
                      </Button>
+                     {(item.stock===0) ? ( <Typography >
+                     Sold Out
+                    </Typography>) : null}
                     </CardContent>
                 </Card>
               

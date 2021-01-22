@@ -289,8 +289,9 @@ function ProductManager({product_id, pbrand, pdescription, pstock, pprice, img, 
           });
           console.log("response:",res)
 
-          if(res.status===201)
-          {alert("Photo is added");}
+          if(res.status===202)
+          {alert("Photo is deleted");}
+          
           // else if(res.status===406)
           // {alert("Category cannot be added because this product has already that category");}
 

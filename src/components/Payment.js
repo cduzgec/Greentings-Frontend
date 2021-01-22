@@ -81,12 +81,12 @@ export default function PaymentForm() {
           "Accept-Encoding": "gzip, deflate, br"
         },
         body: JSON.stringify({
-          "first_name" : localStorage.getItem("firstName"),
-          "last_name" : localStorage.getItem("lastName"),
+          "first_name" : localStorage.getItem("first_name"),
+          "last_name" : localStorage.getItem("last_name"),
           "city" : localStorage.getItem("city"),
-          "postal_code" : localStorage.getItem("postalCode"),
+          "postal_code" : localStorage.getItem("postal_code"),
           "country" : localStorage.getItem("country"),
-          "address_line" : localStorage.getItem("addressLine"),
+          "address_line" : localStorage.getItem("address_line"),
           "phone_number" : localStorage.getItem("phone_number"),                                                
           "user" : localStorage.getItem("user_id"),
           "state" : "EYALET",
