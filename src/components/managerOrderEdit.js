@@ -84,7 +84,7 @@ function Orders() {
                                 }
                                 
                             />
-                        <Button variant="contained"  onClick={() => {window.location.replace(`/adminOrderdetail/${order.order_id}`);}}>
+                        <Button variant="contained"  onClick={() => {window.open(`/adminOrderdetail/${order.order_id}`);}}>
                         See Details
                         </Button>
                         <Button variant="contained" onClick={() => {window.open(`/invoice/${order.order_id}`, "blank");}}>

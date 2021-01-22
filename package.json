@@ -4,6 +4,7 @@
   "proxy": "http://127.0.0.1:8000",
   "private": true,
   "dependencies": {
+    "@brainhubeu/react-carousel": "^1.19.26",
     "@devexpress/dx-chart-core": "^2.7.4",
     "@devexpress/dx-core": "^2.7.4",
     "@devexpress/dx-react-chart": "^2.7.4",

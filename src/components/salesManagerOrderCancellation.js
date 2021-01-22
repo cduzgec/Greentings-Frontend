@@ -150,7 +150,7 @@ function Requests() {
                         <Button variant="contained" onClick={() => Reject(req.ordercancel_id)}>
                         Reject
                         </Button>
-                        <Button variant="contained"  onClick={() => {window.location.replace(`/adminOrderdetail/${req.order}`);}}>
+                        <Button variant="contained"  onClick={() => {window.open(`/adminOrderdetail/${req.order}`);}}>
                         See Details
                         </Button>
                         </ListItem>
