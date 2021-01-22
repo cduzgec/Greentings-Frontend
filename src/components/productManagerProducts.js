@@ -232,7 +232,7 @@ function MainPageItems() {
                      Delete 
                      </Button>
                      <Button onClick={() => {setLocalVariables(item.product_id, 
-                        item.brand_name, item.description, item.stock, item.price,
+                        item.brand_name, item.description, item.stock, item.base_price,
                         item.img, item.product_name);}} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
                      Edit
                      </Button>

@@ -125,7 +125,7 @@ function ProductManager() {
         console.log("response:",res)
 
         if(res.status===201)
-        {alert("Photo is added");window.location.reload();}
+        {window.location.reload();}
         
         // else if(res.status===406)
         // {alert("Category cannot be added because this product has already that category");}
