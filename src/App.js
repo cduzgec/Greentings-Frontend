@@ -122,7 +122,7 @@ export default function App () {
           <Route path='/forgotpassword' component={ForgotPassword} />
           <Route path='/forgotconfirmation/:user_id' component={ForgotConfirmation} />
 
-          <ProtectedRoute path='/emailconfirmation/:user_id' component={EmailConfirmation} />
+          <Route path='/emailconfirmation/:user_id' component={EmailConfirmation} />
           <ProtectedRoute path='/foryou/:user_id' component={ML} />
 
           <UserProtectedRoute path='/myaccount/:user_id' component={UserPage} />
