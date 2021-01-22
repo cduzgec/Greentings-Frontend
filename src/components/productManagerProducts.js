@@ -210,6 +210,9 @@ function MainPageItems() {
                     <Typography>
                      Price: {item.price} $
                     </Typography>
+                    {(item.discount===true) ? ( <Typography style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+                     Old Price: {item.base_price} $
+                    </Typography>) : null}
                     <Typography>
                      Stock: {item.stock}
                     </Typography>

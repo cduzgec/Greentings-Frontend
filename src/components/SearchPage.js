@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
 
             fontFamily: "Arial, Helvetica, sans-serif",
-            margin: "100px 200px",
+            margin: "10px 200px",
             width: "100%",
             height: "fit-content",
             padding: "40px",

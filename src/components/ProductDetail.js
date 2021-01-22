@@ -282,9 +282,9 @@ function ProductDetail({match}) {
         <Button disabled={item.stock===0} onClick={() => {sendProducttoCart() }} variant="contained" color="primary" className={classes.button}  endIcon={<ShoppingCartOutlinedIcon fontSize="medium" />}>
             Add To Cart
         </Button>
-        <Button variant="contained" color="primary" className={classes.button} endIcon={<FavoriteBorderSharpIcon fontSize="medium" />}>
+        {/* <Button variant="contained" color="primary" className={classes.button} endIcon={<FavoriteBorderSharpIcon fontSize="medium" />}>
             Add To Favorites
-        </Button>
+        </Button> */}
         {(item.stock===0) ? ( <Typography >
                      Sold Out
          </Typography>) : null}

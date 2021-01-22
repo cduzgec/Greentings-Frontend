@@ -30,18 +30,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Address({addressid}) {
+function Address({items}) {
     const classes = useStyles();
-    const [address, setAddress] = useState("");
-    
 
-    useEffect(() => { fetchRequest();}, []);
-
-    const fetchRequest = async () => {
-        const data = await fetch(`/address/${addressid}/`);               
-        const adds = await data.json();
-        setAddress(adds);                                               
-    }
 
 
     return (
@@ -62,14 +53,14 @@ function Address({addressid}) {
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            Name: {address.first_name}  {address.last_name}
+                                            Name: {items.first_name}  {items.last_name}
                                         </Typography>
                                         <Typography>
-                                            city: {address.city}
+                                            city: {items.city}
                                             
                                         </Typography>
                                         <Typography>
-                                        country : {address.country}
+                                        country : {items.country}
                                         </Typography>
                                     </React.Fragment>
                                 }
@@ -81,13 +72,13 @@ function Address({addressid}) {
                                             className={classes.inline}
                                             color="textPrimary"
                                             >
-                                            address line:{address.address_line} 
+                                            address line:{items.address_line} 
                                             
                                             
                                             {/* All delivered: {order.allDelivered} */}
                                         </Typography>
                                         <Typography>
-                                        phone number: {address.phone_number}
+                                        phone number: {items.phone_number}
                                         </Typography>
                                     </React.Fragment>
                                 }
