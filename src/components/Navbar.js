@@ -186,12 +186,13 @@ const Navbar= () => {
 
         <AppBar position="fixed" className={classes.appBar} style={{ background: '#069974', boxShadow: 'none', height: '50px' }}>
             <Toolbar style={{ paddingLeft: '5em', paddingRight: '5em', paddingBottom: '1em', paddingTop: '2em' }}>
-
-            <Button disableTouchRipple key= "ML" className = {classes.link} color="primary" >
+            {(localStorage.getItem("isLogged")==='true') ? (            
+               <Button disableTouchRipple key= "ML" className = {classes.link} color="primary" >
               <Link to={`/foryou/${localStorage.getItem("user_id")}`} variant="body2" className={classes.categorylink}>
                 <p>For You</p>
               </Link>
-              </Button>
+              </Button>) : null}
+
 
             {categories.slice(0, numberofcategories).map(category => (
               <Button disableTouchRipple key= {category.category_id} className = {classes.link} color="primary" >

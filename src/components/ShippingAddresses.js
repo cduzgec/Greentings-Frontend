@@ -9,6 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import 'react-medium-image-zoom/dist/styles.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Checkbox from '@material-ui/core/Checkbox';
+import { useHistory } from "react-router";
 
 const styles = {
     paperContainer: {
@@ -33,6 +35,7 @@ function Address({user_id}) {
     const classes = useStyles();
     const [addresses, setAddresses] = useState([]);
     const [message,setMessage] = useState("");
+    const history = useHistory();
     
 
     useEffect(() => { fetchAddress();}, []);
@@ -77,8 +80,16 @@ function Address({user_id}) {
         }
       }
 
-      function SelectAddress(address_id){
+      function SelectAddress(address_id,address_line, phone_number, country, city, first_name, last_name,postal_code){
           localStorage.setItem("address_id", address_id )
+          localStorage.setItem("address_line", address_line )
+          localStorage.setItem("phone_number", phone_number )
+          localStorage.setItem("country", country )
+          localStorage.setItem("city", city )
+          localStorage.setItem("first_name", first_name )
+          localStorage.setItem("last_name", last_name )
+          localStorage.setItem("postal_code", postal_code)
+          history.push('/payment')
       }
     return (
         <div>
@@ -122,11 +133,23 @@ function Address({user_id}) {
                                         <Typography>
                                         phone number: {address.phone_number}
                                         </Typography>
+                                        <Typography>
+                                        postal_code: {address.postal_code}
+                                        </Typography>
                                     </React.Fragment>
                                 }
                             />
-                            <Button variant="contained" onClick={() => SelectAddress(address.address_id)}>Select</Button>
+     
+                            <Button variant="contained" onClick={() => SelectAddress(address.address_id,
+                               address.address_line,
+                               address.phone_number,
+                               address.country,
+                               address.city,
+                               address.first_name,
+                               address.last_name,
+                               address.postal_code)}>Select</Button>
                             <Button variant="contained" onClick={() => DeleteAddress(address.address_id)}> Delete</Button>
+ 
                         </ListItem>
                     ))}
                 </List>

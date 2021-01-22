@@ -46,9 +46,18 @@ function Requests() {
                                  
         
     }
+    const [address, setAddress] = useState("");
+    
+
+    const fetchAddress = async (addressid) => {
+        const data = await fetch(`/address/${addressid}/`);               
+        const adds = await data.json();
+        setAddress(adds);                                               
+    }
     const setLocalVariables = (address_id) => {
         
         setAddressId(address_id);
+        fetchAddress(address_id);
         setPage("SeeAddress");
         
     }
@@ -181,7 +190,7 @@ function Requests() {
         <div className={classes.toolbar} />
 
         {page === 'SeeAddress'? <SeeAddress  
-        addressid= {id} 
+        items= {address} 
         />: null }
 
     

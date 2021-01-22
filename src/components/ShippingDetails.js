@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {useEffect } from "react";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router";
 import {
     Typography,
     Grid,
@@ -48,6 +49,7 @@ const ShippingDetailsTap = () => {
   const [country, setCountry] = useState("")
   const [phone_number, setTelephone] = useState(0)
   const [page,setPage] = useState("");
+  const history = useHistory();
 
   const handleChange = (event) => {
     setShipping(event.target.value);
@@ -133,7 +135,11 @@ const ShippingDetailsTap = () => {
     setCountry(value);
   };
 
-
+function pushfunction()
+{
+  localStorage.removeItem("address_id")
+  history.push('/payment')
+}
 
   // const getSummaryCard = (product, price, imageUrl) => {
   //   return (
@@ -179,7 +185,7 @@ const ShippingDetailsTap = () => {
         <Grid item xs={12} >
             <TextField required
             label="Address line "
-            defaultValue={localStorage.getItem('addressLine') === null ? ("") : localStorage.getItem('addressLine')}
+            defaultValue={localStorage.getItem('address_line') === null ? ("") : localStorage.getItem('address_line')}
             onChange={(event) => getAddressLine(event.target.value)}
             fullWidth/>
         </Grid>
@@ -193,7 +199,7 @@ const ShippingDetailsTap = () => {
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="Postal code"
-            defaultValue={localStorage.getItem('postalCode') === null ? ("") : localStorage.getItem('postalCode')}
+            defaultValue={localStorage.getItem('postal_code') === null ? ("") : localStorage.getItem('postal_code')}
             onChange={(event) => getPostalCode(event.target.value)}
             fullWidth/>
         </Grid>
@@ -212,8 +218,8 @@ const ShippingDetailsTap = () => {
             onChange={(event) => getTelephone(event.target.value)}
             fullWidth/>
         </Grid>
-        
-        <Button variant="contained" onClick={() => localStorage.removeItem("address_id")}> Continue with This Address</Button>
+      
+        <Button variant="contained" onClick={() => pushfunction()}> Continue with This Address</Button>
 
       </Grid>
         
