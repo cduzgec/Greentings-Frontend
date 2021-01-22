@@ -100,12 +100,12 @@ const ShippingDetailsTap = () => {
   };
 
   const getFirstName = value => {
-    localStorage.setItem('firstName',value);
+    localStorage.setItem('first_name',value);
     
     setFirstName(value);
   };
   const getLastName = value => {
-    localStorage.setItem('lastName',value);
+    localStorage.setItem('last_name',value);
     
     setLastName(value);
   };
@@ -115,7 +115,7 @@ const ShippingDetailsTap = () => {
     setTelephone(value);
   };
   const getAddressLine = value => {
-    localStorage.setItem('addressLine',value);
+    localStorage.setItem('address_line',value);
     
     setAddressLine(value);
   };
@@ -125,7 +125,7 @@ const ShippingDetailsTap = () => {
     setCity(value);
   };
   const getPostalCode = value => {
-    localStorage.setItem('postalCode',value);
+    localStorage.setItem('postal_code',value);
     
     setPostalCode(value);
   };
@@ -135,11 +135,7 @@ const ShippingDetailsTap = () => {
     setCountry(value);
   };
 
-function pushfunction()
-{
-  localStorage.removeItem("address_id")
-  history.push('/payment')
-}
+
 
   // const getSummaryCard = (product, price, imageUrl) => {
   //   return (
@@ -171,14 +167,14 @@ function pushfunction()
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="First name"
-            defaultValue={localStorage.getItem('firstName') === null ? ("") : localStorage.getItem('firstName')}
+            defaultValue={localStorage.getItem('first_name') === null ? ("") : localStorage.getItem('first_name')}
             onChange={(event) => getFirstName(event.target.value)}
             fullWidth/>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
             <TextField required
             label="Last name"
-            defaultValue={localStorage.getItem('lastName') === null ? ("") : localStorage.getItem('lastName')}
+            defaultValue={localStorage.getItem('last_name') === null ? ("") : localStorage.getItem('last_name')}
             onChange={(event) => getLastName(event.target.value)}
             fullWidth/>
         </Grid>
@@ -226,7 +222,7 @@ function pushfunction()
             defaultValue={localStorage.getItem('email') === null ? ("") : localStorage.getItem('email')}
             onChange={(event) => localStorage.setItem('email', event.target.value)}
             fullWidth/>
-        </Grid>) : <Button variant="contained" onClick={() => pushfunction()}> Continue with This Address</Button>}
+        </Grid>) : null}
       
         
 

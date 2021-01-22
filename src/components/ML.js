@@ -136,8 +136,8 @@ function MainPageItems() {
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
-              component="h3"
-              variant="h3"
+              component="h4"
+              variant="h4"
               align="center"
               color="textPrimary"
               gutterBottom>
@@ -148,7 +148,7 @@ function MainPageItems() {
               align="center"
               color="textSecondary"
               paragraph>
-              We think you will like this stuff
+              We think you will like these products also
             </Typography>
           </Container>
         </div>

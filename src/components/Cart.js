@@ -87,7 +87,7 @@ const StepperCart = (props)=>{
       }
       else {
         const re = /^[0-9\b]+$/; // num
-        if (localStorage.getItem("postalCode")===null || (localStorage.getItem("postalCode")==="" || localStorage.getItem("postalCode").length >= 10 || !re.test(localStorage.getItem("postalCode")))){
+        if (localStorage.getItem("postal_code")===null || (localStorage.getItem("postal_code")==="" || localStorage.getItem("postal_code").length >= 10 || !re.test(localStorage.getItem("postal_code")))){
           alert("Please check postal code. It should be max 10 digits number and not empty.");
           return false;
         }
@@ -96,11 +96,11 @@ const StepperCart = (props)=>{
           return false;
         }
         var re2= /^[A-Za-z]+$/; // strıng
-        if(localStorage.getItem("firstName")===null|| localStorage.getItem("firstName")==="" || !re2.test(localStorage.getItem("firstName"))) {
+        if(localStorage.getItem("first_name")===null|| localStorage.getItem("first_name")==="" || !re2.test(localStorage.getItem("first_name"))) {
           alert("Please check first name. It should be consisted of characters and not empty.");
           return false;
         }
-        if(localStorage.getItem("lastName")===null || localStorage.getItem("lastName")==="" || !re2.test(localStorage.getItem("lastName"))) {
+        if(localStorage.getItem("last_name")===null || localStorage.getItem("last_name")==="" || !re2.test(localStorage.getItem("last_name"))) {
           alert("Please check last name. It should be consisted of characters and not empty.");
           return false;
         }
@@ -112,7 +112,7 @@ const StepperCart = (props)=>{
           alert("Please check country name. It should be consisted of characters and not empty.");
           return false;
         }
-        if(localStorage.getItem("addressLine")===null || localStorage.getItem("addressLine")===""){
+        if(localStorage.getItem("address_line")===null || localStorage.getItem("address_line")===""){
           alert("Please check address line. It shouldn't be empty.");
           return false;
         }
@@ -147,8 +147,8 @@ const StepperCart = (props)=>{
         },
         body: JSON.stringify({
           "user_id": localStorage.getItem("user_id"),
-          "first_name": localStorage.getItem("firstName"),
-          "last_name": localStorage.getItem("lastName"),
+          "first_name": localStorage.getItem("first_name"),
+          "last_name": localStorage.getItem("last_ame"),
           "email": localStorage.getItem("email"),
           "phone_number": localStorage.getItem("phone_number")
       })

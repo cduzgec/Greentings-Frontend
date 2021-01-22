@@ -95,8 +95,8 @@ export default function PaymentForm() {
       console.log("Response Status: "+response.status)
        
       if (response.status === 201){                                       // returns Response: 201  {address_id}
-        localStorage.removeItem("addressLine");
-        localStorage.removeItem("postalCode");
+        localStorage.removeItem("address_line");
+        localStorage.removeItem("postal_code");
         localStorage.removeItem("city");
         localStorage.removeItem("country");
         localStorage.removeItem("phone_number")
@@ -137,8 +137,8 @@ async function SendOrder () {
     if (response.status === 201){ response.json().then(data => {
       setOrderID(data.order_id); 
       setOrdDate(data.date);
-      localStorage.removeItem("addressLine");
-      localStorage.removeItem("postalCode");
+      localStorage.removeItem("address_line");
+      localStorage.removeItem("postal_code");
       localStorage.removeItem("city");
       localStorage.removeItem("country");
       localStorage.removeItem("address_id")
