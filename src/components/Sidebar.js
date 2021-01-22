@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useRef,useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -107,6 +107,9 @@ const GreenCheckbox = withStyles({
 function Sidebar(props) {
   const classes = useStyles();
 
+  const maxRef = useRef('')
+  const minRef = useRef('')
+
   const [message,setMessage] = useState("");
   const [brands,setBrands] = useState([]);
   const [minPrice,setminPrice] = useState("0");
@@ -188,6 +191,14 @@ function Sidebar(props) {
             "price_lower": minPrice
         })
         });
+        setminPrice("0");
+        setmaxPrice("10000");
+        setCheckedNames([]);
+        setChecked([]);
+
+        minRef.current.value="";
+        maxRef.current.value="";
+
         console.log("New Filter sent")
         console.log(checkedNames, parseInt(rating), maxPrice,minPrice )
         console.log("Response Status: "+response.status)
@@ -224,7 +235,8 @@ function Sidebar(props) {
             variant="outlined"
             margin="normal"
             fullWidth
-            label="Minimum"            
+            label="Minimum"
+            inputRef={minRef}          
             onChange={e => {setminPrice(e.target.value)}} 
           />
           <TextField className={classes.input}
@@ -232,6 +244,7 @@ function Sidebar(props) {
             margin="normal"
             fullWidth
             label="Maximum"
+            inputRef={maxRef} 
             onChange={e => {setmaxPrice(e.target.value)}}
           />
             <ListItem><ListItemText primary="" /></ListItem>
@@ -266,7 +279,7 @@ function Sidebar(props) {
           <ListItem><ListItemText primary="" /></ListItem>
   
         <TextTypography>Rating</TextTypography>
-        <Rating
+          <Rating
             name="simple-controlled"
             defaultValue={null}
             onChange={e => {setRating(e.target.value);}}/>
