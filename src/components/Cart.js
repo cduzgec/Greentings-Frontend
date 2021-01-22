@@ -118,12 +118,55 @@ const StepperCart = (props)=>{
         }
         else
         {
-          history.push('/payment');
-          return true;
+          if (localStorage.getItem("isLogged")==='false')
+          {
+            sendUserInfo();
+          }
+          else{
+            history.push('/payment');
+            return true;
+          }
         } 
       } 
     }
     else{return false;}
+  }
+
+  async function sendUserInfo () {
+    try {
+      const response = await fetch ('/changeuser/', {       
+        method: "post",
+        mode: "cors",
+        headers:
+        {
+          "Accept": "*/*",
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Content-Encoding": "gzip, deflate, br",
+          "Accept-Encoding": "gzip, deflate, br"
+        },
+        body: JSON.stringify({
+          "user_id": localStorage.getItem("user_id"),
+          "first_name": localStorage.getItem("firstName"),
+          "last_name": localStorage.getItem("lastName"),
+          "email": localStorage.getItem("email"),
+          "phone_number": localStorage.getItem("phone_number")
+      })
+      });
+      console.log("Response Status: "+response.status)
+  
+      if (response.status === 200){                               
+        history.push('/payment');
+      }
+      else {
+        response.json().then(data => {console.log("Failed")})       
+      }
+    }
+  catch (e)
+    {
+      console.log(e)
+    }
+
   }
 
  
