@@ -149,7 +149,7 @@ const Navbar= () => {
                       localStorage.setItem("isLogged", false)
 
                       localStorage.removeItem("user_id")
-                      localStorage.setItem("user_id", null)
+                      localStorage.setItem("user_id", "0")
 
                       console.log(localStorage.getItem("user_id"))
                       

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 import firebase from "./firebase";
 
-import ProtectedRoute from "./components/UserProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import UserProtectedRoute from "./components/UserProtectedRoute";
 import SalesProtectedRoute from "./components/SalesProtectedRoute";
 import ProductProtectedRoute from "./components/ProductProtectedRoute";
@@ -88,6 +88,7 @@ export default function App () {
     if( localStorage.getItem("hasVisited") === null ){
       localStorage.setItem("hasVisited", true)
       localStorage.setItem("user_id", "0")
+      localStorage.setItem("isLogged", false)
       alert("Hi welcome to our awesome website. We are using your localstorage for keeping your information. Dont worry. You are safe with us. Have fun!!"
       )
   }}

@@ -218,8 +218,17 @@ function pushfunction()
             onChange={(event) => getTelephone(event.target.value)}
             fullWidth/>
         </Grid>
+        {(localStorage.getItem("isLogged")==='false') ? ( 
+        
+        <Grid item xs={12} sm={12} md={6}>
+            <TextField required
+            label="Email"
+            defaultValue={localStorage.getItem('email') === null ? ("") : localStorage.getItem('email')}
+            onChange={(event) => localStorage.setItem('email', event.target.value)}
+            fullWidth/>
+        </Grid>) : <Button variant="contained" onClick={() => pushfunction()}> Continue with This Address</Button>}
       
-        <Button variant="contained" onClick={() => pushfunction()}> Continue with This Address</Button>
+        
 
       </Grid>
         
@@ -255,9 +264,14 @@ function pushfunction()
               </tr>
               
           </table>
-
-          <Button variant="contained" onClick={() => setPage('Forward')}> Select From My Addresses</Button>
+          
+          {(localStorage.getItem("isLogged")==='true') ? (   
+          <Button variant="contained" onClick={() => setPage('Forward')}> Select From My Addresses</Button> ) : null}
+          
           {page === 'Forward'? <ShippingAddresses user_id= {localStorage.getItem("user_id")} />: null }
+
+
+
       </Grid>
     </Grid>
   );
