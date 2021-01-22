@@ -75,7 +75,7 @@ function SearchBar (props) {
       <SearchIcon />    
       </div>
       <InputBase
-        placeholder="Search for the product name, brand or any key word ..."
+        placeholder="Search for the product or brand ..."
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
