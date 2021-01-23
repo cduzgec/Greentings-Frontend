@@ -193,7 +193,7 @@ function MainPageItems() {
           {/* End hero unit */}
           <Grid container spacing={4} styles={{maxWidth: "50%", flexBasis: "50%"}}>
           
-            {items.map(item => (                                              
+            {items.slice(Math.max(items.length - 5, 1)).map(item => (                                              
               <Grid item key= {item.product_id} xs={12} sm={6} md={4}>
                 
                 <Card className={classes.card}>
