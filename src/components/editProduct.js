@@ -440,7 +440,7 @@ const classes = useStyles();
         </div>
         <div>
         <Button   onClick={() => {AddProduct() }}variant="contained">
-            Add
+            EDIT PRODUCT
         </Button>
         </div>
         </Grid>
@@ -477,7 +477,7 @@ const classes = useStyles();
           <Typography variant="h7">
             {ca.category_name}
           </Typography>
-          <Button onClick={() => {deleteCategory(ca.category_name) }}>Delete</Button>
+          <Button onClick={() => {deleteCategory(ca.category_name) }}  >Delete</Button>
         </div>
         
         ))}
@@ -501,7 +501,7 @@ const classes = useStyles();
         </TextField>
         </div>
         <div>
-        <Button onClick={() => {AddCategory() }}>add category</Button>
+        <Button onClick={() => {AddCategory() }} variant="contained" > add category</Button>
         </div>
 
         
@@ -541,7 +541,7 @@ const classes = useStyles();
           <Typography variant="h7">
             {p.image_url}
           </Typography>
-          <Button onClick={() => {deletePhoto(p.image_id) }}>Delete</Button>
+          <Button onClick={() => {deletePhoto(p.image_id) }} >Delete</Button>
         </div>
         
         ))}
@@ -557,7 +557,7 @@ const classes = useStyles();
         </TextField>
         </div>
         <div>
-        <Button onClick={() => {AddMorePhotos() }}>add this photo</Button>
+        <Button onClick={() => {AddMorePhotos() }}variant="contained">add this photo</Button>
         </div>
 
         

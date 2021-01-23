@@ -16,7 +16,7 @@ const styles = {
     paperContainer: {
         marginTop: "1px",
         marginLeft: "400px",
-        marginRight: "400px"
+        marginRight: "200px"
     },
 };
 
@@ -163,13 +163,16 @@ function Campaigns() {
                                 }
                                 
                             />
-                        <Button variant="contained" onClick={() => setLocalVariables(campaign.campaign_id, campaign.campaign_name)} >
+                            <div style={{ display: "flex" }}>
+                        <Button style={{ marginLeft: "auto" }} variant="contained" onClick={() => setLocalVariables(campaign.campaign_id, campaign.campaign_name)} >
                         See Details
                         </Button>
-                        <Button variant="contained" onClick={() => deleteCampaign(campaign.name)}>
+                      
+                        <Button style={{ marginLeft: "auto" }} variant="contained" onClick={() => deleteCampaign(campaign.name)}>
                         
                         Delete 
                         </Button>
+                          </div>
                         </ListItem>
                     ))}
                 </List>
