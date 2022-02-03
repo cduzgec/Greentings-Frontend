@@ -7,3 +7,4 @@
 * To run the app: $ npm start
 
 The back-end code: https://github.com/oziyildirim/DjangoSoftEng
+Mobile code: https://github.com/serayayakta/greentings
