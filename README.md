@@ -3,8 +3,8 @@
 * Clone all the files 
 * Open folder with any ide
 * Open terminal
-* Enter:  $ npm install
-* To run the app: $ npm start
+* Enter: `npm install`
+* To run the app: `npm start`
 
 The back-end code: https://github.com/oziyildirim/DjangoSoftEng  
 Mobile code: https://github.com/serayayakta/greentings
